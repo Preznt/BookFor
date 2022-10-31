@@ -80,27 +80,44 @@ router.get("/country", (req, res) => {
 });
 
 /**
- * http://localhost:3000/coutry/100/500
+ * http://localhost:3000/country/100/500
  * 각 국가의 GNP가 100 이상 500 이하인 국가 리스트 SELECT
  *
- * http://localhost:3000/country/500
+ * http://localhost:3000/country/100
  * 각 국가의 GNP 가 0이상 100 이하인 국가 리스트 SELECT
  *
  * 이 두개의 요청을 한개의 router.get() 에서 처리
  */
-router.get("/country/:lt_pop/:gt_pop", (req, res) => {
+// router.get("/country", (req, res) => {
+//   const gt_pop = req.query.gt_pop;
+//   const lt_pop = req.query.lt_pop;
+//   const nation =
+//     "SELECT * FROM country WHERE GNP >= ? && GNP <= ? ORDER BY GNP DESC";
+//   const oneNation = "SELECT * FROM country WHERE GNP <= ? ORDER BY GNP DESC";
+//   if (gt_pop) {
+//     mysql.execute(nation, [lt_pop, gt_pop], (err, result, f) => {
+//       res.json(result);
+//     });
+//   } else {
+//     mysql.execute(oneNation, [lt_pop], (err, result, f) => {
+//       res.json(result);
+//     });
+//   }
+// });
+
+router.get("/country/:lt_pop?/:gt_pop", (req, res) => {
   const gt_pop = req.params.gt_pop;
   const lt_pop = req.params.lt_pop;
   const nation =
-    "SELECT * FROM city WHERE population >= ? && population <= ? ORDER BY population DESC";
-  const oneNation =
-    "SELECT * FROM city WHERE population <= ? ORDER BY population DESC";
-  if (gt_pop) {
+    "SELECT * FROM country WHERE GNP >= ? && GNP <= ? ORDER BY GNP DESC";
+  // const oneNation = "SELECT * FROM country WHERE GNP <= ? ORDER BY GNP DESC";
+
+  if (lt_pop) {
     mysql.execute(nation, [lt_pop, gt_pop], (err, result, f) => {
       res.json(result);
     });
   } else {
-    mysql.execute(oneNation, [lt_pop], (err, result, f) => {
+    mysql.execute(nation, [0, gt_pop], (err, result, f) => {
       res.json(result);
     });
   }
