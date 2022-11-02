@@ -7,3 +7,7 @@
 5. git hub 에 push : `git add`, `git commit`, `git push`
 6. 왼쪽 프로젝트 목록에서 프로젝트 폴더 우클릭,
    터미널 열기
+
+## 프로젝트 목록
+
+### :smile_cat: 학사정보 프로젝트
