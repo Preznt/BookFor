@@ -10,4 +10,4 @@
 
 ## 프로젝트 목록
 
-### :smile_cat: 학사정보 프로젝트
+### :smile_cat: [학사정보 프로젝트](https://github.com/Preznt/Biz_NodeJS_2022_10/tree/master/Node_06)
