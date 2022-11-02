@@ -50,11 +50,10 @@
         margin: 25px 450px;
       }
     </style>
-    <script src="../check.js"></script>
   </head>
   <body>
     <h1>학생정보</h1>
-    <form onsubmit="return false">
+    <form method="post">
       <input name="s_num" placeholder="학번" />
       <input name="s_name" placeholder="학생이름" />
       <input name="s_dept" placeholder="학과" />
@@ -65,7 +64,7 @@
         전체보기
       </button>
       <button>추가</button>
-      <button class="add">저장</button>
+      <button>저장</button>
     </form>
 
     <table>

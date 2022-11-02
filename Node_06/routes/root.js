@@ -25,4 +25,22 @@ router.get("/add", (req, res) => {
   });
 });
 
+router.post("/add", (req, res) => {
+  if (!req.body.s_num) {
+    res.send(
+      "<script>alert('학번을 입력해주세요');window.location.replace('/add');</script>"
+    );
+  } else if (!req.body.s_name) {
+    res.send(
+      "<script>alert('이름을 입력해주세요');window.location.replace('/add');</script>"
+    );
+  } else if (req.body.s_grade < 1 || req.body.s_grade > 4) {
+    res.send(
+      "<script>alert('학년을 1 ~ 4 로 입력해주세요');window.location.replace('/add');</script>"
+    );
+  } else {
+    res.send("<script>alert('true');window.location.replace('/add');</script>");
+  }
+});
+
 export default router;

@@ -3,7 +3,7 @@ import mysql from "mysql2";
 // MySQL Server 에 연결 정보 설정
 const mysqlconnConfig = {
   host: "localhost",
-  port: 3306,
+  port: 3307,
   user: "root",
   password: "!Biz8080",
   database: "schooldb",

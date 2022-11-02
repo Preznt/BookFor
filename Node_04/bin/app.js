@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
  *
  * 하지만 static file(이미지, 단순 문서, 단순 파일 등)은
  * router 등에서 연산을 하지 않아도 되는 대상이다
- * 이러한 파일들을 static 저장소(.../public) 에 보관하고
- * 만 web browser 에서 요청을 하면
+ * 이러한 파일들을 static 저장소(../public) 에 보관하고
+ * 만약 web browser 에서 요청을 하면
  * router 로 보내지 않고 express 가 바로 전달을 해 버린다
  */
 app.use(express.static(path.join("./public")));

@@ -88,22 +88,6 @@ router.get("/country", (req, res) => {
  *
  * 이 두개의 요청을 한개의 router.get() 에서 처리
  */
-// router.get("/country", (req, res) => {
-//   const gt_pop = req.query.gt_pop;
-//   const lt_pop = req.query.lt_pop;
-//   const nation =
-//     "SELECT * FROM country WHERE GNP >= ? && GNP <= ? ORDER BY GNP DESC";
-//   const oneNation = "SELECT * FROM country WHERE GNP <= ? ORDER BY GNP DESC";
-//   if (gt_pop) {
-//     mysql.execute(nation, [lt_pop, gt_pop], (err, result, f) => {
-//       res.json(result);
-//     });
-//   } else {
-//     mysql.execute(oneNation, [lt_pop], (err, result, f) => {
-//       res.json(result);
-//     });
-//   }
-// });
 
 // router.get("/country/:lt_pop?/:gt_pop", (req, res) => {
 //   const gt_pop = req.params.gt_pop;
