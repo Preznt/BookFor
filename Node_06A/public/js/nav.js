@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
           href = "/student";
           break;
         case "성적정보":
-          href = "score";
+          href = "/score";
           break;
         case "학과정보":
           href = "/dept";
