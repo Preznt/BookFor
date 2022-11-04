@@ -1,0 +1,28 @@
+<article>
+  <h1>학생정보 자세히 보기<h1>
+</article>
+<table class="detail">
+  <thead>
+    <tr>
+      <th>학번</th>
+      <th>이름</th>
+      <th>학과</th>
+      <th>학년</th>
+      <th>전화번호</th>
+      <th>주소</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= student[0].st_num %></td>
+      <td><%= student[0].st_name %></td>
+      <td><%= student[0].st_dept %></td>
+      <td><%= student[0].st_grade %></td>
+      <td><%= student[0].st_tel %></td>
+      <td><%= student[0].st_addr %></td>
+    </tr>
+  </tbody>
+  <article class="student delete">
+    <a href="/student/delete">학생 정보 삭제</a>
+  </article>
+</table>
