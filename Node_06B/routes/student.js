@@ -79,7 +79,7 @@ router.get("/:st_num/detail", (req, res) => {
 });
 
 /**
- * /student/학번/update 로 Request 가 되면
+ * /student/학번/update 로 R                                                                                                                                                                                                                                                                                        equest 가 되면
  * Db 에서 학생정보를 SELECT 하고
  * st_write 로 보내서 input box에 정보를 표시하기
  */

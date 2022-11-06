@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   이벤트 버블링을 이용한 event handling의 간소화
   원하는 것은 학생정보 List 중에서 한 학생의 row 를 클릭했을 때
   반응하는 event 를 만들고자 한다
-  이떄 각 row들에게 event 를 부여하면 너무 많은 event 설정이 생성된다.
+  이때 각 row들에게 event 를 부여하면 너무 많은 event 설정이 생성된다.
   많은 비용이 소요된다
   그래서 row들을 감싸고 있는 한개의 box 를 지정하여
   그 box 에 event 핸들링을 설정하고
