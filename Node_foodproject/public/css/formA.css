@@ -1,0 +1,25 @@
+fieldset {
+  display: flex;
+  border: none;
+  margin: 30px;
+  justify-content: center;
+}
+
+form label,
+input,
+button {
+  padding: 12px;
+  margin: 9px;
+  border-radius: 5px;
+}
+
+form button {
+  border: none;
+  background-color: rgb(65, 175, 62);
+  color: white;
+  cursor: pointer;
+}
+
+form input:hover {
+  background-color: #eee;
+}

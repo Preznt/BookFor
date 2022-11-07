@@ -18,6 +18,6 @@ app.use(express.static(path.join("public")));
 // };
 
 app.use("/", indexRouter);
-app.use("/food", foodRouter);
+// app.use("/food", foodRouter);
 
 export default app;

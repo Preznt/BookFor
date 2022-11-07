@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>today food</title>
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/form.css" />
+    <link rel="stylesheet" href="/css/formA.css" />
     <script src="/js/fd_insert.js"></script>
     <script src="/js/nav.js"></script>
   </head>
   <body>
     <header>
       <h1>오늘의 음식</h1>
-      <p>섭취한 음식의 칼로리 정보</p>
     </header>
     <nav class="main">
       <ul>
@@ -23,14 +22,10 @@
       <!--
         if문 안쓰고 바로 include 하면 오류가 난다
       -->
-      <!-- <% if(body == "list") { %> <%-include("./food/fd_list") %> <% } %> <%
-      if(body == "insert") { %> <%-include("./food/fd_insert") %> <% } %> <%
-      if(body == "list") { %> -->
       <%-include("./food/fd_insert") %> <%-include("./food/fd_list") %>
-      <article>
+      <!-- <article>
         <a href="/food/insert" class="main insert">등록하기</a>
-      </article>
-      <% } %>
+      </article> -->
     </section>
     <footer>
       <address>CopyRight &copy; bjw1403@gmail.com</address>
