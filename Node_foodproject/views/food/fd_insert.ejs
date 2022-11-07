@@ -1,0 +1,26 @@
+<form method="POST" class="fd_insert">
+  <fieldset>
+    <legend>섭취정보</legend>
+    <div>
+      <label for="fd_date">날짜</label
+      ><input
+        id="fd_date"
+        name="fd_date"
+        value="<%= new Date().getFullYear()%>-<%= new Date().getMonth()%>-<%= new Date().getDate()%>"
+      />
+    </div>
+    <div>
+      <label for="fd_food">식품명</label><input name="fd_food" id="fd_food" />
+    </div>
+    <div>
+      <label for="fd_intake">섭취량</label
+      ><input name="fd_intake" id="fd_intake" />
+    </div>
+    <div>
+      <label for="fd_cal">칼로리</label><input name="fd_cal" id="fd_cal" />
+    </div>
+    <div>
+      <button type="button" class="register">등록</button>
+    </div>
+  </fieldset>
+</form>

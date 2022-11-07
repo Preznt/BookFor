@@ -1,13 +1,13 @@
 import mysql from "mysql2";
 
-const mysqlOption = {
+const mysqlConfig = {
   host: "localhost",
-  user: "root",
   port: "3306",
+  user: "root",
+  database: "fooddb",
   password: "!Biz8080",
-  database: "schooldb",
 };
 
-const mysqlConn = mysql.createConnection(mysqlOption);
+const mysqlConn = mysql.createConnection(mysqlConfig);
 
 export default mysqlConn;
