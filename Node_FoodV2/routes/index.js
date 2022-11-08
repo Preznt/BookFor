@@ -17,6 +17,7 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", function (req, res, next) {
   mysqlConn.execute(TD_SELECT_ALL, (err, todays, field) => {
+    console.log(todays);
     res.render("index", { todays });
   });
 });

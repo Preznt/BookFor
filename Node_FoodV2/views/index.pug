@@ -31,8 +31,8 @@ block content
         th 총칼로리
       tbody 
         //- each 요소 in 배열
-        each today in todays
-          tr(data-seq= `${today.t_seq}`)
+        each today, index in todays
+          tr(data-seq= `${index}`)
             td= today.t_date  
             td= today.t_time
             td= today.t_content
