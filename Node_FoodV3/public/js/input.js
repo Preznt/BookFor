@@ -54,4 +54,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // btnInput.style.backgroundColor = "blue";
     // btnInput.textContent = "추가";
   });
+
+  tTable?.addEventListener("mousedown", async (e) => {
+    is_right_click = e.which == 3 || e.button == 2;
+    const target = e.target;
+    const parentTR = target.closest("TR");
+    if (is_right_click && target.tagName == "TD") {
+      if (confirm("정말 삭제하시겠습니까?")) {
+      }
+    }
+  });
+
+  window.oncontextmenu = function () {
+    return false;
+  };
+
+  // tTable.addEventListener("contextmenu", (e) => {
+  //   e.preventDefault();
+  // });
 });
