@@ -63,16 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (is_right_click && target.tagName == "TD") {
       const parentTR = target.closest("TR");
       const t_seq = parentTR.dataset.seq;
-      document.querySelector("input[name='t_seq']").value = t_seq;
+      // document.querySelector("input[name='t_seq']").value = t_seq;
       if (confirm("정말 삭제하시겠습니까?")) {
-        document.querySelector("form.today").submit();
+        // document.querySelector("form.today").submit();
+        document.location.href = `/${t_seq}`;
       }
     }
+    window.oncontextmenu = function () {
+      return false;
+    };
   });
-
-  window.oncontextmenu = function () {
-    return false;
-  };
 
   // tTable.addEventListener("contextmenu", (e) => {
   //   e.preventDefault();

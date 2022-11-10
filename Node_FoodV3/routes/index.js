@@ -24,7 +24,6 @@ router.get("/", async (req, res, next) => {
    * SELECT 완전하게 완료되면 다음 res.render() 가 실행되는 것을
    * 보장한다
    */
-  const t_seq = req.query.t_seq;
 
   try {
     /**
@@ -52,10 +51,7 @@ router.get("/", async (req, res, next) => {
      * 이러한 형식의 코드로 exception 을 적절하게 처리해야 한다
      *
      */
-    if (t_seq) {
-      await mysqlConn.promise().execute(TD_DELETE, [t_seq]);
-      return res.redirect("/");
-    }
+
     const [todays, field] = await mysqlConn.promise().execute(TD_SELECT_ALL);
     return res.render("index", { todays });
   } catch (error) {
@@ -66,6 +62,18 @@ router.get("/", async (req, res, next) => {
   // console.log(todays);
 
   console.log("실행 완료");
+});
+
+router.get("/:t_seq", async (req, res) => {
+  const t_seq = req.params.t_seq;
+  try {
+    console.log(t_seq);
+    await mysqlConn.promise().execute(TD_DELETE, [t_seq]);
+    return res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    return res.send("오류 발생");
+  }
 });
 
 /**
@@ -101,6 +109,7 @@ router.post("/", async (req, res) => {
   // }
   try {
     await mysqlConn.promise().execute(TD_INSERT_OR_UPDATE, params);
+    return res.redirect("/");
   } catch (error) {
     res.write(error);
     return res.end("Insert or Update SQL 문제 발생");
