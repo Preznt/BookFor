@@ -60,12 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
   tTable?.addEventListener("mousedown", async (e) => {
     is_right_click = e.which == 3 || e.button == 2;
     const target = e.target;
+    const parentTR = target.closest("TR");
     if (is_right_click && target.tagName == "TD") {
-      const parentTR = target.closest("TR");
-      const t_seq = parentTR.dataset.seq;
-      document.querySelector("input[name='t_seq']").value = t_seq;
       if (confirm("정말 삭제하시겠습니까?")) {
-        document.querySelector("form.today").submit();
+        document.location.href = "/";
       }
     }
   });

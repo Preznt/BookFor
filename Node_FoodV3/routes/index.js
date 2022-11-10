@@ -24,6 +24,8 @@ router.get("/", async (req, res, next) => {
    * SELECT 완전하게 완료되면 다음 res.render() 가 실행되는 것을
    * 보장한다
    */
+  const t_seq = req.query.t_seq;
+
   try {
     /**
      *
@@ -50,7 +52,10 @@ router.get("/", async (req, res, next) => {
      * 이러한 형식의 코드로 exception 을 적절하게 처리해야 한다
      *
      */
-
+    if (t_seq) {
+      await mysqlConn.promise().execute(TD_DELETE, [t_seq]);
+      return res.redirect("/");
+    }
     const [todays, field] = await mysqlConn.promise().execute(TD_SELECT_ALL);
     return res.render("index", { todays });
   } catch (error) {
@@ -74,6 +79,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res) => {
   const params = [...Object.values(req.body), ...Object.values(req.body)];
   console.log(params);
+
   // t_seq = t_seq || 0;
 
   // let params = [t_date, t_time, t_content, t_qty, t_cal];
@@ -89,13 +95,16 @@ router.post("/", async (req, res) => {
    * [t_seq,t_date,..., t_seq,t_date]
    * MySQL2 버그로 생각됨
    */
+  // if (t_seq) {
+  //   await mysqlConn.promise().execute(TD_DELETE, [t_seq]);
+  //   return res.render("index");
+  // }
   try {
     await mysqlConn.promise().execute(TD_INSERT_OR_UPDATE, params);
   } catch (error) {
     res.write(error);
     return res.end("Insert or Update SQL 문제 발생");
   }
-  res.redirect("/");
 });
 
 export default router;
