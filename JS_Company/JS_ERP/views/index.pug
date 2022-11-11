@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    header 
+      h1 나라상사 ERP 시스템 2022
+    nav
+      ul 
+        li Home 
+        li 주문관리
+        li 결제관리
+        li 거래처관리
+        li 상품관리
+        li 로그인
+    section
+      table.buyer
+        thead
+          th 고객ID
+          th 이름
+          th 전화번호
+          th 담당자명
+          th 담당자연락처
+          th 매출액합계(만원)
+        tbody
+          each buyer in buyers
+            tr(data-id=`${buyer.c_id}`)
+              td= buyer.c_id
+              td= buyer.c_name 
+              td= buyer.c_tel  
+              td= buyer.c_manager
+              td= buyer.c_mgtel
+              td= buyer.c_sum
+      div.button
+        button(type="button").input 거래처추가

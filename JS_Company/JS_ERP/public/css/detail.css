@@ -1,0 +1,16 @@
+table.detail {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+table.detail tbody {
+  display: flex;
+}
+
+table.detail th,
+td {
+  display: block;
+}

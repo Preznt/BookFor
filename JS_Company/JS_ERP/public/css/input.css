@@ -1,0 +1,38 @@
+article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+article input,
+label {
+  padding: 10px;
+  border-radius: 3px;
+  margin: 5px;
+  outline: none;
+}
+
+article div.buttons button {
+  padding: 7px 8px;
+  margin: 3px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+div button.save {
+  background-color: rgb(248, 88, 88);
+}
+
+div button.restart {
+  background-color: rgb(54, 133, 54);
+}
+
+div button.list {
+  background-color: rgb(39, 39, 139);
+}
