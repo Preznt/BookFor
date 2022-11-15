@@ -32,3 +32,9 @@ DROP TABLE tbl_buyer;
 DESC tbl_buyer;
 
 SELECT * FROM tbl_buyer;
+
+USE erpDBV2;
+SELECT * FROM tbl_buyer;
+
+-- b_code 가 가장 큰 데이터 찾기
+SELECT * FROM tbl_buyer ORDER BY b_code DESC LIMIT 1;
