@@ -1,20 +1,32 @@
 extends ../layout
 
 block content
+    link(rel="stylesheet", href="/css/buyer/detail.css")
+    script(src="/js/product/detail.js")
     article.detail.container
         article.detail.info
             article.detail.col
-                div CODE
-                div= product.b_code
-                div 이름
-                div= product.b_title 
-                div 전화번호
-                div= product.b_tel 
-                div 담당자명
-                div= product.b_manager
-            article.detail.addr
-                div 주소
-                div= product.b_post_addr
-        article(data-b_code=`${buyer.b_code}`).detail.button 
+                div 상품코드
+                div= product.p_code
+                div 상품명
+                div= product.p_title 
+                div 대분류
+                div= product.p_main_cat 
+                div 중분류
+                div= product.p_mid_cat
+                div 소분류
+                div= product.p_sub_cat
+                div 매입단가
+                div= product.p_iprice
+                div 과세여부
+                div= product.p_tax
+                div 판매단가
+                div= product.p_oprice
+            article.detail.twoCol
+                div 제조사
+                div= product.p_industry
+                div 주요매입처
+                div= product.p_buyer
+        article(data-p_code= `${product.p_code}`).detail.button 
             button.product.update 수정
             button.product.delete 삭제

@@ -3,7 +3,7 @@ article.detail {
 }
 
 article.detail.container {
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2.2fr 0.8fr;
   border: 1px solid #aaa;
   width: 80%;
   margin: 10px auto;
@@ -15,6 +15,11 @@ article.detail.col {
 }
 
 article.detail.addr {
+  grid-template-columns: 1fr 7fr;
+}
+
+/*product.png */
+article.detail.twoCol {
   grid-template-columns: 1fr 7fr;
 }
 
@@ -52,16 +57,19 @@ article.detail.button {
   align-items: center;
 }
 
-button.buyer {
+button.buyer,
+button.product {
   margin: 10px;
   padding: 12px 30px;
   color: white;
 }
 
-button.buyer.update {
+button.buyer.update,
+button.product.update {
   background-color: blue;
 }
 
-button.buyer.delete {
+button.buyer.delete,
+button.product.delete {
   background-color: red;
 }

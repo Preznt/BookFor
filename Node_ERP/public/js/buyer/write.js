@@ -65,10 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
      *    이때 서버에서 전달된 response 정보를 res 변수에 담아서
      *    then() 함수에 전달한다
      * 4. then() 함수는 res 변수에서 json 데이터만 추출하여 return 한다
-     * 5. 두번쨰 then() 함수에게 json 데이터를 전달한다
+     * 5. 두번째 then() 함수에게 json 데이터를 전달한다
      */
     fetch(`/buyer/check/${bcode}`)
-      .then((res) => res.json())
+      .then((res) => res.json()) // <== .then((res)=> {return res.json()})
       .then((json) => {
         if (json.status) {
           alert(`${json.message}\n 다른 코드를 입력하세요`);
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert("사용가능한 코드입니다");
           document.querySelector("input[name='b_title']").select();
         }
-      }); // <== .then((res)=> {return res.json()})
+      });
   });
 
   if (public_bcode) {
