@@ -1,26 +1,26 @@
-table.buyer.list,
+table.list,
 div.button.box {
   width: 80%;
   margin: 10px auto;
 }
 
-table.buyer.list {
+table.list {
   border-collapse: collapse;
   background-color: #eee;
 }
 
-table.buyer th,
-table.buyer td {
+table th,
+table td {
   white-space: nowrap;
   text-align: left;
   padding: 10px 16px;
 }
 
-table.buyer th {
+table th {
   background-color: #aaa;
 }
 
-table.buyer td {
+table td {
   cursor: pointer;
 }
 

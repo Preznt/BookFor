@@ -23,6 +23,7 @@ import DB from "../models/index.js";
 import indexRouter from "../routes/index.js";
 import usersRouter from "../routes/users.js";
 import buyerRouter from "../routes/buyer.js";
+import productRouter from "../routes/product.js";
 
 // create express framework
 const app = express();
@@ -80,6 +81,7 @@ app.use("/", (req, res, next) => {
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/buyer", buyerRouter);
+app.use("/product", productRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
