@@ -1,0 +1,105 @@
+form.write {
+  width: 80%;
+  margin: 10px auto;
+}
+
+form.write fieldset {
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+form.write div {
+  width: 90%;
+}
+
+form.write legend {
+  margin: 50px;
+  padding: 10px;
+  color: black;
+  font-weight: 900;
+}
+
+form.write div {
+  width: 90%;
+  margin: 5px auto;
+  display: flex;
+}
+
+form.write label,
+form.write input {
+  padding: 8px;
+  margin: 3px;
+}
+
+form.write label {
+  flex: 1;
+  text-align: right;
+  color: rgb(52, 152, 219);
+  font-weight: bold;
+}
+
+form.write input {
+  flex: 3;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+form.write input[name="b_code"] {
+  flex: 2;
+}
+
+form.write div.code {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.code button {
+  flex: 1;
+  margin: 0 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+div.code button:nth-of-type(1) {
+  background-color: green;
+  color: white;
+}
+
+div.code button:nth-of-type(2) {
+  background-color: rgb(225, 106, 106);
+  color: white;
+}
+
+div.button.box {
+  justify-content: right;
+}
+
+div.button.box button {
+  margin: 12px 3px 12px 10px;
+  padding: 12px 16px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+button.input {
+  background-color: rgb(148, 148, 255);
+  color: white;
+}
+
+button.list {
+  background-color: rgb(232, 178, 79);
+}
+button.reset {
+  background-color: rgb(192, 228, 121);
+}
+
+/* button 속성중에 disabled='disable' 가 설정되었을때 */
+button[disabled] {
+  border: 1px solid #999 !important;
+  background-color: #ccc !important;
+  color: #777;
+  cursor: not-allowed;
+}

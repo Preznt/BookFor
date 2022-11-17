@@ -1,0 +1,9 @@
+table.list,
+div.button.box {
+  width: 80%;
+}
+
+table.list {
+  border-collapse: collapse;
+  background-color: #eee;
+}
