@@ -13,6 +13,8 @@
 11. `git pull ` : 원격 master 를 다운로드 하기
 12. `git checkout [branch명]` : 자신의 branch 전환하기
 13. `git merge master` : master 내용을 자신의 branch 와 병합(sync)
+14. 자신의 branch 클론하기
+    : `git clone -b {branch_name} --single-branch {저장소 URL}`
 
 ## branch 만들기와 checkout 하기
 
