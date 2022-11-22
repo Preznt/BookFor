@@ -30,10 +30,10 @@ p_tax	INT	DEFAULT 1	,
 p_oprice	INT	
 );
 
-DESC tbl_product;
+DESC tbl_products;
 
 INSERT tbl_product( 
 p_code,p_title, p_main_cat, p_mid_cat, p_sub_cat, p_industry, p_buyer, p_iprice, p_tax,p_oprice)
 VALUES ('122345621','과자','과자','과','과','식품','농심','1200','120','1500');
 
-SELECT * FROM tbl_product;
+SELECT * FROM tbl_products;
