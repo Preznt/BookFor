@@ -36,4 +36,8 @@ INSERT tbl_product(
 p_code,p_title, p_main_cat, p_mid_cat, p_sub_cat, p_industry, p_buyer, p_iprice, p_tax,p_oprice)
 VALUES ('122345621','과자','과자','과','과','식품','농심','1200','120','1500');
 
+<<<<<<< HEAD
 SELECT * FROM tbl_products;
+=======
+SELECT * FROM tbl_product;
+>>>>>>> b7c57791f03e7a9e4e9a6a390fe6b32e2a9a0ded
