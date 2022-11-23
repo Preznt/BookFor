@@ -1,0 +1,21 @@
+form.bbs.write {
+  width: 70%;
+  margin: 30px auto;
+}
+
+form.bbs.write fieldset {
+  background-color: rgb(218, 240, 179);
+  border: none;
+  border-radius: 1.5em;
+  padding: 30px;
+}
+
+form.bbs.write div {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+form.bbs.write label,
+form.bbs.write input {
+  margin: 5px;
+}
