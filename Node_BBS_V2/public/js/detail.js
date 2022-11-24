@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const comment = bbsCommentInput?.value;
     if (!comment) {
       alert("댓글을 먼저 입력하세요");
-      bbsCommentInput.ariaSelected();
+      bbsCommentInput.select();
       return false;
     }
 
