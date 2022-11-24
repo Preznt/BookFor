@@ -23,10 +23,3 @@ block content
             button.bbs.update 수정
             button.bbs.delete 삭제
             button.bbs.list 리스트로
-        div.bbs.comments
-            div.comments.item
-                each comment in bbs.b_comments
-                    p= `${comment.ct_writer}.. ${comment.ct_comment}`
-            div.comments.input
-                input()#b_comment
-                button.comment.add 댓글추가
