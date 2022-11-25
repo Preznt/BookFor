@@ -35,3 +35,79 @@ div.detail.content div.content {
 div.bbs.detail.button.box {
   text-align: right;
 }
+
+div.full.detail h2 {
+  margin: 10px 10px 20px 10px;
+  padding: 7px;
+  background-color: rgb(218, 236, 205);
+  width: 13%;
+  border-radius: 1.5em;
+  color: rgb(60, 92, 44);
+  text-align: center;
+}
+
+div.comments.item p {
+  border-bottom: 1px solid rgb(74, 123, 32);
+  margin: 8px;
+}
+
+div.comments.input input {
+  padding: 9px;
+  width: 40%;
+  border-radius: 1em;
+}
+
+div.comments.input {
+  text-align: right;
+}
+
+article.bbs.comments {
+  /* width: 80%; */
+  /* margin: 10px auto; */
+  /* border: 1px solid #aaa; */
+}
+
+p.comment.list.box {
+  display: flex;
+  border-bottom: 1px solid rgb(53, 86, 33);
+}
+
+span.comment {
+  flex: 2;
+  padding: 5px;
+  line-height: 20px;
+}
+
+article.bbs.comments input.comment {
+  padding: 7px;
+  border-radius: 1em;
+}
+
+span.comment.writer {
+  flex: 1 !important;
+  text-align: center;
+}
+
+span.comment.content {
+  text-align: left;
+  font-weight: 700;
+}
+
+span.comment.delete {
+  flex: 1 !important;
+  color: #777;
+  text-align: center;
+  cursor: pointer;
+  /* 1em : 주위의 폰트 크기와 1:1, 2em 2배 만큼 크게*/
+  font-size: 2em;
+  opacity: 0;
+  transition: opacity 0.7s;
+}
+
+/*
+comment list 가 있는 p box 에 hover 가 되면
+span tag에 속성 지정하기
+*/
+p.comment.list.box:hover span.comment.delete {
+  opacity: 1;
+}

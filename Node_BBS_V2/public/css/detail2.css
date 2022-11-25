@@ -37,11 +37,3 @@ article.bbs.detail div {
   white-space: nowrap;
   margin: 3px;
 }
-
-div.bbs.comments {
-  width: 80%;
-  margin: 5px auto;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #aaa;
-}
