@@ -12,14 +12,20 @@ html {
 body {
   width: 100%;
   height: 100%;
+  background-image: url("/images/star.jpg");
+  background-size: 100% 100%;
+}
+
+h1,
+h2 {
+  width: 60%;
+  margin: 20px auto;
+  text-align: left;
+  color: white;
 }
 
 h1 {
-  width: 60%;
-  text-align: left;
   font-size: 35px;
-  margin: 20px auto;
-  color: rgb(108, 131, 77);
 }
 
 div.list-table {
@@ -32,11 +38,18 @@ table {
   border-collapse: collapse;
 }
 
+table.bbs.list tr {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr 3fr;
+}
+
 table td,
 th {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   text-align: center;
+  padding: 8px;
+  color: white;
 }
 
 div.bbs.index.button.box {

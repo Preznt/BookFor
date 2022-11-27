@@ -2,7 +2,7 @@ extends layout
 
 block content
   script(src="/js/list.js")
-  h1 게시판
+  h2 자유게시판
   div.list-table
     table.bbs.list
       thead
@@ -11,7 +11,7 @@ block content
           th 작성시각
           th 작성자ID
           th 제목
-          th ...
+          th 내용
       tbody
         each bbs in bbsList
           tr(data-id= `${bbs.id}`)
@@ -19,13 +19,13 @@ block content
             td= bbs.b_time
             td= bbs.b_writer
             td= bbs.b_subject
-            td
-          each cmm in bbs.b_comments
-            tr
-              td
-              td re&gt;
-              td= cmm.ct_writer
-              td  `#{cmm.ct_comment}`
+            td= bbs.b_content
+          //- each cmm in bbs.b_comments
+          //-   tr
+          //-     td
+          //-     td re&gt;
+          //-     td= cmm.ct_writer
+          //-     td  `#{cmm.ct_comment}`
     div.bbs.index.button.box
       button.bbs.insert 추가
   
