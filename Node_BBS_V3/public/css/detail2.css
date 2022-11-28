@@ -2,12 +2,12 @@ div.label {
   background-color: #ddd;
   text-align: right;
   font-weight: 900;
-  grid-area: bbs_label;
+  /* grid-area: bbs_label; */
 }
 
-div.data {
+/* div.data {
   grid-area: bbs_data;
-}
+} */
 
 div.label:nth-of-type(4) {
 }
@@ -22,16 +22,13 @@ div.label:nth-of-type(n + 5) {
   background-color: #eee;
 }
 
-div.data:nth-of-type(n + 5) {
+/* div.data:nth-of-type(n + 5) {
   grid-area: bbs_content;
-}
+} */
 
 article.bbs.detail {
   display: grid;
   grid-template-columns: repeat(3, 1fr 2fr);
-  grid-template-areas:
-    "bbs_label bbs_data bbs_label bbs_data bbs_label bbs_data"
-    "bbs_content bbs_content bbs_content";
 }
 
 article.bbs.detail div {

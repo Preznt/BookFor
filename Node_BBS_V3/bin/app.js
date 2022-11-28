@@ -22,6 +22,7 @@ import { atlasURL } from "../config/mongoDB.js";
 // sample router modules
 import indexRouter from "../routes/index.js";
 import usersRouter from "../routes/users.js";
+import apiRouter from "../routes/api.js";
 
 // create express framework
 const app = express();
@@ -63,6 +64,7 @@ app.use(express.static(path.join("public")));
 
 // router link enable
 app.use("/", indexRouter);
+app.use("/api", apiRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
