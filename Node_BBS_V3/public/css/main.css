@@ -16,9 +16,31 @@ body {
   /* background-size: 100% 100%; */
 }
 
-h1,
+header.main {
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px 20px 35px 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  border-bottom: 1px solid #ccc;
+}
+
+header.main h1 {
+  text-align: center;
+}
+
+header.main i.fa-list-ul,
+header.main i.fa-magnifying-glass {
+  margin: 20px;
+}
+
+header.main i.fa-magnifying-glass {
+  text-align: right;
+}
+
 h2 {
   width: 60%;
+  padding: 20px;
   margin: 20px auto;
   text-align: left;
   color: black;
@@ -69,6 +91,7 @@ button {
   border-radius: 1em;
 }
 
-button:hover {
+button:hover,
+i:hover {
   cursor: pointer;
 }
