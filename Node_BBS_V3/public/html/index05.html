@@ -108,7 +108,7 @@
       const imageActive = (pos) => {
         // 새롭게 추가된 img tag를 SELECT 하여
         // animation 을 구현하기 위한 코드
-        // 이 코드는 반드시 함수(imageActive) 네에서 실행되어야 한다
+        // 이 코드는 반드시 함수(imageActive) 내에서 실행되어야 한다
         const oldImg = document.querySelector("img.img_slide");
         // img.src = imgList[pos - 1];
         oldImg.style.transform = "rotate(-90deg)";
@@ -141,6 +141,7 @@
         for (let dot of dots) {
           dot.classList.remove("active");
         }
+
         dots[pos - 1].classList.add("active");
       };
 
