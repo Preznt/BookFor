@@ -21,10 +21,9 @@ const storageOption = {
 
     // `UUID-원래파일이름`으로 만들기
     // 버퍼로 바꾸고 다시 utf-8로 바꾼다
-    const newFileName = Buffer.from(
-      `${uuidPrefix}-${file.originalname}`,
-      "latin1"
-    ).toString("utf8");
+    const newFileName = Buffer.from(file.originalname, "latin1").toString(
+      "utf8"
+    );
 
     const uploadFileName = newFileName.substring(newFileName.length - 255);
 

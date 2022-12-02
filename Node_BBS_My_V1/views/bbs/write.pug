@@ -13,7 +13,8 @@ block content
             input(type="text",name="b_content")#b_content
         div
             label(for="b_upfile") 파일
-            input(type="file",name="b_upfile")#b_upfile
+            input(type="file",name="b_upfile",multiple,accept="image/*")#b_upfile
+            //- multiple 여러개 파일 선탠할 수 있다
         div
-            label(for="") 
+            label(for="")
             input(type="submit",value="저장")
