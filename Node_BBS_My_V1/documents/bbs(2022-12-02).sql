@@ -122,3 +122,7 @@ WHERE b_seq = 11;
 
 
 DESC tbl_bbs;
+
+
+
+
