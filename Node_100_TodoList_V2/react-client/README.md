@@ -38,9 +38,9 @@
 
   ```
   script : {
-    "window": "set PORT=5000 && react-script start",
-    "mac": "export PORT=5000 && react-script start",
-    "linux": "export PORT=5000 && react-script start",
+    "window": "set PORT=5000 && react-scripts start",
+    "mac": "export PORT=5000 && react-scripts start",
+    "linux": "export PORT=5000 && react-scripts start",
   }
   ```
 
