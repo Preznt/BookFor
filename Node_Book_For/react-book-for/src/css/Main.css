@@ -1,0 +1,166 @@
+/* 공통 부분 */
+.Main button {
+  border: none;
+}
+
+.Main button:hover {
+  cursor: pointer;
+}
+
+.Main a {
+  text-decoration: none;
+  color: black;
+}
+
+/* 메인부분 */
+
+.Main {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.Main header {
+  display: flex;
+  align-items: center;
+  margin: 25px;
+  flex-wrap: nowrap;
+}
+.Main header svg.menu {
+  font-size: 35px;
+  margin: 0 20px;
+}
+
+.Main header input {
+  outline: none;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 1em;
+  border: 1px solid #aaa;
+  z-index: 20;
+}
+.Main header svg.search {
+  font-size: 27px;
+  margin: 6px;
+  color: rgb(79, 79, 79);
+}
+
+.Main header button {
+  margin: 10px;
+  font-size: 15px;
+  background-color: transparent;
+}
+
+.Main header button:nth-of-type(1) {
+  margin-left: auto;
+}
+
+/* article 부분 */
+
+.Main .info {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  margin: 15px;
+}
+
+.Main button.register {
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  width: 20%;
+  padding: 10px 14px;
+  border-radius: 1em;
+  background-color: #9c66e1;
+  font-size: 20px;
+  font-weight: 700;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+}
+
+/* searchbox */
+
+.inputbox {
+  margin-left: auto;
+  position: relative;
+  width: 40%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.searchbox {
+  position: absolute;
+  /* width: 91.7%; */
+  height: 640px;
+  top: 80%;
+  left: 0%;
+  right: 5%;
+  border: 1px solid #aaa;
+  border-top: none;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 7px 5px 7px #ccc;
+  z-index: 10;
+}
+
+.close {
+  display: none;
+}
+
+.searchbox::-webkit-scrollbar {
+  display: none;
+}
+
+.searchdata {
+  display: flex;
+  /* width: 70%; */
+  /* justify-content: center; */
+  margin: 7px 15px;
+  padding: 5px 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+.searchdata:nth-of-type(1) {
+  margin-top: 20px;
+}
+
+.searchdata img {
+  width: 70px;
+  height: 100px;
+  border: 1px solid rgb(138, 138, 138);
+}
+
+.searchdata .detail {
+  margin-left: 15px;
+  width: 70%;
+  text-align: left;
+}
+
+.searchdata .detail .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Nav */
+
+.Main nav {
+  margin-left: 30px;
+  text-align: left;
+  border-right: 1px solid #ccc;
+}
+
+.Main nav ul {
+  list-style: none;
+}
+
+nav li {
+  margin: 10px 5px;
+}
+
+nav a {
+  font-size: 20px;
+  font-weight: 700;
+}
