@@ -1,6 +1,5 @@
 const userBook = {
   username: "bjw1403@gmail.com",
-  b_isbn: "",
   b_paragraph: "",
   b_location: "",
   b_state: "",

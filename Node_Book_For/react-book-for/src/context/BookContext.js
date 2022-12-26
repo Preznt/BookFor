@@ -7,6 +7,7 @@ import {
 } from "react";
 import { kakaoSearch } from "../modules/kakaoBookFetch";
 import { userBook } from "../data/sampleData";
+import { addBook } from "../data/BookData";
 
 const BookContext = createContext();
 
@@ -17,30 +18,31 @@ const useBookContext = () => {
 const BookContextProvider = ({ children }) => {
   const [kakaoDataList, setKakaoDataList] = useState([]);
   const [dbData, setDbData] = useState(userBook);
+  const [myBook, setMyBook] = useState(addBook);
   const [showDataList, setshowDataList] = useState([]);
 
-  const fetchAll = useCallback(async () => {
-    try {
-      const res = await fetch("/book");
-      const isbns = await res.json();
-      const result = await isbns.map((isbn) => {
-        return getBooks(isbn.b_isbn);
-      });
+  // const fetchAll = useCallback(async () => {
+  //   try {
+  //     const res = await fetch("/book");
+  //     const isbns = await res.json();
+  //     const result = await isbns.map((isbn) => {
+  //       return getBooks(isbn.b_isbn);
+  //     });
 
-      console.log(result);
-    } catch (error) {
-      alert("서버 접속 오류");
-    }
-  });
+  //     console.log(result);
+  //   } catch (error) {
+  //     alert("서버 접속 오류");
+  //   }
+  // });
 
-  useEffect(() => {
-    (async () => {
-      await fetchAll();
-    })();
-  });
+  // useEffect(() => {
+  //   (async () => {
+  //     await fetchAll();
+  //   })();
+  // });
 
-  const bookInsert = async (clickData) => {
-    // console.log(clickData);
+  const bookInsert = useCallback(async (clickData) => {
+    console.log(clickData);
     const fetchOption = {
       method: "POST",
       headers: {
@@ -51,18 +53,41 @@ const BookContextProvider = ({ children }) => {
 
     try {
       const res = await fetch("/book/insert", fetchOption);
-      const isbns = await res.json();
-      const result = await isbns.map((isbn) => {
-        return getBooks(isbn.b_isbn);
-      });
+      const result = await res.json();
+      // const result = isbns.map((isbn) => {
+      //   return bookSearch(isbn.b_isbn);
+      // });
       console.log(result);
     } catch (err) {
       console.log(err);
       alert("서버 연결 오류");
     }
-  };
+  }, []);
 
-  const getBooks = useCallback(async (search) => {
+  const myBookInsert = useCallback(async (myBook) => {
+    console.log(myBook);
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(myBook),
+    };
+
+    try {
+      const res = await fetch("/book/my/insert", fetchOption);
+      const result = await res.json();
+      // const result = isbns.map((isbn) => {
+      //   return bookSearch(isbn.b_isbn);
+      // });
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+      alert("서버 연결 오류");
+    }
+  }, []);
+
+  const bookSearch = useCallback(async (search) => {
     try {
       let params = {
         query: search,
@@ -76,16 +101,16 @@ const BookContextProvider = ({ children }) => {
         };
       }
       const result = await kakaoSearch(params);
-      // console.log(result.data);
-      return result.data;
+      console.log(result.data);
+      return await result.data;
     } catch (err) {
       console.log(err);
     }
   }, []);
 
-  const bookSearch = (search) => {
-    return getBooks(search);
-  };
+  // const bookSearch = (search) => {
+  //   return getBooks(search);
+  // };
 
   const props = {
     bookSearch,
@@ -96,6 +121,9 @@ const BookContextProvider = ({ children }) => {
     setDbData,
     showDataList,
     setshowDataList,
+    myBook,
+    setMyBook,
+    myBookInsert,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

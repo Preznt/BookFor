@@ -2,6 +2,7 @@ import express from "express";
 import DB from "../models/index.js";
 
 const UserBook = DB.models.user_book;
+const BookList = DB.models.book_list;
 
 const router = express.Router();
 
@@ -20,13 +21,34 @@ router.get("/", async (req, res) => {
 
 router.post("/insert", async (req, res) => {
   const data = req.body;
-  console.log(data);
+  // const objLength = Object.keys(data).length;
   await UserBook.create(data);
+
+  // const result = await BookList.findAll({
+  //   attributes: ["b_isbn"],
+  //   where: { username: "bjw1403@gmail.com" },
+  // });
+  // return res.json(result);
+});
+
+router.post("/my/insert", async (req, res) => {
+  const data = req.body;
+  console.log(data);
+  await BookList.create(data);
   const result = await UserBook.findAll({
-    attributes: ["b_isbn"],
     where: { username: "bjw1403@gmail.com" },
+    include: "f_booklist",
   });
-  return res.json(result);
+
+  const f_book = await result.f_booklist;
+
+  console.log(f_book);
+
+  // const result = await UserBook.findAll({
+  //   attributes: ["b_isbn"],
+  //   where: { username: "bjw1403@gmail.com" },
+  // });
+  // return res.json(result);
 });
 
 export default router;

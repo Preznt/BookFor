@@ -4,51 +4,30 @@ export default (sequelize) => {
     "book_list",
     {
       b_code: {
+        autoIncrement: true,
         type: Sequelize.DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
       },
-      b_title: {
-        type: Sequelize.DataTypes.STRING(255),
-        allowNull: false,
-      },
-      b_thumbnail: {
-        type: Sequelize.DataTypes.STRING(255),
-        allowNull: true,
-      },
-      b_author: {
-        type: Sequelize.DataTypes.STRING(125),
-        allowNull: false,
-      },
-      b_publisher: {
+      b_isbn: {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
-      b_paragraph: {
+      title: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false,
+      },
+      thumbnail: {
         type: Sequelize.DataTypes.STRING(255),
         allowNull: true,
       },
-      b_location: {
+      authors: {
         type: Sequelize.DataTypes.STRING(125),
-        allowNull: true,
-      },
-      b_state: {
-        type: Sequelize.DataTypes.STRING(20),
-        allowNull: true,
-      },
-      b_reg_date: {
-        type: Sequelize.DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-      b_start_date: {
-        type: Sequelize.DataTypes.STRING(125),
-        allowNull: true,
-      },
-      b_done_date: {
-        type: Sequelize.DataTypes.STRING(125),
-        allowNull: true,
+      publisher: {
+        type: Sequelize.DataTypes.STRING(50),
+        allowNull: false,
       },
     },
     {
