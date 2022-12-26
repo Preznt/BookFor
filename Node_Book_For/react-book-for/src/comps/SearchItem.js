@@ -13,15 +13,14 @@ const SearchItem = (props) => {
     if (isbn.length > 12) {
       isbn = isbn.substr(11, 13);
     }
-    // await setDbData({
-    //   ...dbData,
-    //   b_isbn: isbn,
-    // });
-    // console.log(kkData);
+    await setDbData({
+      ...dbData,
+      isbn: isbn,
+    });
 
     await setMyBook({
       ...myBook,
-      b_isbn: isbn,
+      isbn: isbn,
       title: btn.closest("DIV").dataset.kk,
       thumbnail: kkData.thumbnail,
       authors: kkData.authors[0],
@@ -29,8 +28,8 @@ const SearchItem = (props) => {
     });
     console.log(myBook);
 
-    bookInsert(dbData);
     myBookInsert(myBook);
+    bookInsert(dbData);
   };
 
   return (

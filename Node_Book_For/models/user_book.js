@@ -3,16 +3,17 @@ export default (sequelize) => {
   return sequelize.define(
     "user_book",
     {
-      username: {
-        type: Sequelize.DataTypes.STRING(255),
-        allowNull: true,
-      },
-      b_code: {
-        autoIncrement: true,
-        type: Sequelize.DataTypes.BIGINT,
+      isbn: {
+        type: Sequelize.DataTypes.STRING(125),
         allowNull: false,
         primaryKey: true,
       },
+      username: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false,
+        primaryKey: true,
+      },
+
       b_paragraph: {
         type: Sequelize.DataTypes.STRING(255),
         allowNull: true,
@@ -52,7 +53,7 @@ export default (sequelize) => {
           name: "PRIMARY",
           unique: true,
           using: "BTREE",
-          fields: [{ name: "b_code" }],
+          fields: [{ name: "usernamename", name: "isbn" }],
         },
       ],
     }

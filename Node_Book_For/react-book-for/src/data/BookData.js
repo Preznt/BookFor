@@ -1,5 +1,5 @@
 const addBook = {
-  b_isbn: "",
+  isbn: "",
   title: "",
   thumbnail: "",
   publisher: "",

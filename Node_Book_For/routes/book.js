@@ -33,16 +33,23 @@ router.post("/insert", async (req, res) => {
 
 router.post("/my/insert", async (req, res) => {
   const data = req.body;
-  console.log(data);
+  // console.log(data);
   await BookList.create(data);
   const result = await UserBook.findAll({
     where: { username: "bjw1403@gmail.com" },
-    include: "f_booklist",
+    include: [
+      {
+        as: "f_booklist",
+        model: BookList,
+        right: true,
+      },
+    ],
+    raw: true,
   });
 
-  const f_book = await result.f_booklist;
+  // const f_book = await result.f_booklist;
 
-  console.log(f_book);
+  console.log(result);
 
   // const result = await UserBook.findAll({
   //   attributes: ["b_isbn"],

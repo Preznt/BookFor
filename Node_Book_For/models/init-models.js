@@ -7,11 +7,11 @@ const initModels = (sequelize) => {
 
   book_list.belongsTo(user_book, {
     as: "f_userbook",
-    foreignKey: "b_code",
+    foreignKey: "isbn",
   });
   user_book.hasMany(book_list, {
     as: "f_booklist",
-    foreignKey: "b_code",
+    foreignKey: "isbn",
   });
 
   return {

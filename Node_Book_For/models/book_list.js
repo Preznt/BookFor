@@ -3,15 +3,10 @@ export default (sequelize) => {
   return sequelize.define(
     "book_list",
     {
-      b_code: {
-        autoIncrement: true,
-        type: Sequelize.DataTypes.BIGINT,
+      isbn: {
+        type: Sequelize.DataTypes.STRING(125),
         allowNull: false,
         primaryKey: true,
-      },
-      b_isbn: {
-        type: Sequelize.DataTypes.STRING(50),
-        allowNull: false,
       },
       title: {
         type: Sequelize.DataTypes.STRING(255),
@@ -39,7 +34,7 @@ export default (sequelize) => {
           name: "PRIMARY",
           unique: true,
           using: "BTREE",
-          fields: [{ name: "b_code" }],
+          fields: [{ name: "isbn" }],
         },
       ],
     }
