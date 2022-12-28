@@ -6,11 +6,9 @@ const initModels = (sequelize) => {
   const user_book = _user_book(sequelize);
 
   book_list.belongsTo(user_book, {
-    as: "f_userbook",
     foreignKey: "isbn",
   });
   user_book.hasMany(book_list, {
-    as: "f_booklist",
     foreignKey: "isbn",
   });
 
