@@ -44,11 +44,13 @@ router.post("/my/insert", async (req, res) => {
         right: true,
       },
     ],
-    // raw: true,
+    raw: true,
   });
+  console.log(result);
+  res.json(result);
 
   // const f_book = await result.f_booklist;
-  console.log(result);
+
   // console.log(result.book_list);
 
   // const result = await UserBook.findAll({

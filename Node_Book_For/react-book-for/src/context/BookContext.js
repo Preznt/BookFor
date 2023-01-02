@@ -19,6 +19,7 @@ const BookContextProvider = ({ children }) => {
   const [kakaoDataList, setKakaoDataList] = useState([]);
   const [dbData, setDbData] = useState(userBook);
   const [myBook, setMyBook] = useState(addBook);
+  // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setshowDataList] = useState([]);
 
   // const fetchAll = useCallback(async () => {
@@ -80,7 +81,7 @@ const BookContextProvider = ({ children }) => {
       // const result = isbns.map((isbn) => {
       //   return bookSearch(isbn.b_isbn);
       // });
-      console.log(result);
+      showDataList([...result]);
     } catch (err) {
       console.log(err);
       alert("서버 연결 오류");
@@ -124,6 +125,8 @@ const BookContextProvider = ({ children }) => {
     myBook,
     setMyBook,
     myBookInsert,
+    // myBookList,
+    // setMyBookList,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;
