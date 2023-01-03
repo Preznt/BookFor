@@ -4,9 +4,10 @@ import "../css/Content.css";
 
 const BookContent = () => {
   const { showDataList } = useBookContext();
+  // console.log(showDataList[5].isbn);
 
   const showItem = showDataList.map((data) => {
-    <BookItem book={data} />;
+    <BookItem data={data} />;
   });
 
   return (

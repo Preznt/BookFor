@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 import { kakaoSearch } from "../modules/kakaoBookFetch";
 import { userBook } from "../data/sampleData";
 import { addBook } from "../data/BookData";
@@ -20,7 +14,7 @@ const BookContextProvider = ({ children }) => {
   const [dbData, setDbData] = useState(userBook);
   const [myBook, setMyBook] = useState(addBook);
   // const [myBookList, setMyBookList] = useState([]);
-  const [showDataList, setshowDataList] = useState([]);
+  const [showDataList, setShowDataList] = useState([]);
 
   // const fetchAll = useCallback(async () => {
   //   try {
@@ -81,7 +75,8 @@ const BookContextProvider = ({ children }) => {
       // const result = isbns.map((isbn) => {
       //   return bookSearch(isbn.b_isbn);
       // });
-      showDataList([...result]);
+      console.log(result);
+      setShowDataList([...result]);
     } catch (err) {
       console.log(err);
       alert("서버 연결 오류");
@@ -121,7 +116,7 @@ const BookContextProvider = ({ children }) => {
     dbData,
     setDbData,
     showDataList,
-    setshowDataList,
+    setShowDataList,
     myBook,
     setMyBook,
     myBookInsert,
