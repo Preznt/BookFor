@@ -52,7 +52,7 @@ const BookContextProvider = ({ children }) => {
       // const result = isbns.map((isbn) => {
       //   return bookSearch(isbn.b_isbn);
       // });
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       console.log(err);
       alert("서버 연결 오류");

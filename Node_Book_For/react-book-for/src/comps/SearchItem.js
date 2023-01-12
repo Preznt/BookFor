@@ -26,7 +26,7 @@ const SearchItem = (props) => {
       authors: kkData.authors[0],
       publisher: kkData.publisher,
     });
-    console.log(myBook);
+    // console.log(myBook);
 
     myBookInsert(myBook);
     bookInsert(dbData);

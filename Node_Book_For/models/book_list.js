@@ -3,6 +3,14 @@ export default (sequelize) => {
   return sequelize.define(
     "book_list",
     {
+      username: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false,
+        references: {
+          model: "user_book",
+          key: "username",
+        },
+      },
       isbn: {
         type: Sequelize.DataTypes.STRING(125),
         allowNull: false,

@@ -22,10 +22,6 @@ export default (sequelize) => {
         type: Sequelize.DataTypes.STRING(125),
         allowNull: true,
       },
-      b_state: {
-        type: Sequelize.DataTypes.STRING(20),
-        allowNull: true,
-      },
       b_reg_date: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false,

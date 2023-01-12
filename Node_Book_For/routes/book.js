@@ -32,19 +32,18 @@ router.post("/insert", async (req, res) => {
 });
 
 router.post("/my/insert", async (req, res) => {
+  req.body.username = "bjw1403@gmail.com";
   const data = req.body;
   // console.log(data);
   await BookList.create(data);
   const result = await UserBook.findAll({
     where: { username: "bjw1403@gmail.com" },
-    include: [
-      {
-        // as: "f_booklist",
-        model: BookList,
-        right: true,
-      },
-    ],
-    raw: true,
+    include: "book_list",
+    // as: "f_booklist",
+    // model: "book_list",
+    // right: true,
+
+    // raw: true,
   });
   console.log(result);
   res.json(result);
