@@ -6,10 +6,10 @@ export default (sequelize) => {
       username: {
         type: Sequelize.DataTypes.STRING(255),
         allowNull: false,
-        references: {
-          model: "user_book",
-          key: "username",
-        },
+        // references: {
+        //   model: "user_book",
+        //   key: "username",
+        // },
       },
       isbn: {
         type: Sequelize.DataTypes.STRING(125),

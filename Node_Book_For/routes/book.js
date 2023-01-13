@@ -32,7 +32,7 @@ router.post("/insert", async (req, res) => {
 });
 
 router.post("/my/insert", async (req, res) => {
-  req.body.username = "bjw1403@gmail.com";
+  // req.body.username = "bjw1403@gmail.com";
   const data = req.body;
   // console.log(data);
   await BookList.create(data);
