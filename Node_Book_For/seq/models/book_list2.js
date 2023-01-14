@@ -1,10 +1,18 @@
 import Sequelize from "sequelize";
-const book_list = (sequelize) => {
+export default (sequelize) => {
   return sequelize.define(
     "book_list",
     {
+      username: {
+        type: Sequelize.DataTypes.STRING(255),
+        allowNull: false,
+        // references: {
+        //   model: "user_book",
+        //   key: "username",
+        // },
+      },
       isbn: {
-        type: Sequelize.DataTypes.STRING(50),
+        type: Sequelize.DataTypes.STRING(125),
         allowNull: false,
         primaryKey: true,
       },
@@ -24,10 +32,6 @@ const book_list = (sequelize) => {
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false,
       },
-      url: {
-        type: Sequelize.DataTypes.STRING(500),
-        allowNull: true,
-      },
     },
     {
       sequelize,
@@ -44,5 +48,3 @@ const book_list = (sequelize) => {
     }
   );
 };
-
-export default book_list;

@@ -16,24 +16,26 @@ delete_date	VARCHAR(255)
 );
 
 CREATE TABLE user_book (
-username	VARCHAR(255),
-b_code	BIGINT auto_increment PRIMARY KEY,				
-b_paragraph	VARCHAR(255),			
-b_location	VARCHAR(125),						
-b_state	VARCHAR(20)	,					
-b_reg_date	timestamp	NOT NULL	default current_timestamp,
-b_buy_date	VARCHAR(125),
-b_start_date	VARCHAR(125),
-b_done_date	VARCHAR(125)
+my_username	VARCHAR(255),	
+my_isbn	BIGINT	,
+my_paragraph	VARCHAR(255)	,
+my_location	VARCHAR(125)	,
+my_state	VARCHAR(20)	,
+my_reg_date	timestamp	NOT NULL  default current_timestamp,
+my_buy_date	VARCHAR(125)	,
+my_start_date	VARCHAR(125),	
+my_done_date	VARCHAR(125),	
+		PRIMARY KEY(my_username, my_isbn)
 );
 
+
 CREATE TABLE book_list (
-isbn	VARCHAR(50)		PRIMARY KEY,
-title	VARCHAR(255)	NOT NULL	,
-thumbnail	VARCHAR(255),		
+isbn	VARCHAR(50)	NOT NULL	PRIMARY KEY,
+title	VARCHAR(255)	NOT NULL,	
+thumbnail	VARCHAR(255)	,	
 authors	VARCHAR(125)	NOT NULL	,
 publisher	VARCHAR(50)	NOT NULL,	
-url	VARCHAR(125)	
+url	VARCHAR(500)		
 );
 
 SELECT * FROM user_book;

@@ -48,6 +48,16 @@
   margin: 0 35px;
 }
 
+/* 컨텐츠 책 */
+.Lib .book {
+  display: flex;
+}
+
+.Lib .book img {
+  width: 100px;
+  height: 180px;
+}
+
 /* 등록하기 부분 */
 
 .Reg {

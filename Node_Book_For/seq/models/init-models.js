@@ -1,11 +1,13 @@
-import _book_list from "./book_list.js";
-import _user_book from "./user_book.js";
-import _user from "./user.js";
+var DataTypes = require("sequelize").DataTypes;
+var _book_list = require("./book_list");
+var _user = require("./user");
+var _user_book = require("./user_book");
 
-const initModels = (sequelize) => {
-  const book_list = _book_list(sequelize);
-  const user_book = _user_book(sequelize);
-  const user = _user(sequelize);
+function initModels(sequelize) {
+  var book_list = _book_list(sequelize, DataTypes);
+  var user = _user(sequelize, DataTypes);
+  var user_book = _user_book(sequelize, DataTypes);
+
   book_list.belongsToMany(user, {
     as: "my_username_users",
     through: user_book,
@@ -31,9 +33,10 @@ const initModels = (sequelize) => {
 
   return {
     book_list,
-    user_book,
     user,
+    user_book,
   };
-};
-
-export default initModels;
+}
+module.exports = initModels;
+module.exports.initModels = initModels;
+module.exports.default = initModels;

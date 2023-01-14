@@ -35,18 +35,49 @@ router.post("/my/insert", async (req, res) => {
   // req.body.username = "bjw1403@gmail.com";
   const data = req.body;
   // console.log(data);
-  await BookList.create(data);
+
+  const bookData = {
+    isbn: data.isbn.substr(11, 13),
+    title: data.title,
+    thumbnail: data.thumbnail,
+    authors: data.authors[0],
+    publisher: data.publisher,
+    url: data.url,
+  };
+
+  const userBookData = {
+    my_username: "bjw1403@gmail.com",
+    my_isbn: data.isbn.substr(11, 13),
+  };
+
+  try {
+    await BookList.create(bookData);
+  } catch (err) {
+    console.log(err);
+    return res.send("book_list 추가 오류");
+  }
+
+  try {
+    await UserBook.create(userBookData);
+  } catch (err) {
+    console.log(err);
+    return res.send("user_book 추가 오류");
+  }
+
   const result = await UserBook.findAll({
-    where: { username: "bjw1403@gmail.com" },
-    include: "book_list",
+    where: { my_username: "bjw1403@gmail.com" },
+    include: "my_isbn_book_list",
     // as: "f_booklist",
     // model: "book_list",
     // right: true,
 
     // raw: true,
   });
-  console.log(result);
-  res.json(result);
+  // console.log(result);
+  const rList = await result.map((d) => {
+    return d.my_isbn_book_list;
+  });
+  res.json(rList);
 
   // const f_book = await result.f_booklist;
 

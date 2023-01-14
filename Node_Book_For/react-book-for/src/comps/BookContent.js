@@ -4,10 +4,9 @@ import "../css/Content.css";
 
 const BookContent = () => {
   const { showDataList } = useBookContext();
-  // console.log(showDataList[5].isbn);
 
   const showItem = showDataList.map((data) => {
-    <BookItem data={data} />;
+    return <BookItem data={data} />;
   });
 
   return (
@@ -20,7 +19,7 @@ const BookContent = () => {
         <button className="highlight">버릴 책</button>
       </div>
       <h1>내 서재</h1>
-      <div>{showItem}</div>
+      <div className="book">{showItem}</div>
     </article>
   );
 };

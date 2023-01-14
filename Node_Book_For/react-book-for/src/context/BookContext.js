@@ -59,29 +59,37 @@ const BookContextProvider = ({ children }) => {
     }
   }, []);
 
-  const myBookInsert = useCallback(async (myBook) => {
-    console.log(myBook);
-    const fetchOption = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(myBook),
-    };
+  const myBookInsert = useCallback(
+    async (myBook) => {
+      console.log(myBook);
+      const fetchOption = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(myBook),
+      };
 
-    try {
-      const res = await fetch("/book/my/insert", fetchOption);
-      const result = await res.json();
-      // const result = isbns.map((isbn) => {
-      //   return bookSearch(isbn.b_isbn);
-      // });
-      console.log(result);
-      setShowDataList([...result]);
-    } catch (err) {
-      console.log(err);
-      alert("서버 연결 오류");
-    }
-  }, []);
+      try {
+        const res = await fetch("/book/my/insert", fetchOption);
+        const result = await res.json();
+        // const result = isbns.map((isbn) => {
+        //   return bookSearch(isbn.b_isbn);
+        // });
+        // const rList = result.map((d) => {
+        //   return d.my_isbn_book_list;
+        // });
+
+        console.log(result);
+        setShowDataList([...result]);
+        console.log(showDataList);
+      } catch (err) {
+        console.log(err);
+        alert("서버 연결 오류");
+      }
+    },
+    [setShowDataList]
+  );
 
   const bookSearch = useCallback(async (search) => {
     try {

@@ -1,12 +1,12 @@
 const userBook = {
-  username: "bjw1403@gmail.com",
-  isbn: "",
-  b_paragraph: "",
-  b_location: "",
-  b_state: "",
-  b_buy_date: "",
-  b_start_date: "",
-  b_done_date: "",
+  my_username: "bjw1403@gmail.com",
+  my_isbn: "",
+  my_paragraph: "",
+  my_location: "",
+  my_state: "",
+  my_buy_date: "",
+  my_start_date: "",
+  my_done_date: "",
 };
 
 export { userBook };

@@ -15,21 +15,20 @@ const SearchItem = (props) => {
     }
     await setDbData({
       ...dbData,
-      isbn: isbn,
+      my_isbn: isbn,
     });
 
-    await setMyBook({
-      ...myBook,
-      isbn: isbn,
-      title: btn.closest("DIV").dataset.kk,
-      thumbnail: kkData.thumbnail,
-      authors: kkData.authors[0],
-      publisher: kkData.publisher,
-    });
+    // await setMyBook({
+    //   ...myBook,
+    //   isbn: isbn,
+    //   title: btn.closest("DIV").dataset.kk,
+    //   thumbnail: kkData.thumbnail,
+    //   authors: kkData.authors[0],
+    //   publisher: kkData.publisher,
+    // });
     // console.log(myBook);
-
-    myBookInsert(myBook);
-    bookInsert(dbData);
+    myBookInsert(kkData);
+    // bookInsert(dbData);
   };
 
   return (
