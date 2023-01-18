@@ -78,11 +78,12 @@ SELECT * FROM sessions;
 
 SHOW TABLES;
 
-SELECT U.username,U.u_realname, M.my_isbn, B.title,B.author, B.publisher,M.my_odate
+SELECT U.username,U.u_name, M.my_isbn, B.title,B.author, B.publisher,M.my_odate
 FROM tbl_users U
 	LEFT JOIN tbl_mybooks M
-		ON U.username = M.username
+		ON U.username = M.my_username
 	LEFT JOIN tbl_books B
-		ON M.isbn = B.isbn
+		ON M.my_isbn = B.isbn
+WHERE U.username = 'bjw';
 
 

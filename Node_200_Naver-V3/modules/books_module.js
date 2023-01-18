@@ -70,7 +70,7 @@ export const bookInput = async (book, user) => {
 
 export const getMyBooks = async (user) => {
   const username = user.username;
-
+  console.log("getMyBooks", user);
   let myBooks = null;
   try {
     myBooks = await MY_BOOKS.findAll({
