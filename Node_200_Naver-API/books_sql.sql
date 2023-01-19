@@ -73,21 +73,5 @@ VALUES
 
 SELECT * FROM tbl_books;
 SELECT * FROM tbl_mybooks;
-SELECT * FROM tbl_users;
-SELECT * FROM sessions;
-
--- TRUNCATE 명령
--- table 을 Drop 하고 다시 Create
-TRUNCATE table sessions;
-
-SHOW TABLES;
-
-SELECT U.username,U.u_name, M.my_isbn, B.title,B.author, B.publisher,M.my_odate
-FROM tbl_users U
-	LEFT JOIN tbl_mybooks M
-		ON U.username = M.my_username
-	LEFT JOIN tbl_books B
-		ON M.my_isbn = B.isbn
-WHERE U.username = 'bjw';
 
 
