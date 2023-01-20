@@ -79,6 +79,7 @@ SELECT * FROM sessions;
 -- TRUNCATE 명령
 -- table 을 Drop 하고 다시 Create
 TRUNCATE table sessions;
+DESC sessions;
 
 SHOW TABLES;
 
