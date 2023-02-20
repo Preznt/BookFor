@@ -50,34 +50,35 @@ router.post("/my/insert", async (req, res) => {
     my_isbn: data.isbn.substr(11, 13),
   };
 
+  // 북리스트에 카카오 API로 받은 데이터 저장
   try {
     await BookList.create(bookData);
   } catch (err) {
-    console.log(err);
-    return res.send("book_list 추가 오류");
+    console.log("book_list 추가 오류 \n", err);
   }
 
+  // 내 책에 추가한 책 저장
   try {
     await UserBook.create(userBookData);
   } catch (err) {
-    console.log(err);
-    return res.send("user_book 추가 오류");
+    console.log("user_book 추가 오류", err);
   }
 
   const result = await UserBook.findAll({
     where: { my_username: "bjw1403@gmail.com" },
-    include: "my_isbn_book_list",
-    // as: "f_booklist",
-    // model: "book_list",
-    // right: true,
-
-    // raw: true,
+    include: [
+      { model: BookList, attributes: ["title", "thumbnail", "author"] },
+    ],
+    raw: true,
   });
   // console.log(result);
-  const rList = await result.map((d) => {
-    return d.my_isbn_book_list;
-  });
-  res.json(rList);
+
+  return res.json(result);
+
+  // const rList = await result.map((d) => {
+  //   return d.my_isbn_book_list;
+  // });
+  // res.json(rList);
 
   // const f_book = await result.f_booklist;
 

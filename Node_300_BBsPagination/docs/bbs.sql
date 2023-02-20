@@ -20,3 +20,24 @@ b_update	datetime	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 DESC tbl_bbs;
+
+SELECT COUNT(*) FROM tbl_bbs;
+SELECT * FROM tbl_bbs LIMIT 30, 10;
+
+USE mybooks2;
+Desc tbl_books;
+
+CREATE TABLE IF NOT EXISTS tbl_books(
+isbn	varchar(13)	PRIMARY KEY,
+title	varchar(125),	
+link	varchar(255),	
+image	varchar(255),	
+author	varchar(125),	
+discount	int	,
+publisher	varchar(125)	,
+description	text,	
+pubdate	varchar(20)	,
+price	int
+);
+
+CREATE DATABASE mybooks2;

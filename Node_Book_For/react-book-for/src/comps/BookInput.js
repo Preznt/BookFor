@@ -10,23 +10,24 @@ const BookInput = () => {
     async (e) => {
       // const keyCode = e.keyCode;
       const value = e.target.value;
+      console.log(value);
       // if (keyCode === 13) {
-      if (value) {
-        const result = await bookSearch(value);
-        const arrResult = await result.documents;
-        // console.log(arrResult);
-        setKakaoDataList([...arrResult]);
-        console.log(kakaoDataList);
-        // }
-      } else {
-        setKakaoDataList([]);
-      }
+      // if (value) {
+      const result = await bookSearch(value);
+      const arrResult = await result.documents;
+      // console.log(arrResult);
+      setKakaoDataList([...arrResult]);
+      console.log(kakaoDataList);
+      // }
+      // } else {
+      //   setKakaoDataList([]);
+      // }
     },
     [kakaoDataList, setKakaoDataList]
   );
 
-  const searchListView = kakaoDataList.map((kkData) => {
-    return <SearchItem kkData={kkData} key={kkData.isbn} />;
+  const searchListView = kakaoDataList.map((kkData, index) => {
+    return <SearchItem kkData={kkData} key={index} />;
   });
 
   return (

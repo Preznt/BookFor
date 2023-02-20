@@ -5,8 +5,8 @@ import "../css/Content.css";
 const BookContent = () => {
   const { showDataList } = useBookContext();
 
-  const showItem = showDataList.map((data) => {
-    return <BookItem data={data} />;
+  const showItem = showDataList.map((data, index) => {
+    return <BookItem data={data} key={index} />;
   });
 
   return (
