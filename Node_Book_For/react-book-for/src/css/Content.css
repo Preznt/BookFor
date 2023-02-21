@@ -51,11 +51,15 @@
 /* 컨텐츠 책 */
 .Lib .book {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.Lib .book img {
-  width: 100px;
-  height: 180px;
+.Lib .book .item {
+  width: 120px;
+  margin: 10px;
+}
+.Lib .book .item img {
+  box-shadow: 1px 1px 1px #aaa;
 }
 
 /* 등록하기 부분 */

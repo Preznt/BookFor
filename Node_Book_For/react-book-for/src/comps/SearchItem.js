@@ -9,6 +9,7 @@ const SearchItem = (props) => {
   const onClickHandler = async (e) => {
     const btn = e.target;
     let isbn = btn.dataset.id;
+    console.log(isbn.length);
 
     if (isbn.length > 12) {
       isbn = isbn.substr(11, 13);
@@ -28,7 +29,6 @@ const SearchItem = (props) => {
     // });
     // console.log(myBook);
     myBookInsert(kkData);
-    // bookInsert(dbData);
   };
 
   return (

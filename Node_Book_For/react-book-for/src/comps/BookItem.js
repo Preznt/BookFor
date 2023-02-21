@@ -1,10 +1,10 @@
 const BookItem = ({ data }) => {
   return (
-    <div>
+    <div className="item">
       <img src={data["book_list.thumbnail"]} />
-      <div>
+      <div className="detail">
         <p>{data["book_list.title"]}</p>
-        <p>{data["book_list.author"]}</p>
+        <p>{data["book_list.authors"]}</p>
       </div>
     </div>
   );

@@ -1,9 +1,22 @@
 import { useBookContext } from "../context/BookContext";
 import BookItem from "./BookItem";
 import "../css/Content.css";
+import { useLoaderData } from "react-router-dom";
+import { useEffect } from "react";
+
+export const userBookFetch = async () => {
+  const res = await fetch("/book/all");
+  const result = await res.json();
+  console.log(result);
+  return result;
+};
 
 const BookContent = () => {
-  const { showDataList } = useBookContext();
+  const { showDataList, setShowDataList } = useBookContext();
+  const userBook = useLoaderData();
+  useEffect(() => {
+    setShowDataList(userBook);
+  }, []);
 
   const showItem = showDataList.map((data, index) => {
     return <BookItem data={data} key={index} />;

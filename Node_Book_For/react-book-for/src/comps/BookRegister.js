@@ -1,6 +1,14 @@
+import { useBookContext } from "../context/BookContext";
 import "../css/Content.css";
 
 const BookRegister = () => {
+  const { myBook, setMyBook } = useBookContext();
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setMyBook({ ...myBook, [name]: value });
+    console.log(myBook);
+  };
+
   return (
     <div className="Reg">
       <h2>책 등록하기</h2>
@@ -15,7 +23,7 @@ const BookRegister = () => {
           </div>
           <div>
             <label>이름 : </label>
-            <input name="b_title" />
+            <input name="title" onChange={onChangeHandler} />
           </div>
           <div>
             <label>저자 : </label>

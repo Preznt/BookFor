@@ -12,16 +12,15 @@ const BookInput = () => {
       const value = e.target.value;
       console.log(value);
       // if (keyCode === 13) {
-      // if (value) {
-      const result = await bookSearch(value);
-      const arrResult = await result.documents;
-      // console.log(arrResult);
-      setKakaoDataList([...arrResult]);
-      console.log(kakaoDataList);
-      // }
-      // } else {
-      //   setKakaoDataList([]);
-      // }
+      if (value) {
+        const result = await bookSearch(value);
+        const arrResult = await result.documents;
+        // console.log(arrResult);
+        setKakaoDataList([...arrResult]);
+        console.log(kakaoDataList);
+      } else {
+        setKakaoDataList([]);
+      }
     },
     [kakaoDataList, setKakaoDataList]
   );
@@ -32,7 +31,7 @@ const BookInput = () => {
 
   return (
     <div className="inputbox">
-      <input placeholder="도서 이름 입력" onChange={onChangeHandler} />
+      <input placeholder="도서 이름 입력" onKeyUp={onChangeHandler} />
       <CiSearch className="search" />
       <div className={searchListView.length > 0 ? "searchbox" : "close"}>
         {searchListView}

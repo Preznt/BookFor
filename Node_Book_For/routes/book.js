@@ -19,6 +19,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  try {
+    const result = await UserBook.findAll({
+      where: { my_username: "bjw1403@gmail.com" },
+      include: [
+        { model: BookList, attributes: ["title", "thumbnail", "authors"] },
+      ],
+      raw: true,
+    });
+    return res.json(result);
+  } catch (e) {
+    console.log("첫 로더 데이터 가져오기 오류 \n", e);
+  }
+});
+
 router.post("/insert", async (req, res) => {
   const data = req.body;
   // const objLength = Object.keys(data).length;
@@ -67,7 +82,7 @@ router.post("/my/insert", async (req, res) => {
   const result = await UserBook.findAll({
     where: { my_username: "bjw1403@gmail.com" },
     include: [
-      { model: BookList, attributes: ["title", "thumbnail", "author"] },
+      { model: BookList, attributes: ["title", "thumbnail", "authors"] },
     ],
     raw: true,
   });
