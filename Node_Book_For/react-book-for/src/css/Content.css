@@ -57,8 +57,10 @@
 .Lib .book .item {
   width: 120px;
   margin: 10px;
+  cursor: pointer;
 }
 .Lib .book .item img {
+  width: 120px;
   box-shadow: 1px 1px 1px #aaa;
 }
 

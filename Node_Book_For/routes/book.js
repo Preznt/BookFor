@@ -1,5 +1,6 @@
 import express from "express";
 import DB from "../models/index.js";
+import fileUp from "../modules/thumbnail_upload.js";
 
 const UserBook = DB.models.user_book;
 const BookList = DB.models.book_list;
@@ -23,9 +24,7 @@ router.get("/all", async (req, res) => {
   try {
     const result = await UserBook.findAll({
       where: { my_username: "bjw1403@gmail.com" },
-      include: [
-        { model: BookList, attributes: ["title", "thumbnail", "authors"] },
-      ],
+      include: [{ model: BookList }],
       raw: true,
     });
     return res.json(result);
@@ -34,16 +33,17 @@ router.get("/all", async (req, res) => {
   }
 });
 
-router.post("/insert", async (req, res) => {
-  const data = req.body;
-  // const objLength = Object.keys(data).length;
-  await UserBook.create(data);
+router.post("/insert", fileUp.single("upload"), async (req, res) => {
+  const detail = JSON.parse(req.body.detail);
+  detail.thumbnail = `/uploads/${req?.file?.filename}`;
 
-  // const result = await BookList.findAll({
-  //   attributes: ["b_isbn"],
-  //   where: { username: "bjw1403@gmail.com" },
-  // });
-  // return res.json(result);
+  const userBookData = {
+    my_username: "bjw1403@gmail.com",
+    my_isbn: detail.isbn,
+  };
+
+  await BookList.create(detail);
+  await UserBook.create(userBookData);
 });
 
 router.post("/my/insert", async (req, res) => {
