@@ -2,8 +2,7 @@ import "../css/Main.css";
 import { useBookContext } from "../context/BookContext";
 
 const SearchItem = (props) => {
-  const { bookInsert, dbData, setDbData, myBook, setMyBook, myBookInsert } =
-    useBookContext();
+  const { myBookInsert } = useBookContext();
   const { kkData } = props;
 
   const onClickHandler = async (e) => {
@@ -11,13 +10,13 @@ const SearchItem = (props) => {
     let isbn = btn.dataset.id;
     console.log(isbn.length);
 
-    if (isbn.length > 12) {
+    if (isbn.length > 15) {
       isbn = isbn.substr(11, 13);
     }
-    await setDbData({
-      ...dbData,
-      my_isbn: isbn,
-    });
+    // await setDbData({
+    //   ...dbData,
+    //   my_isbn: isbn,
+    // });
 
     // await setMyBook({
     //   ...myBook,

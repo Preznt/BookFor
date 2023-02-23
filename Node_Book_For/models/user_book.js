@@ -21,12 +21,8 @@ const user_book = (sequelize) => {
           key: "isbn",
         },
       },
-      my_paragraph: {
-        type: Sequelize.DataTypes.STRING(255),
-        allowNull: true,
-      },
-      my_location: {
-        type: Sequelize.DataTypes.STRING(125),
+      my_star: {
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: true,
       },
       my_state: {

@@ -15,3 +15,9 @@
   감시만 하고 있도록 하는 것이다.
 - nodemon 은 react 프로젝트 폴더의 파일들을 감시하고 있다가, 파일의 변화(저장)가 감지되면
   자동으로 build script 를 실행한다.
+
+### react-spinner
+
+```
+npm install --save react-spinners
+```
