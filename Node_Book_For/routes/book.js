@@ -111,4 +111,8 @@ router.post("/my/insert", async (req, res) => {
   // return res.json(result);
 });
 
+router.post("/delete", (req, res) => {
+  console.log(req.body);
+  UserBook.destroy({ where: { my_isbn: req.body } });
+});
 export default router;

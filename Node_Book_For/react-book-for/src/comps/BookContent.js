@@ -12,11 +12,23 @@ export const userBookFetch = async () => {
 };
 
 const BookContent = () => {
-  const { showDataList, setShowDataList } = useBookContext();
+  const { showDataList, setShowDataList, isbn } = useBookContext();
   const userBook = useLoaderData();
   useEffect(() => {
     setShowDataList(userBook);
   }, []);
+
+  const deleteHandler = () => {
+    const fetchOption = {
+      method: "POST",
+      body: JSON.stringify(isbn),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("/book/delete", fetchOption);
+    console.log(isbn);
+  };
 
   const showItem = showDataList.map((data, index) => {
     return <BookItem data={data} key={index} />;
@@ -32,7 +44,7 @@ const BookContent = () => {
         <button className="highlight">버릴 책</button>
       </div>
       <h1>내 서재</h1>
-      <p>삭제</p>
+      <p onClick={deleteHandler}>삭제</p>
       <div className="book">{showItem}</div>
     </article>
   );

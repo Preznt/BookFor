@@ -18,8 +18,14 @@ const BookItem = ({ data }) => {
     } else if (check.checked) {
       isbn[0] = check.value;
     } else {
-      isbn.filter((i) => i !== check.value);
+      // isbn[0] = "test";
+      const filterIsbn = isbn.filter((is) => {
+        return is !== check.value;
+      });
+
+      setIsbn(filterIsbn);
     }
+
     console.log(isbn);
   };
 

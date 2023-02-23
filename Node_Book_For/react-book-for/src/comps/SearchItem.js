@@ -6,13 +6,12 @@ const SearchItem = (props) => {
   const { kkData } = props;
 
   const onClickHandler = async (e) => {
-    const btn = e.target;
-    let isbn = btn.dataset.id;
-    console.log(isbn.length);
+    // const btn = e.target;
+    // let isbn = btn.dataset.id;
 
-    if (isbn.length > 15) {
-      isbn = isbn.substr(11, 13);
-    }
+    // if (isbn.length > 15) {
+    //   isbn = isbn.substr(11, 13);
+    // }
     // await setDbData({
     //   ...dbData,
     //   my_isbn: isbn,
