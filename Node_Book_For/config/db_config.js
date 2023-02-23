@@ -5,7 +5,8 @@ export default {
     database: "bookfordb",
     host: "127.0.0.1",
     dialect: "mysql",
-    logging: true,
+    port: "3307",
+    // logging: true,
   },
   test: {
     username: "root",

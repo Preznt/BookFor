@@ -110,3 +110,8 @@
   width: 70%;
   margin-bottom: 12px;
 }
+
+.Reg .test {
+  /* width: 50px; */
+  background-color: yellow;
+}

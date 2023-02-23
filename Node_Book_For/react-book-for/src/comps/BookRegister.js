@@ -2,6 +2,7 @@ import { useBookContext } from "../context/BookContext";
 import axios from "axios";
 import "../css/Content.css";
 import { useEffect } from "react";
+import { ImStarEmpty } from "react-icons/im";
 
 const BookRegister = () => {
   const { myBook, setMyBook, file, setFile } = useBookContext();
@@ -64,6 +65,7 @@ const BookRegister = () => {
               }}
             />
           </div>
+          <ImStarEmpty className="test" />
           <div>
             <label>이름 : </label>
             <input name="title" onChange={onChangeHandler} />
