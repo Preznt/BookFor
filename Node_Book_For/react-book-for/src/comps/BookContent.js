@@ -32,6 +32,7 @@ const BookContent = () => {
         <button className="highlight">버릴 책</button>
       </div>
       <h1>내 서재</h1>
+      <p>삭제</p>
       <div className="book">{showItem}</div>
     </article>
   );

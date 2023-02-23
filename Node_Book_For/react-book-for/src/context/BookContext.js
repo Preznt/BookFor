@@ -11,10 +11,11 @@ const useBookContext = () => {
 
 const BookContextProvider = ({ children }) => {
   const [kakaoDataList, setKakaoDataList] = useState([]);
-  const [dbData, setDbData] = useState(userBook);
   const [myBook, setMyBook] = useState(addBook);
+  const [myDetail, setMyDetail] = useState({});
   const [file, setFile] = useState({});
   const [search, setSearch] = useState("");
+  const [isbn, setIsbn] = useState([]);
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
 
@@ -123,8 +124,6 @@ const BookContextProvider = ({ children }) => {
     kakaoDataList,
     setKakaoDataList,
     bookInsert,
-    dbData,
-    setDbData,
     showDataList,
     setShowDataList,
     myBook,
@@ -134,6 +133,10 @@ const BookContextProvider = ({ children }) => {
     setSearch,
     file,
     setFile,
+    myDetail,
+    setMyDetail,
+    isbn,
+    setIsbn,
     // myBookList,
     // setMyBookList,
   };
