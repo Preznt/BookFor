@@ -8,7 +8,6 @@ const SearchItem = (props) => {
   const onClickHandler = async (e) => {
     // const btn = e.target;
     // let isbn = btn.dataset.id;
-
     // if (isbn.length > 15) {
     //   isbn = isbn.substr(11, 13);
     // }
@@ -16,7 +15,6 @@ const SearchItem = (props) => {
     //   ...dbData,
     //   my_isbn: isbn,
     // });
-
     // await setMyBook({
     //   ...myBook,
     //   isbn: isbn,
@@ -26,7 +24,6 @@ const SearchItem = (props) => {
     //   publisher: kkData.publisher,
     // });
     // console.log(myBook);
-    myBookInsert(kkData);
   };
 
   return (
@@ -36,7 +33,12 @@ const SearchItem = (props) => {
         <div className="title">제목 : {kkData.title}</div>
         <div>저자 : {kkData.authors}</div>
         <div>출판사 : {kkData.publisher}</div>
-        <button data-id={kkData.isbn} onClick={onClickHandler}>
+        <button
+          data-id={kkData.isbn}
+          onClick={() => {
+            myBookInsert(kkData);
+          }}
+        >
           추가
         </button>
       </div>

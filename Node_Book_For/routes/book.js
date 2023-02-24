@@ -25,6 +25,7 @@ router.get("/all", async (req, res) => {
     const result = await UserBook.findAll({
       where: { my_username: "bjw1403@gmail.com" },
       include: [{ model: BookList }],
+      order: [["my_reg_date", "DESC"]],
       raw: true,
     });
     return res.json(result);
@@ -86,9 +87,8 @@ router.post("/my/insert", async (req, res) => {
 
   const result = await UserBook.findAll({
     where: { my_username: "bjw1403@gmail.com" },
-    include: [
-      { model: BookList, attributes: ["title", "thumbnail", "authors"] },
-    ],
+    include: [{ model: BookList }],
+    order: [["my_reg_date", "DESC"]],
     raw: true,
   });
   // console.log(result);
@@ -111,8 +111,18 @@ router.post("/my/insert", async (req, res) => {
   // return res.json(result);
 });
 
-router.post("/delete", (req, res) => {
+router.post("/delete", async (req, res) => {
   console.log(req.body);
-  UserBook.destroy({ where: { my_isbn: req.body } });
+  await UserBook.destroy({ where: { my_isbn: req.body } });
+
+  // await 를 안해주면 findAll 하기전에 값(빈값)이 return 되어버린다
+  const result = await UserBook.findAll({
+    where: { my_username: "bjw1403@gmail.com" },
+    include: [{ model: BookList }],
+    order: [["my_reg_date", "DESC"]],
+    raw: true,
+  });
+
+  return res.json(result);
 });
 export default router;

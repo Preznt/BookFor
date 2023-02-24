@@ -1,13 +1,13 @@
 import { useBookContext } from "../context/BookContext";
 import axios from "axios";
 import "../css/Content.css";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import Star from "./Star";
 
 const BookRegister = () => {
   const { myBook, setMyBook, file, setFile, myDetail, setMyDetail } =
     useBookContext();
   const formData = new FormData();
-  const filledStar = useRef();
 
   // 다시 들어왔을 때 값을 초기화 해주기 위한 훅
   useEffect(() => {
@@ -56,13 +56,6 @@ const BookRegister = () => {
     };
   };
 
-  // 별점 구현
-  const starHandler = (e) => {
-    // console.log(filledStar.current);
-    filledStar.current.style.width = `${e.target.value * 10}%`;
-    setMyDetail({ ...myDetail, my_star: e.target.value });
-  };
-
   return (
     <div className="Reg">
       <h2>책 등록하기</h2>
@@ -83,18 +76,7 @@ const BookRegister = () => {
           </div>
         </div>
         <div className="detail">
-          <label>별점 :</label>
-          <div className="star">
-            ☆☆☆☆☆
-            <span ref={filledStar}>★★★★★</span>
-            <input
-              name="my_star"
-              type="range"
-              min="0"
-              max="10"
-              onChange={starHandler}
-            />
-          </div>
+          <Star />
           <label>*상태 : </label>
           <select onChange={onChangeHandler} defaultValue="no">
             <option value="ing">읽는 중</option>

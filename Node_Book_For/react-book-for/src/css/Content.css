@@ -49,6 +49,10 @@
 }
 
 /* 컨텐츠 책 */
+
+.Lib {
+  margin: 0 100px;
+}
 .Lib .book {
   display: flex;
   flex-wrap: wrap;
@@ -62,6 +66,28 @@
 .Lib .book .item img {
   width: 120px;
   box-shadow: 1px 1px 1px #aaa;
+}
+
+.Lib .item input.close {
+  display: none;
+}
+
+.Lib .item input.open {
+  display: inline-block;
+}
+
+.Lib .top-bar {
+  display: flex;
+  align-items: center;
+}
+.Lib .top-bar select {
+  border: none;
+  outline: none;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+.Lib .top-bar button {
+  margin-left: auto;
 }
 
 /* 등록하기 부분 */
@@ -109,29 +135,4 @@
 .Reg .detail div {
   width: 70%;
   margin-bottom: 12px;
-}
-
-.Reg .star {
-  position: relative;
-  font-size: 35px;
-  padding-left: 10px;
-  max-width: 175px;
-}
-
-.Reg .star span {
-  position: absolute;
-  overflow: hidden;
-  font-size: 35px;
-  opacity: 1;
-  top: 0;
-  left: 10px;
-}
-.Reg .star input {
-  padding: 7px 0;
-  margin: 0;
-  opacity: 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 190px;
 }

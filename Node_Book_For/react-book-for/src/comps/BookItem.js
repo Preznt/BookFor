@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { useBookContext } from "../context/BookContext";
 
 const BookItem = ({ data }) => {
   const nav = useNavigate();
-  const { isbn, setIsbn } = useBookContext();
+  const { isbn, setIsbn, open } = useBookContext();
+  const check = useRef();
 
   const onClickHandler = () => {
     nav("/detail", { state: data });
@@ -13,8 +15,8 @@ const BookItem = ({ data }) => {
     const check = e.target;
     console.log(e.target.checked);
 
-    if (check.checked && isbn[isbn.length - 1]) {
-      isbn[isbn.length] = check.value;
+    if (check.checked && isbn[0]) {
+      isbn[isbn?.length] = check.value;
     } else if (check.checked) {
       isbn[0] = check.value;
     } else {
@@ -32,7 +34,9 @@ const BookItem = ({ data }) => {
   return (
     <div className="item">
       <input
+        className={open.open ? "open" : "close"}
         type="checkbox"
+        ref={check}
         value={data["book_list.isbn"]}
         onClick={deleteHandler}
       />

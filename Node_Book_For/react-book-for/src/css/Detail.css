@@ -1,6 +1,11 @@
 .detail {
-  margin: 0 100px;
+  margin: 0 140px;
 }
+
+.detail input {
+  outline: none;
+}
+
 .detail .book {
   display: flex;
 }
@@ -13,14 +18,13 @@
 .detail .book .word {
   width: 100%;
   display: grid;
-  grid-template-rows: 1fr 1fr;
   padding-bottom: 25px;
   border-bottom: 1px solid rgb(186, 186, 186);
   margin: 0px 60px;
 }
 
 .detail .book a {
-  width: 47%;
+  width: 15%;
   background-color: black;
   color: white;
   padding: 10px 20px;
@@ -31,4 +35,80 @@
   color: white;
   margin-left: 5px;
   align-items: center;
+}
+
+/* 별표 기능 */
+
+.detail .star {
+  position: relative;
+  font-size: 35px;
+  padding-left: 10px;
+  max-width: 175px;
+}
+
+.detail .star span {
+  position: absolute;
+  overflow: hidden;
+  font-size: 35px;
+  opacity: 1;
+  top: 0;
+  left: 10px;
+}
+.detail .star input {
+  padding: 7px 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 190px;
+}
+
+/* 등록 화면 */
+.detail input {
+  border: none;
+}
+.detail .top-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail .top-title select,
+.detail button.submit {
+  border: none;
+  outline: none;
+  font-size: medium;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 1.5em;
+  background-color: rgb(255, 243, 212);
+}
+
+.detail input[name="title"] {
+  font-size: 35px;
+  font-weight: 800;
+}
+.detail input[name="authors"] {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.detail .mydetail {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 3fr 1.2fr;
+}
+/* .detail .word input:focus {
+  background-color: rgb(255, 242, 226);
+} */
+
+.mydetail .date div {
+  display: grid;
+  margin: 0 60px 13px 0;
+}
+
+.mydetail .date label {
+  font-size: 17px;
+  font-weight: 600;
 }

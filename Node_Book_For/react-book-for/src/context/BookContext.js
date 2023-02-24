@@ -16,28 +16,11 @@ const BookContextProvider = ({ children }) => {
   const [file, setFile] = useState({});
   const [search, setSearch] = useState("");
   const [isbn, setIsbn] = useState([]);
+  const [open, setOpen] = useState({
+    open: false,
+  });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
-
-  // const fetchAll = useCallback(async () => {
-  //   try {
-  //     const res = await fetch("/book");
-  //     const isbns = await res.json();
-  //     const result = await isbns.map((isbn) => {
-  //       return getBooks(isbn.b_isbn);
-  //     });
-
-  //     console.log(result);
-  //   } catch (error) {
-  //     alert("서버 접속 오류");
-  //   }
-  // });
-
-  // useEffect(() => {
-  //   (async () => {
-  //     await fetchAll();
-  //   })();
-  // });
 
   const bookInsert = useCallback(async (clickData) => {
     console.log(clickData);
@@ -76,12 +59,6 @@ const BookContextProvider = ({ children }) => {
       try {
         const res = await fetch("/book/my/insert", fetchOption);
         const result = await res.json();
-        // const result = isbns.map((isbn) => {
-        //   return bookSearch(isbn.b_isbn);
-        // });
-        // const rList = result.map((d) => {
-        //   return d.my_isbn_book_list;
-        // });
 
         console.log(result);
         setShowDataList(result);
@@ -115,10 +92,24 @@ const BookContextProvider = ({ children }) => {
     }
   }, []);
 
-  // const bookSearch = (search) => {
-  //   return getBooks(search);
-  // };
+  const deleteHandler = async () => {
+    const fetchOption = {
+      method: "POST",
+      body: JSON.stringify(isbn),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await fetch("/book/delete", fetchOption);
+    const result = await res.json();
+    console.log(result);
 
+    setShowDataList(result);
+  };
+
+  const openHandler = () => {
+    setOpen({ ...open, open: !open.open });
+  };
   const props = {
     bookSearch,
     kakaoDataList,
@@ -137,8 +128,10 @@ const BookContextProvider = ({ children }) => {
     setMyDetail,
     isbn,
     setIsbn,
-    // myBookList,
-    // setMyBookList,
+    deleteHandler,
+    open,
+    setOpen,
+    openHandler,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

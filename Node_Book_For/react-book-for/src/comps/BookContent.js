@@ -12,23 +12,20 @@ export const userBookFetch = async () => {
 };
 
 const BookContent = () => {
-  const { showDataList, setShowDataList, isbn } = useBookContext();
+  const {
+    showDataList,
+    setShowDataList,
+    setIsbn,
+    deleteHandler,
+    openHandler,
+    open,
+  } = useBookContext();
   const userBook = useLoaderData();
+
   useEffect(() => {
     setShowDataList(userBook);
+    setIsbn([]);
   }, []);
-
-  const deleteHandler = () => {
-    const fetchOption = {
-      method: "POST",
-      body: JSON.stringify(isbn),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    fetch("/book/delete", fetchOption);
-    console.log(isbn);
-  };
 
   const showItem = showDataList.map((data, index) => {
     return <BookItem data={data} key={index} />;
@@ -43,8 +40,16 @@ const BookContent = () => {
         <button className="highlight">읽을 책</button>
         <button className="highlight">버릴 책</button>
       </div>
-      <h1>내 서재</h1>
-      <p onClick={deleteHandler}>삭제</p>
+      <div className="top-bar">
+        <h1>내 서재</h1>
+        <button onClick={openHandler}>...</button>
+        {open.open ? <p onClick={deleteHandler}>삭제</p> : null}
+        <select>
+          <option>최신등록순</option>
+          <option>제목순</option>
+        </select>
+      </div>
+
       <div className="book">{showItem}</div>
     </article>
   );

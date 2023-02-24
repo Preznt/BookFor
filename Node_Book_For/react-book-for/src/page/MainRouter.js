@@ -16,7 +16,7 @@ const MainRouter = createBrowserRouter([
     element: <BookMain />,
     children: [
       { path: "", loader: userBookFetch, element: <BookContent /> },
-      { path: "/register", element: <BookRegister /> },
+      { path: "/register", element: <BookDetail /> },
       { path: "/collection", element: <BookCollection /> },
       { path: "/detail", element: <BookDetail /> },
     ],
