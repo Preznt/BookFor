@@ -1,4 +1,5 @@
 import express from "express";
+import { Sequelize } from "sequelize";
 import DB from "../models/index.js";
 import fileUp from "../modules/thumbnail_upload.js";
 
@@ -23,11 +24,28 @@ router.get("/", async (req, res) => {
 router.get("/all", async (req, res) => {
   try {
     const result = await UserBook.findAll({
+      attributes: [
+        "my_username",
+        "my_isbn",
+        "my_star",
+        "my_state",
+        "my_reg_date",
+        "my_buy_date",
+        "my_start_date",
+        "my_done_date",
+        [Sequelize.col("book_list.title"), "title"],
+        [Sequelize.col("book_list.authors"), "authors"],
+        [Sequelize.col("book_list.isbn"), "isbn"],
+        [Sequelize.col("book_list.thumbnail"), "thumbnail"],
+        [Sequelize.col("book_list.publisher"), "publisher"],
+        [Sequelize.col("book_list.url"), "url"],
+      ],
       where: { my_username: "bjw1403@gmail.com" },
-      include: [{ model: BookList }],
+      include: [{ model: BookList, attributes: [] }],
       order: [["my_reg_date", "DESC"]],
       raw: true,
     });
+    // console.log(result);
     return res.json(result);
   } catch (e) {
     console.log("첫 로더 데이터 가져오기 오류 \n", e);

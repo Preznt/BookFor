@@ -1,4 +1,4 @@
-const userBook = {
+export const userBook = {
   my_username: "bjw1403@gmail.com",
   my_isbn: "",
   my_paragraph: "",
@@ -9,4 +9,19 @@ const userBook = {
   my_done_date: "",
 };
 
-export { userBook };
+export const regBookData = {
+  authors: "",
+  isbn: "",
+  publisher: "",
+  thumbnail: "",
+  title: "",
+  url: "",
+  my_buy_date: "",
+  my_done_date: "",
+  my_isbn: "",
+  my_reg_date: "",
+  my_star: "",
+  my_start_date: "",
+  my_state: "no",
+  my_username: "",
+};

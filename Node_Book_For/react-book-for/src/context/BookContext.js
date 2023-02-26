@@ -18,6 +18,7 @@ const BookContextProvider = ({ children }) => {
   const [isbn, setIsbn] = useState([]);
   const [open, setOpen] = useState({
     open: false,
+    input: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
@@ -110,6 +111,10 @@ const BookContextProvider = ({ children }) => {
   const openHandler = () => {
     setOpen({ ...open, open: !open.open });
   };
+
+  const inputHandler = () => {
+    setOpen({ ...open, input: !open.input });
+  };
   const props = {
     bookSearch,
     kakaoDataList,
@@ -132,6 +137,7 @@ const BookContextProvider = ({ children }) => {
     open,
     setOpen,
     openHandler,
+    inputHandler,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

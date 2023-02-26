@@ -11,7 +11,9 @@ const BookNav = () => {
           <Link to="/collection">컬렉션</Link>
         </li>
         <li>
-          <Link to="/register">등록하기</Link>
+          <Link to={`/detail`} state={{ reg: true }}>
+            등록하기
+          </Link>
         </li>
       </ul>
     </nav>

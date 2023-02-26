@@ -5,22 +5,34 @@ import { HiArrowUpRight } from "react-icons/hi2";
 import "../css/Detail.css";
 import Star from "./Star";
 import { useEffect } from "react";
+import { regBookData } from "../data/sampleData";
 
 const BookDetail = () => {
   const location = useLocation();
   const bookData = location.state;
+  console.log(bookData);
 
-  const B = "book_list";
-
-  const { myBook, setMyBook, file, setFile, myDetail, setMyDetail } =
-    useBookContext();
+  const {
+    myBook,
+    setMyBook,
+    file,
+    setFile,
+    myDetail,
+    setMyDetail,
+    open,
+    inputHandler,
+  } = useBookContext();
   const formData = new FormData();
 
   useEffect(() => {
     setFile();
     setMyBook(bookData);
-  }, []);
-
+    if (bookData.reg) {
+      setMyBook(regBookData);
+      console.log(myBook);
+    }
+  }, [bookData]);
+  // console.log(myBook);
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     const type = e.target.type;
@@ -64,6 +76,7 @@ const BookDetail = () => {
 
   const onUpdateHandler = (e) => {
     setMyBook();
+    inputHandler();
   };
 
   return (
@@ -72,7 +85,7 @@ const BookDetail = () => {
       <div className="book">
         <div className="img">
           <img
-            src={bookData ? bookData[`${B}.thumbnail`] : file ? file : null}
+          // src={bookData ? bookData[`${B}.thumbnail`] : file ? file : null}
           />
           {bookData ? null : (
             <div>
@@ -91,17 +104,15 @@ const BookDetail = () => {
         <div className="word">
           <div className="top-title">
             <div>
-              {bookData ? null : <label>*이름</label>}
+              {bookData.test ? <label>*이름</label> : null}
               <input
                 name="title"
-                value={myBook ? myBook[`${B}.title`] : null}
+                // readOnly={open.input ? null : "readOnly"}
+                value={myBook.title}
                 onChange={onChangeHandler}
               />
             </div>
-            <select
-              onChange={onChangeHandler}
-              defaultValue={myBook?.my_state ? myBook?.my_state : "no"}
-            >
+            <select onChange={onChangeHandler} defaultValue={myBook.my_state}>
               <option value="ing">읽는 중</option>
               <option value="done">읽음</option>
               <option value="will">읽을</option>
@@ -113,7 +124,7 @@ const BookDetail = () => {
             {bookData ? null : <label>*저자</label>}
             <input
               name="authors"
-              value={myBook ? myBook[`${B}.authors`] : null}
+              value={myBook.authors}
               onChange={onChangeHandler}
             />
           </div>
@@ -121,21 +132,17 @@ const BookDetail = () => {
             {bookData ? null : <label>*출판사</label>}
             <input
               name="publisher"
-              value={myBook ? myBook[`${B}.publisher`] : null}
+              value={myBook.publisher}
               onChange={onChangeHandler}
             />
           </div>
           <div>
             {bookData ? null : <label>*isbn</label>}
-            <input
-              name="isbn"
-              value={myBook ? myBook[`${B}.isbn`] : null}
-              onChange={onChangeHandler}
-            />
+            <input name="isbn" value={myBook.isbn} onChange={onChangeHandler} />
           </div>
 
           {bookData ? (
-            <a href={bookData[`${B}.url`]}>
+            <a href={bookData.url}>
               자세히 보기
               <HiArrowUpRight className="arrow" />
             </a>
@@ -201,7 +208,13 @@ const BookDetail = () => {
         </div>
       </div>
       {bookData ? (
-        <button onClick={onUpdateHandler} className="submit">
+        <button
+          onClick={() => {
+            onUpdateHandler();
+            inputHandler();
+          }}
+          className="submit"
+        >
           수정하기
         </button>
       ) : (
