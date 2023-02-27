@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useBookContext } from "../context/BookContext";
 
 const BookNav = () => {
+  const { setOpen, open } = useBookContext();
+  const regHandler = () => {
+    setOpen({ ...open, reg: true, input: true });
+    console.log(open);
+  };
   return (
     <nav>
       <ul>
@@ -11,7 +17,7 @@ const BookNav = () => {
           <Link to="/collection">컬렉션</Link>
         </li>
         <li>
-          <Link to={`/detail`} state={{ reg: true }}>
+          <Link to="/register" onClick={regHandler}>
             등록하기
           </Link>
         </li>

@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 const Star = (props) => {
   const { myDetail, setMyDetail } = useBookContext();
-  const { star } = props;
+  const { star, reg } = props;
   const filledStar = useRef();
 
   // 별점 구현
@@ -25,6 +25,7 @@ const Star = (props) => {
           type="range"
           min="0"
           max="10"
+          disabled={reg ? null : "disabled"}
           onChange={(e) => {
             starHandler(e, filledStar);
           }}

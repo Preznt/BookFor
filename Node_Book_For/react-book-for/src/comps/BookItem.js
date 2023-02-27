@@ -37,14 +37,14 @@ const BookItem = ({ data }) => {
         className={open.open ? "open" : "close"}
         type="checkbox"
         ref={check}
-        value={data["book_list.isbn"]}
+        value={data.isbn}
         onClick={deleteHandler}
       />
       <div onClick={onClickHandler}>
-        <img src={data["book_list.thumbnail"]} />
+        <img src={data.thumbnail} />
         <div>
-          <p>{data["book_list.title"]}</p>
-          <p>{data["book_list.authors"]}</p>
+          <p>{data.title}</p>
+          <p>{data.authors}</p>
         </div>
       </div>
     </div>

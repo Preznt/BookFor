@@ -69,8 +69,8 @@
   border: none;
 }
 .detail .top-title {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 4fr 0.5fr;
   align-items: center;
 }
 
@@ -88,6 +88,7 @@
 .detail input[name="title"] {
   font-size: 35px;
   font-weight: 800;
+  width: 100%;
 }
 .detail input[name="authors"] {
   font-size: 15px;

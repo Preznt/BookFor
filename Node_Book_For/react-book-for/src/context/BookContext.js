@@ -19,6 +19,7 @@ const BookContextProvider = ({ children }) => {
   const [open, setOpen] = useState({
     open: false,
     input: false,
+    reg: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
@@ -61,7 +62,8 @@ const BookContextProvider = ({ children }) => {
         const res = await fetch("/book/my/insert", fetchOption);
         const result = await res.json();
 
-        console.log(result);
+        // console.log(result);
+
         setShowDataList(result);
         console.log(showDataList);
       } catch (err) {
@@ -113,7 +115,8 @@ const BookContextProvider = ({ children }) => {
   };
 
   const inputHandler = () => {
-    setOpen({ ...open, input: !open.input });
+    setOpen({ ...open, reg: true });
+    console.log(open);
   };
   const props = {
     bookSearch,

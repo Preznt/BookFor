@@ -8,6 +8,29 @@ const BookList = DB.models.book_list;
 
 const router = express.Router();
 
+const selectOption = {
+  attributes: [
+    "my_username",
+    "my_isbn",
+    "my_star",
+    "my_state",
+    "my_reg_date",
+    "my_buy_date",
+    "my_start_date",
+    "my_done_date",
+    [Sequelize.col("book_list.title"), "title"],
+    [Sequelize.col("book_list.authors"), "authors"],
+    [Sequelize.col("book_list.isbn"), "isbn"],
+    [Sequelize.col("book_list.thumbnail"), "thumbnail"],
+    [Sequelize.col("book_list.publisher"), "publisher"],
+    [Sequelize.col("book_list.url"), "url"],
+  ],
+  where: { my_username: "bjw1403@gmail.com" },
+  include: [{ model: BookList, attributes: [] }],
+  order: [["my_reg_date", "DESC"]],
+  raw: true,
+};
+
 router.get("/", async (req, res) => {
   try {
     // const result = await UserBook.findAll({
@@ -23,28 +46,7 @@ router.get("/", async (req, res) => {
 
 router.get("/all", async (req, res) => {
   try {
-    const result = await UserBook.findAll({
-      attributes: [
-        "my_username",
-        "my_isbn",
-        "my_star",
-        "my_state",
-        "my_reg_date",
-        "my_buy_date",
-        "my_start_date",
-        "my_done_date",
-        [Sequelize.col("book_list.title"), "title"],
-        [Sequelize.col("book_list.authors"), "authors"],
-        [Sequelize.col("book_list.isbn"), "isbn"],
-        [Sequelize.col("book_list.thumbnail"), "thumbnail"],
-        [Sequelize.col("book_list.publisher"), "publisher"],
-        [Sequelize.col("book_list.url"), "url"],
-      ],
-      where: { my_username: "bjw1403@gmail.com" },
-      include: [{ model: BookList, attributes: [] }],
-      order: [["my_reg_date", "DESC"]],
-      raw: true,
-    });
+    const result = await UserBook.findAll(selectOption);
     // console.log(result);
     return res.json(result);
   } catch (e) {
@@ -60,8 +62,18 @@ router.post("/insert", fileUp.single("upload"), async (req, res) => {
   myDetail.my_username = "bjw1403@gmail.com";
   myDetail.my_isbn = detail.isbn;
 
-  await BookList.create(detail);
-  await UserBook.create(myDetail);
+  try {
+    await BookList.create(detail);
+    await UserBook.create(myDetail);
+  } catch (error) {
+    console.log("직접 등록하기 오류 \n", error);
+    try {
+      await UserBook.update(myDetail, { where: { my_isbn: detail.isbn } });
+      await BookList.update(detail, { where: { isbn: detail.isbn } });
+    } catch (e) {
+      console.log("책 update 오류 \n", e);
+    }
+  }
 });
 
 router.post("/my/insert", async (req, res) => {
@@ -87,6 +99,7 @@ router.post("/my/insert", async (req, res) => {
   const userBookData = {
     my_username: "bjw1403@gmail.com",
     my_isbn: isbn,
+    my_state: "no",
   };
 
   // 북리스트에 카카오 API로 받은 데이터 저장
@@ -103,12 +116,7 @@ router.post("/my/insert", async (req, res) => {
     console.log("user_book 추가 오류", err);
   }
 
-  const result = await UserBook.findAll({
-    where: { my_username: "bjw1403@gmail.com" },
-    include: [{ model: BookList }],
-    order: [["my_reg_date", "DESC"]],
-    raw: true,
-  });
+  const result = await UserBook.findAll(selectOption);
   // console.log(result);
 
   return res.json(result);
@@ -134,12 +142,7 @@ router.post("/delete", async (req, res) => {
   await UserBook.destroy({ where: { my_isbn: req.body } });
 
   // await 를 안해주면 findAll 하기전에 값(빈값)이 return 되어버린다
-  const result = await UserBook.findAll({
-    where: { my_username: "bjw1403@gmail.com" },
-    include: [{ model: BookList }],
-    order: [["my_reg_date", "DESC"]],
-    raw: true,
-  });
+  const result = await UserBook.findAll(selectOption);
 
   return res.json(result);
 });
