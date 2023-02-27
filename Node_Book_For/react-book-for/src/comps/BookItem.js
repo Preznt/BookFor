@@ -4,11 +4,12 @@ import { useBookContext } from "../context/BookContext";
 
 const BookItem = ({ data }) => {
   const nav = useNavigate();
-  const { isbn, setIsbn, open } = useBookContext();
+  const { isbn, setIsbn, open, setOpen } = useBookContext();
   const check = useRef();
 
   const onClickHandler = () => {
     nav("/detail", { state: data });
+    setOpen({ ...open, reg: false, img: false });
   };
 
   const deleteHandler = (e) => {

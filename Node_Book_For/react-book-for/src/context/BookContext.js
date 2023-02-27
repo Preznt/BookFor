@@ -18,7 +18,7 @@ const BookContextProvider = ({ children }) => {
   const [isbn, setIsbn] = useState([]);
   const [open, setOpen] = useState({
     open: false,
-    input: false,
+    img: false,
     reg: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
@@ -114,8 +114,16 @@ const BookContextProvider = ({ children }) => {
     setOpen({ ...open, open: !open.open });
   };
 
-  const inputHandler = () => {
+  const regHandler = () => {
     setOpen({ ...open, reg: true });
+    console.log(open);
+  };
+  const imgHandler = () => {
+    setOpen({ ...open, img: true });
+  };
+
+  const regImgHandler = () => {
+    setOpen({ ...open, reg: true, img: true });
     console.log(open);
   };
   const props = {
@@ -140,7 +148,9 @@ const BookContextProvider = ({ children }) => {
     open,
     setOpen,
     openHandler,
-    inputHandler,
+    regHandler,
+    imgHandler,
+    regImgHandler,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

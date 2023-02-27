@@ -30,7 +30,8 @@ const BookDetail = () => {
     myDetail,
     setMyDetail,
     open,
-    inputHandler,
+    imgHandler,
+    regHandler,
   } = useBookContext();
   const formData = new FormData();
 
@@ -59,9 +60,11 @@ const BookDetail = () => {
       console.log("ELSE");
       setMyBook({ ...myBook, [name]: value });
     }
-    console.log(myBook);
+
     console.log(myDetail);
   };
+
+  console.log(myBook);
 
   const onClickHandler = async () => {
     console.log(myBook.thumbnail);
@@ -99,7 +102,7 @@ const BookDetail = () => {
       {bookData ? null : <h2>책 등록하기</h2>}
       <div className="book">
         <div className="img">
-          <img src={!open.input ? myBook?.thumbnail : file ? file : null} />
+          <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
           {!open.reg ? null : (
             <div>
               <input
@@ -109,6 +112,7 @@ const BookDetail = () => {
                 onChange={(e) => {
                   onChangeHandler(e);
                   readImage(e);
+                  imgHandler();
                 }}
               />
             </div>
@@ -165,7 +169,7 @@ const BookDetail = () => {
             />
           </div>
 
-          {open.reg ? null : (
+          {open.reg || !myBook?.url ? null : (
             <a href={bookData ? bookData.url : ""}>
               자세히 보기
               <HiArrowUpRight className="arrow" />
@@ -227,7 +231,7 @@ const BookDetail = () => {
         <button
           onClick={() => {
             // onUpdateHandler();
-            inputHandler();
+            regHandler();
           }}
           className="submit"
         >
