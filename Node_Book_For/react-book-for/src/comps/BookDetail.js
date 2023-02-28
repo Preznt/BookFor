@@ -30,6 +30,7 @@ const BookDetail = () => {
     myDetail,
     setMyDetail,
     open,
+    setOpen,
     imgHandler,
     regHandler,
   } = useBookContext();
@@ -40,8 +41,8 @@ const BookDetail = () => {
     setMyBook(bookData);
     if (open.reg) {
       setMyBook(regBookData);
-      console.log(myBook);
     }
+    console.log(myBook);
   }, [bookData]);
   // console.log(myBook);
   // 인서트할 데이터 저장
@@ -53,18 +54,16 @@ const BookDetail = () => {
     } else if (type === "date") {
       setMyDetail({ ...myDetail, [name]: value });
     } else if (type === "select-one") {
-      console.log("SELECT-ONE");
       setMyDetail({ ...myDetail, my_state: value });
       setMyBook({ ...myBook, my_state: value });
     } else {
-      console.log("ELSE");
       setMyBook({ ...myBook, [name]: value });
     }
 
-    console.log(myDetail);
+    // console.log(myDetail);
   };
 
-  console.log(myBook);
+  // console.log(myBook);
 
   const onClickHandler = async () => {
     console.log(myBook.thumbnail);
@@ -72,12 +71,36 @@ const BookDetail = () => {
     formData.append("detail", JSON.stringify(myBook));
     formData.append("myDetail", JSON.stringify(myDetail));
 
-    await axios.post("/book/insert", formData, {
+    // setOpen({ ...open, reg: false, img: false });
+    const res = await axios.post("/book/insert", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    myBook({});
+
+    const result = await res.data;
+    if (result === "REQ_TITLE") {
+      alert("책 제목을 입력해주세요");
+    } else if (result === "REQ_AUTHORS") {
+      alert("저자를 입력해주세요");
+    } else if (result === "REQ_PUBLISHER") {
+      alert("출판사를 입력해주세요");
+    } else if (result === "REQ_ISBN") {
+      alert("ISBN을 입력해주세요");
+    } else if (result === "ISBN_LENGTH_NOT_MATCH") {
+      alert("ISBN 13자리를 입력해주세요");
+    }
+
+    if (result.complete) {
+      alert("등록되었습니다");
+      document.location.href = "/";
+    }
+
+    // setMyBook(result);
+    console.log(result);
+
+    // console.log(myBook);
+    // myBook({});
   };
 
   // 첨부파일 미리보기 구현
@@ -88,7 +111,7 @@ const BookDetail = () => {
     reader.onloadend = () => {
       setFile(reader.result);
 
-      console.log(file);
+      // console.log(myBook);
     };
   };
 
@@ -103,7 +126,7 @@ const BookDetail = () => {
       <div className="book">
         <div className="img">
           <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
-          {!open.reg ? null : (
+          {!open.reg || myBook.kakao ? null : (
             <div>
               <input
                 name="thumbnail"
@@ -121,10 +144,10 @@ const BookDetail = () => {
         <div className="word">
           <div className="top-title">
             <div>
-              {open.reg ? <label>*이름</label> : null}
+              {open.reg && myBook.kakao !== 1 ? <label>*제목</label> : null}
               <input
                 name="title"
-                readOnly={open.reg ? null : "readOnly"}
+                readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
                 value={myBook?.title}
                 onChange={onChangeHandler}
               />
@@ -133,6 +156,7 @@ const BookDetail = () => {
               onChange={onChangeHandler}
               value={myBook?.my_state}
               disabled={open.reg ? null : "disabled"}
+              defaultValue="no"
             >
               <option value="ing">읽는 중</option>
               <option value="done">읽음</option>
@@ -142,29 +166,29 @@ const BookDetail = () => {
           </div>
           <Star star={myBook?.my_star} reg={open.reg} />
           <div>
-            {open.reg ? <label>*저자</label> : null}
+            {open.reg && myBook.kakao !== 1 ? <label>*저자</label> : null}
             <input
               name="authors"
-              readOnly={open.reg ? null : "readOnly"}
+              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
               value={myBook?.authors}
               onChange={onChangeHandler}
             />
           </div>
           <div>
-            {open.reg ? <label>*출판사</label> : null}
+            {open.reg && myBook.kakao !== 1 ? <label>*출판사</label> : null}
             <input
               name="publisher"
-              readOnly={open.reg ? null : "readOnly"}
+              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
               value={myBook?.publisher}
               onChange={onChangeHandler}
             />
           </div>
           <div>
-            {open.reg ? <label>*isbn</label> : null}
+            {open.reg && myBook.kakao !== 1 ? <label>*isbn</label> : null}
             <input
               name="isbn"
               value={myBook?.isbn}
-              readOnly={open.reg ? null : "readOnly"}
+              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
               onChange={onChangeHandler}
             />
           </div>
@@ -232,6 +256,7 @@ const BookDetail = () => {
           onClick={() => {
             // onUpdateHandler();
             regHandler();
+            console.log(myBook.thumbnail);
           }}
           className="submit"
         >

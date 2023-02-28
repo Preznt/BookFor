@@ -59,13 +59,23 @@
 }
 
 .Lib .book .item {
-  width: 120px;
-  margin: 10px;
+  width: 140px;
+  margin: 18px;
   cursor: pointer;
 }
-.Lib .book .item img {
-  width: 120px;
-  box-shadow: 1px 1px 1px #aaa;
+
+.Lib .book .item img,
+.Lib .book .item svg {
+  width: 140px;
+  height: 200px;
+  box-shadow: -5px 8px 10px #aeaeae;
+}
+
+.Lib .book .item .title {
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .Lib .item input.close {

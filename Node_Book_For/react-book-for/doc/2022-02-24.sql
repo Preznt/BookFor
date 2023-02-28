@@ -4,7 +4,7 @@ USE bookfordb;
 DROP DATABASE howdo;
 
 DROP TABLE my_paragraph;
-SELECT * FROM user_book;
+SELECT * FROM book_list;
 
 INSERT INTO user (username, password,nickname) values ("bjw1403@gmail.com","1234", "dd");
 

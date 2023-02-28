@@ -2,6 +2,7 @@ import express from "express";
 import { Sequelize } from "sequelize";
 import DB from "../models/index.js";
 import fileUp from "../modules/thumbnail_upload.js";
+import { chkReg } from "../modules/chkReg.js";
 
 const UserBook = DB.models.user_book;
 const BookList = DB.models.book_list;
@@ -24,6 +25,7 @@ const selectOption = {
     [Sequelize.col("book_list.thumbnail"), "thumbnail"],
     [Sequelize.col("book_list.publisher"), "publisher"],
     [Sequelize.col("book_list.url"), "url"],
+    [Sequelize.col("book_list.kakao"), "kakao"],
   ],
   where: { my_username: "bjw1403@gmail.com" },
   include: [{ model: BookList, attributes: [] }],
@@ -44,7 +46,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:page", async (req, res) => {
+  const pageNum = req.params.page;
+  const limit = 16;
+});
+
 router.get("/all", async (req, res) => {
+  delete selectOption.where.my_state;
   try {
     const result = await UserBook.findAll(selectOption);
     // console.log(result);
@@ -57,19 +65,56 @@ router.get("/all", async (req, res) => {
 router.post("/insert", fileUp.single("upload"), async (req, res) => {
   const detail = JSON.parse(req.body.detail);
   const myDetail = JSON.parse(req.body.myDetail);
-  detail.thumbnail = `/uploads/${req?.file?.filename}`;
+  console.log(detail.thumbnail);
+  if (req?.file) {
+    detail.thumbnail = `/uploads/${req?.file?.filename}`;
+  }
+  detail.kakao = 0;
 
   myDetail.my_username = "bjw1403@gmail.com";
   myDetail.my_isbn = detail.isbn;
+  // if (!myDetail.my_state) {
+  //   myDetail.my_state = "no";
+  // }
+
+  const check = await chkReg(detail);
+  console.log(check);
+
+  if (check) {
+    return res.json(check);
+  }
 
   try {
     await BookList.create(detail);
     await UserBook.create(myDetail);
+    return res.json({ complete: true });
   } catch (error) {
     console.log("직접 등록하기 오류 \n", error);
     try {
       await UserBook.update(myDetail, { where: { my_isbn: detail.isbn } });
       await BookList.update(detail, { where: { isbn: detail.isbn } });
+      // const result = await UserBook.findOne({
+      //   attributes: [
+      //     "my_username",
+      //     "my_isbn",
+      //     "my_star",
+      //     "my_state",
+      //     "my_reg_date",
+      //     "my_buy_date",
+      //     "my_start_date",
+      //     "my_done_date",
+      //     [Sequelize.col("book_list.title"), "title"],
+      //     [Sequelize.col("book_list.authors"), "authors"],
+      //     [Sequelize.col("book_list.isbn"), "isbn"],
+      //     [Sequelize.col("book_list.thumbnail"), "thumbnail"],
+      //     [Sequelize.col("book_list.publisher"), "publisher"],
+      //     [Sequelize.col("book_list.url"), "url"],
+      //   ],
+      //   where: { my_username: "bjw1403@gmail.com", my_isbn: detail.isbn },
+      //   include: [{ model: BookList, attributes: [] }],
+      // });
+      // console.log(result);
+      // return res.json(result);
     } catch (e) {
       console.log("책 update 오류 \n", e);
     }
@@ -94,6 +139,7 @@ router.post("/my/insert", async (req, res) => {
     authors: data.authors[0],
     publisher: data.publisher,
     url: data.url,
+    kakao: true,
   };
 
   const userBookData = {
@@ -142,8 +188,18 @@ router.post("/delete", async (req, res) => {
   await UserBook.destroy({ where: { my_isbn: req.body } });
 
   // await 를 안해주면 findAll 하기전에 값(빈값)이 return 되어버린다
-  const result = await UserBook.findAll(selectOption);
+  // 삭제 후에 새로고침이 되게 만들었기 때문에 아래 코드는 일단 비활성화
+  // const result = await UserBook.findAll(selectOption);
 
+  // return res.json(result);
+});
+
+router.get("/state/:data", async (req, res) => {
+  const state = req.params.data;
+  selectOption.where.my_state = state;
+  const result = await UserBook.findAll(selectOption);
+  // console.log(result);
   return res.json(result);
 });
+
 export default router;

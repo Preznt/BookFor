@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import { MdOutlineImageSearch } from "react-icons/md";
 import { useBookContext } from "../context/BookContext";
 
 const BookItem = ({ data }) => {
@@ -42,9 +43,13 @@ const BookItem = ({ data }) => {
         onClick={deleteHandler}
       />
       <div onClick={onClickHandler}>
-        <img src={data.thumbnail} />
+        {data.thumbnail ? (
+          <img src={data.thumbnail} />
+        ) : (
+          <MdOutlineImageSearch />
+        )}
         <div>
-          <p>{data.title}</p>
+          <p className="title">{data.title}</p>
           <p>{data.authors}</p>
         </div>
       </div>

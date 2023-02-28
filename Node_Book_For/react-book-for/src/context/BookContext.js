@@ -103,11 +103,18 @@ const BookContextProvider = ({ children }) => {
         "Content-Type": "application/json",
       },
     };
-    const res = await fetch("/book/delete", fetchOption);
-    const result = await res.json();
-    console.log(result);
 
-    setShowDataList(result);
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      window.location.replace("/");
+      await fetch("/book/delete", fetchOption);
+    } else {
+      return false;
+    }
+
+    // const result = await res.json();
+    // console.log(result);
+
+    // setShowDataList(result);
   };
 
   const openHandler = () => {

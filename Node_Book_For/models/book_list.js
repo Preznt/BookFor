@@ -28,6 +28,10 @@ const book_list = (sequelize) => {
         type: Sequelize.DataTypes.STRING(500),
         allowNull: true,
       },
+      kakao: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       sequelize,
