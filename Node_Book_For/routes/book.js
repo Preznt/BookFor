@@ -1,5 +1,5 @@
 import express from "express";
-import { Sequelize } from "sequelize";
+import { Sequelize, where } from "sequelize";
 import DB from "../models/index.js";
 import fileUp from "../modules/thumbnail_upload.js";
 import { chkReg } from "../modules/chkReg.js";
@@ -9,7 +9,7 @@ const BookList = DB.models.book_list;
 
 const router = express.Router();
 
-const selectOption = {
+export const selectOption = {
   attributes: [
     "my_username",
     "my_isbn",
@@ -33,33 +33,67 @@ const selectOption = {
   raw: true,
 };
 
-router.get("/", async (req, res) => {
-  try {
-    // const result = await UserBook.findAll({
-    //   attributes: ["b_isbn"],
-    //   where: { username: "bjw1403@gmail.com" },
-    // });
-    // return res.json(result);
-  } catch (err) {
-    console.log(err);
-    return res.json({ error: "SELECT 오류" });
-  }
-});
+// router.get("/", async (req, res) => {
 
-router.get("/:page", async (req, res) => {
-  const pageNum = req.params.page;
-  const limit = 16;
-});
+//   try {
+//     // const result = await UserBook.findAll({
+//     //   attributes: ["b_isbn"],
+//     //   where: { username: "bjw1403@gmail.com" },
+//     // });
+//     // return res.json(result);
+//   } catch (err) {
+//     console.log(err);
+//     return res.json({ error: "SELECT 오류" });
+//   }
+// });
 
 router.get("/all", async (req, res) => {
+  const pageNation = {
+    showData: 16,
+    showPage: 5,
+  };
+
   delete selectOption.where.my_state;
+
+  console.log("선행 라우터");
+  // const { pageNum } = req.params;
+
   try {
-    const result = await UserBook.findAll(selectOption);
-    // console.log(result);
-    return res.json(result);
+    const totalBook = await UserBook.count({
+      where: { my_username: "bjw1403@gmail.com" },
+    });
+    pageNation.totalBook = totalBook;
   } catch (e) {
-    console.log("첫 로더 데이터 가져오기 오류 \n", e);
+    console.log("totalBook 개수 SQL 오류 \n", e);
   }
+
+  pageNation.totalPage = Math.ceil(pageNation.totalBook / pageNation.showData);
+  console.log(pageNation.totalPage);
+
+  // const offset = (Number(pageNum) - 1) * 16 + 1;
+  // const result = await UserBook.findAll({
+  //   limit: pageNation.listLimit,
+  //   offset: pageNation.offset,
+  // });
+  // console.log(pageNum);
+  const copiedOption = { ...selectOption };
+  copiedOption.limit = pageNation.showData;
+  copiedOption.offset = 1;
+  try {
+    const result = await UserBook.findAll(copiedOption);
+    return res.json({ pageNation, firstPage: result });
+    // const firstPage = await res.json()
+  } catch (e) {
+    console.log("첫 페이지 데이터 가져오기 실패 \n", e);
+  }
+
+  // try {
+  //   const result = await UserBook.findAll(selectOption);
+  //   // console.log(result);
+  //   return res.json(result);
+  // } catch (e) {
+  //   console.log("첫 로더 데이터 가져오기 오류 \n", e);
+  // }
 });
 
 router.post("/insert", fileUp.single("upload"), async (req, res) => {
@@ -147,6 +181,12 @@ router.post("/my/insert", async (req, res) => {
     my_isbn: isbn,
     my_state: "no",
   };
+
+  const chkIsbn = await BookList.findOne({ where: { isbn: isbn } });
+  console.log(chkIsbn);
+  if (chkIsbn) {
+    return res.json("OVERLAP_ISBN");
+  }
 
   // 북리스트에 카카오 API로 받은 데이터 저장
   try {

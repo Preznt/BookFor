@@ -63,9 +63,11 @@ const BookContextProvider = ({ children }) => {
         const result = await res.json();
 
         // console.log(result);
-
-        setShowDataList(result);
-        console.log(showDataList);
+        if (result === "OVERLAP_ISBN") {
+          alert("이미 추가된 도서입니다");
+        } else {
+          setShowDataList(result);
+        }
       } catch (err) {
         console.log(err);
         alert("서버 연결 오류");

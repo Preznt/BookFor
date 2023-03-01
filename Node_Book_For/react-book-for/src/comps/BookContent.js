@@ -29,7 +29,7 @@ const BookContent = () => {
   const userBook = useLoaderData();
 
   useEffect(() => {
-    setShowDataList(userBook);
+    setShowDataList(userBook.firstPage);
     setIsbn([]);
   }, []);
 
@@ -57,10 +57,27 @@ const BookContent = () => {
 
   const showPage = 5;
   const pageNation = () => {
-    for (let i = 0; i < showPage; i++) {
-      return <button>{i + 1}</button>;
+    const totalPage = userBook.pageNation.totalPage;
+    let pages = [];
+
+    if (totalPage - showPage <= 0) {
+      for (let i = 0; i < totalPage; i++) {
+        pages.push(<button>{i + 1}</button>);
+      }
     }
+
+    return pages;
   };
+
+  const pageOnClick = (e) => {
+    console.log(e.target.sibling);
+  };
+
+  const pageFetch = async () => {
+    const page = 5;
+    const res = await fetch(`/${page}`);
+  };
+
   return (
     <article className="Lib">
       <div className="btns">
@@ -68,7 +85,7 @@ const BookContent = () => {
           className="highlight set"
           onClick={async (e) => {
             const result = await userBookFetch();
-            setShowDataList(result);
+            setShowDataList(result.firstPage);
             highlightHandler(e);
           }}
         >
@@ -115,10 +132,10 @@ const BookContent = () => {
 
       <div className="book">{showItem}</div>
       <div>
-        <RxDoubleArrowLeft />
+        <RxDoubleArrowLeft onClick={pageFetch} style={{ cursor: "pointer" }} />
         <RxArrowLeft />
-        <div>{pageNation}</div>
-        <RxArrowRight />
+        <div>{pageNation()}</div>
+        <RxArrowRight onClick={pageOnClick} style={{ cursor: "pointer" }} />
         <RxDoubleArrowRight />
       </div>
     </article>

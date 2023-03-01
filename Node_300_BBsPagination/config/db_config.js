@@ -5,7 +5,8 @@ export default {
     database: "bbsDBV2",
     host: "localhost",
     dialect: "mysql",
-    logging: true,
+    port: "3307",
+    // logging: true,
   },
   test: {
     username: "root",
