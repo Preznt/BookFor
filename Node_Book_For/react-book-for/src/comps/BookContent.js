@@ -56,13 +56,19 @@ const BookContent = () => {
   // 페이지 네이션
 
   const showPage = 5;
+  let pages = [];
   const pageNation = () => {
     const totalPage = userBook.pageNation.totalPage;
-    let pages = [];
+    const quotient = parseInt(totalPage % showPage);
+    const remainder = totalPage % showPage;
 
-    if (totalPage - showPage <= 0) {
-      for (let i = 0; i < totalPage; i++) {
-        pages.push(<button>{i + 1}</button>);
+    if (remainder === 0 || quotient !== 0) {
+      for (let i = 0; i < showPage; i++) {
+        pages.push(<button data-id={i + 1}>{i + 1}</button>);
+      }
+    } else {
+      for (let i = 0; i < totalPage % showPage; i++) {
+        pages.push(<button data-id={i + 1}>{i + 1}</button>);
       }
     }
 
@@ -70,7 +76,31 @@ const BookContent = () => {
   };
 
   const pageOnClick = (e) => {
-    console.log(e.target.sibling);
+    const totalPage = userBook.pageNation.totalPage;
+    const parent = e.target.parentElement;
+    const btnDiv = parent?.childNodes[2];
+    const btns = btnDiv?.childNodes;
+    const startPage = btns[0]?.innerText;
+    const endPage = btns[btns?.length]?.innerText;
+    console.log(startPage, endPage);
+
+    if (totalPage % showPage === 0) {
+      for (let i = startPage + showPage; i === i + showPage; i++) {
+        pages.push(<button>{i + 1}</button>);
+        console.log(pages);
+      }
+    } else {
+      for (
+        let i = startPage + showPage;
+        i === i + (totalPage % showPage);
+        i++
+      ) {
+        pages.push(<button>{i + 1}</button>);
+        console.log(pages);
+      }
+    }
+
+    return pages;
   };
 
   const pageFetch = async () => {
