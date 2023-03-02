@@ -8,7 +8,7 @@ import {
 } from "react-icons/rx";
 import "../css/Content.css";
 import { useLoaderData } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const userBookFetch = async (e) => {
   const res = await fetch("/book/all");
@@ -54,39 +54,41 @@ const BookContent = () => {
   });
 
   // 페이지 네이션
-
+  const [completePage, setCompletePage] = useState([]);
   const showPage = 5;
   let pages = [];
-  const pageNation = () => {
+  useEffect(() => {
     const totalPage = userBook.pageNation.totalPage;
     const quotient = parseInt(totalPage % showPage);
     const remainder = totalPage % showPage;
+    console.log(remainder);
 
     if (remainder === 0 || quotient !== 0) {
       for (let i = 0; i < showPage; i++) {
         pages.push(<button data-id={i + 1}>{i + 1}</button>);
       }
     } else {
-      for (let i = 0; i < totalPage % showPage; i++) {
+      for (let i = 0; i < remainder; i++) {
         pages.push(<button data-id={i + 1}>{i + 1}</button>);
       }
     }
 
-    return pages;
-  };
+    setCompletePage(pages);
+  }, []);
 
+  let nextPages = [];
   const pageOnClick = (e) => {
     const totalPage = userBook.pageNation.totalPage;
     const parent = e.target.parentElement;
     const btnDiv = parent?.childNodes[2];
     const btns = btnDiv?.childNodes;
     const startPage = btns[0]?.innerText;
-    const endPage = btns[btns?.length]?.innerText;
+    const endPage = btns[btns?.length - 1]?.innerText;
     console.log(startPage, endPage);
 
     if (totalPage % showPage === 0) {
       for (let i = startPage + showPage; i === i + showPage; i++) {
-        pages.push(<button>{i + 1}</button>);
+        nextPages.push(<button>{i + 1}</button>);
         console.log(pages);
       }
     } else {
@@ -95,12 +97,11 @@ const BookContent = () => {
         i === i + (totalPage % showPage);
         i++
       ) {
-        pages.push(<button>{i + 1}</button>);
+        nextPages.push(<button>{i}</button>);
         console.log(pages);
       }
     }
-
-    return pages;
+    setCompletePage(nextPages);
   };
 
   const pageFetch = async () => {
@@ -164,7 +165,7 @@ const BookContent = () => {
       <div>
         <RxDoubleArrowLeft onClick={pageFetch} style={{ cursor: "pointer" }} />
         <RxArrowLeft />
-        <div>{pageNation()}</div>
+        <div>{completePage}</div>
         <RxArrowRight onClick={pageOnClick} style={{ cursor: "pointer" }} />
         <RxDoubleArrowRight />
       </div>
