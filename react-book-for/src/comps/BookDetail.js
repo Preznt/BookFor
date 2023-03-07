@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { regBookData } from "../data/sampleData";
 
 /**
+ * 디테일 화면, 등록, 수정 화면 컴포넌트
+ *
  * 해당 책의 Detail을 보는 부분과 등록 화면을 BookDetail 이라는
  * 컴포넌트를 같이 사용하기 위해서
  * useLocation을 이용해 /register (등록페이지)로 갈때 "reg : true"값을

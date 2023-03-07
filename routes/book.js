@@ -47,11 +47,20 @@ export const selectOption = {
 //   }
 // });
 
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
   const pageNation = {
     showData: 16,
     showPage: 5,
+    defaultPage: 1,
   };
+
+  const { pageNum, reqDefault } = req.query;
+  console.log(pageNum);
+  console.log(reqDefault);
+
+  if (reqDefault) {
+    pageNation.defaultPage = reqDefault;
+  }
 
   delete selectOption.where.my_state;
 
@@ -78,10 +87,10 @@ router.get("/all", async (req, res) => {
   // console.log(pageNum);
   const copiedOption = { ...selectOption };
   copiedOption.limit = pageNation.showData;
-  copiedOption.offset = 1;
+  copiedOption.offset = pageNation.showData * (pageNum - 1) + 1;
   try {
     const result = await UserBook.findAll(copiedOption);
-    return res.json({ pageNation, firstPage: result });
+    return res.json({ pageNation, data: result });
     // const firstPage = await res.json()
   } catch (e) {
     console.log("첫 페이지 데이터 가져오기 실패 \n", e);
@@ -206,21 +215,6 @@ router.post("/my/insert", async (req, res) => {
   // console.log(result);
 
   return res.json(result);
-
-  // const rList = await result.map((d) => {
-  //   return d.my_isbn_book_list;
-  // });
-  // res.json(rList);
-
-  // const f_book = await result.f_booklist;
-
-  // console.log(result.book_list);
-
-  // const result = await UserBook.findAll({
-  //   attributes: ["b_isbn"],
-  //   where: { username: "bjw1403@gmail.com" },
-  // });
-  // return res.json(result);
 });
 
 router.post("/delete", async (req, res) => {
