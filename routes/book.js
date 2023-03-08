@@ -8,6 +8,11 @@ const UserBook = DB.models.user_book;
 const BookList = DB.models.book_list;
 
 const router = express.Router();
+const pageNation = {
+  showData: 16,
+  showPage: 5,
+  defaultPage: 1,
+};
 
 export const selectOption = {
   attributes: [
@@ -30,6 +35,7 @@ export const selectOption = {
   where: { my_username: "bjw1403@gmail.com" },
   include: [{ model: BookList, attributes: [] }],
   order: [["my_reg_date", "DESC"]],
+  limit: pageNation.showData,
   raw: true,
 };
 
@@ -48,12 +54,6 @@ export const selectOption = {
 // });
 
 router.get("/", async (req, res) => {
-  const pageNation = {
-    showData: 16,
-    showPage: 5,
-    defaultPage: 1,
-  };
-
   const { pageNum, reqDefault } = req.query;
   console.log(pageNum);
   console.log(reqDefault);
@@ -85,11 +85,10 @@ router.get("/", async (req, res) => {
   //   offset: pageNation.offset,
   // });
   // console.log(pageNum);
-  const copiedOption = { ...selectOption };
-  copiedOption.limit = pageNation.showData;
-  copiedOption.offset = pageNation.showData * (pageNum - 1) + 1;
+
+  selectOption.offset = pageNation.showData * (pageNum - 1);
   try {
-    const result = await UserBook.findAll(copiedOption);
+    const result = await UserBook.findAll(selectOption);
     return res.json({ pageNation, data: result });
     // const firstPage = await res.json()
   } catch (e) {
@@ -136,28 +135,6 @@ router.post("/insert", fileUp.single("upload"), async (req, res) => {
     try {
       await UserBook.update(myDetail, { where: { my_isbn: detail.isbn } });
       await BookList.update(detail, { where: { isbn: detail.isbn } });
-      // const result = await UserBook.findOne({
-      //   attributes: [
-      //     "my_username",
-      //     "my_isbn",
-      //     "my_star",
-      //     "my_state",
-      //     "my_reg_date",
-      //     "my_buy_date",
-      //     "my_start_date",
-      //     "my_done_date",
-      //     [Sequelize.col("book_list.title"), "title"],
-      //     [Sequelize.col("book_list.authors"), "authors"],
-      //     [Sequelize.col("book_list.isbn"), "isbn"],
-      //     [Sequelize.col("book_list.thumbnail"), "thumbnail"],
-      //     [Sequelize.col("book_list.publisher"), "publisher"],
-      //     [Sequelize.col("book_list.url"), "url"],
-      //   ],
-      //   where: { my_username: "bjw1403@gmail.com", my_isbn: detail.isbn },
-      //   include: [{ model: BookList, attributes: [] }],
-      // });
-      // console.log(result);
-      // return res.json(result);
     } catch (e) {
       console.log("책 update 오류 \n", e);
     }

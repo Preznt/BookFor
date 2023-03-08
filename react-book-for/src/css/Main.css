@@ -164,3 +164,48 @@ nav a {
   font-size: 20px;
   font-weight: 700;
 }
+
+/* pageNation */
+.PageNation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.PageNation .pages div,
+.PageNation svg {
+  cursor: pointer;
+}
+.PageNation .pages div:hover {
+  border-radius: 50%;
+  background-color: #bb9ae4;
+  color: white;
+  opacity: 70%;
+}
+
+.PageNation .pages {
+  display: flex;
+  font-size: 25px;
+}
+
+.PageNation .pages .active {
+  border-radius: 50%;
+  background-color: #bb9ae4;
+  color: white;
+  opacity: 70%;
+}
+
+.PageNation .pages div {
+  padding: 10px 18px;
+  margin: 10px;
+}
+
+.PageNation svg {
+  font-size: 25px;
+  padding: 2px;
+  margin: 0 7px;
+}
+/* 
+.PageNation svg:nth-child(1),
+.PageNation svg:nth-child(5) {
+  border: 1px solid black;
+} */

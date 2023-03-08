@@ -23,6 +23,7 @@ const BookContextProvider = ({ children }) => {
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
+  const [reqDefault, setReqDefault] = useState();
 
   const bookInsert = useCallback(async (clickData) => {
     console.log(clickData);
@@ -160,6 +161,8 @@ const BookContextProvider = ({ children }) => {
     regHandler,
     imgHandler,
     regImgHandler,
+    reqDefault,
+    setReqDefault,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;
