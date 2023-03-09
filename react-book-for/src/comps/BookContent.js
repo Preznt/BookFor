@@ -100,7 +100,12 @@ const BookContent = () => {
         </select>
       </div>
 
-      <div className="book">{showItem}</div>
+      {showItem[0] ? (
+        <div className="book">{showItem}</div>
+      ) : (
+        <div>아직 등록된 책이 없습니다</div>
+      )}
+
       <PageNav pageInfo={userBook.pageNation} />
     </article>
   );
