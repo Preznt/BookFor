@@ -9,8 +9,7 @@ import { useBookContext } from "../context/BookContext";
 
 const PageNav = (props) => {
   const { pageInfo } = props;
-  const { setShowDataList, reqDefault, setReqDefault, num, setNum } =
-    useBookContext();
+  const { setShowDataList, reqDefault, setReqDefault } = useBookContext();
   console.log(pageInfo);
   useEffect(() => {
     setReqDefault({ ...reqDefault, first: pageInfo.defaultPage });
@@ -33,6 +32,7 @@ const PageNav = (props) => {
             const res = await fetch(`/book?pageNum=${i}`);
             const result = await res.json();
             console.log(result.data);
+            setReqDefault({ ...reqDefault, dbRight: false });
             setShowDataList(result.data);
           }}
           className={i == reqDefault.first ? "active" : ""}
@@ -41,14 +41,17 @@ const PageNav = (props) => {
         </div>
       );
     }
-
+    // 맨 뒤로 가는 방향키를 클릭했을때 css 적용을 위한 조건
     if (reqDefault.dbRight === true) {
-      const num0 = cloneElement(num[0], { className: "active" });
-      console.log(num0);
-      // num[0].props.className = "";
-      // num[num.length - 1].props.className = "active";
-      // reqDefault.dbRight = false;
+      const num0 = cloneElement(num[0], { className: "" });
+      const lastNum = cloneElement(num[num.length - 1], {
+        className: "active",
+      });
+      num.splice(0, 1, num0);
+      num.splice(num.length - 1, 1, lastNum);
+      console.log(num);
     }
+
     return num;
   };
 
@@ -86,7 +89,7 @@ const PageNav = (props) => {
         onClick={async () => {
           const res = await fetch(`/book?pageNum=1`);
           const result = await res.json();
-          setReqDefault({ ...reqDefault, first: 1 });
+          setReqDefault({ ...reqDefault, first: 1, dbRight: false });
           setShowDataList(result.data);
         }}
       />
@@ -99,7 +102,11 @@ const PageNav = (props) => {
           );
           const result = await res.json();
           console.log(result.data);
-          setReqDefault({ ...reqDefault, first: reqDefault.first - 5 });
+          setReqDefault({
+            ...reqDefault,
+            first: reqDefault.first - 5,
+            dbRight: false,
+          });
           setShowDataList(result.data);
         }}
       />
@@ -113,12 +120,15 @@ const PageNav = (props) => {
           );
           const result = await res.json();
           console.log(result.data);
-          setReqDefault({ ...reqDefault, first: reqDefault.first + 5 });
+          setReqDefault({
+            ...reqDefault,
+            first: reqDefault.first + 5,
+            dbRight: false,
+          });
           setShowDataList(result.data);
         }}
       />
       <RxDoubleArrowRight
-        // id="db-right"
         onClick={async () => {
           const res = await fetch(`/book?pageNum=${pageInfo.totalPage}`);
           const result = await res.json();
