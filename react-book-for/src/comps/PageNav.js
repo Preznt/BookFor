@@ -19,11 +19,11 @@ const PageNav = (props) => {
     let num = [];
     let mod = pageInfo.totalPage % 5;
     const result = parseInt(pageInfo.totalPage / 5);
-    console.log(mod, result);
+    // console.log(mod, result);
     let chPage = reqDefault.first + mod;
 
     if (reqDefault.first < result * 5) chPage = reqDefault.first + 5;
-
+    console.log(reqDefault.first);
     for (let i = reqDefault.first; i < chPage; i++) {
       num.push(
         <div
@@ -35,6 +35,7 @@ const PageNav = (props) => {
             setReqDefault({ ...reqDefault, dbRight: false });
             setShowDataList(result.data);
           }}
+          // 첫 페이지나 다음 페이지 이동시 첫번째 버튼 css 활성화
           className={i == reqDefault.first ? "active" : ""}
         >
           {i}
@@ -59,6 +60,8 @@ const PageNav = (props) => {
    * 이벤트 버블링을 이용해서 해당 태그의 부모태그를 찾고
    * 그 하위 자식태그들의 클래스 이름을
    * 없애주고 클릭된 태그만 active로 설정해주기
+   *
+   * 3/12 맨앞으로 가기 css 오류 수정
    */
 
   const btnCss = (e) => {
@@ -69,14 +72,14 @@ const PageNav = (props) => {
         childs[i].className = "";
       }
       e.target.className = "active";
+    } else if (e.target.id === "db-left") {
+      const divs = childs[2].childNodes;
+      for (let i = 0; i < divs.length; i++) {
+        childs[2].childNodes[i].className = "";
+      }
+      console.log();
+      childs[2].childNodes[0].className = "active";
     }
-    // else {
-    //   childs = childs[2].childNodes;
-    //   for (let i = 0; i < childs.length; i++) {
-    //     childs[i].className = "";
-    //   }
-    //   childs[childs.length - 1].className = "active";
-    // }
 
     console.log(e.target.id);
   };
@@ -86,6 +89,7 @@ const PageNav = (props) => {
   return (
     <div className="PageNation" onClick={btnCss}>
       <RxDoubleArrowLeft
+        id="db-left"
         onClick={async () => {
           const res = await fetch(`/book?pageNum=1`);
           const result = await res.json();
