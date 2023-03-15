@@ -54,30 +54,42 @@ export const selectOption = {
 // });
 
 router.get("/", async (req, res) => {
-  const { pageNum, reqDefault } = req.query;
+  const { pageNum, reqDefault, state } = req.query;
   console.log(pageNum);
   console.log(reqDefault);
-
-  if (reqDefault) {
-    pageNation.defaultPage = reqDefault;
-  }
-
-  delete selectOption.where.my_state;
+  console.log("state", state);
 
   console.log("선행 라우터");
   // const { pageNum } = req.params;
 
   try {
-    const totalBook = await UserBook.count({
-      where: { my_username: "bjw1403@gmail.com" },
-    });
+    // if (state) {
+    //   const totalStateBook = await UserBook.count({
+    //     where: { state: state },
+    //   });
+    // }
+    // if (state == null) delete selectOption.where.my_state;
+    const totalBook = await UserBook.count(
+      state != null
+        ? {
+            where: { my_username: "bjw1403@gmail.com", my_state: state },
+          }
+        : { where: { my_username: "bjw1403@gmail.com" } }
+    );
     pageNation.totalBook = totalBook;
+    console.dir(totalBook);
+    if (Number(totalBook) < 1) {
+      pageNation.defaultPage = 0;
+    } else if (reqDefault) {
+      pageNation.defaultPage = reqDefault;
+    } else {
+      pageNation.defaultPage = 1;
+    }
   } catch (e) {
     console.log("totalBook 개수 SQL 오류 \n", e);
   }
 
   pageNation.totalPage = Math.ceil(pageNation.totalBook / pageNation.showData);
-  console.log(pageNation.totalPage);
 
   // const offset = (Number(pageNum) - 1) * 16 + 1;
   // const result = await UserBook.findAll({
@@ -88,8 +100,15 @@ router.get("/", async (req, res) => {
 
   selectOption.offset = pageNation.showData * (pageNum - 1);
   try {
+    delete selectOption.where.my_state;
+    if (state) {
+      console.log(state);
+      selectOption.where.my_state = state;
+    }
+
     const result = await UserBook.findAll(selectOption);
     return res.json({ pageNation, data: result });
+
     // const firstPage = await res.json()
   } catch (e) {
     console.log("첫 페이지 데이터 가져오기 실패 \n", e);
@@ -141,6 +160,7 @@ router.post("/insert", fileUp.single("upload"), async (req, res) => {
   }
 });
 
+// 검색창에서 추가버튼을 클릭시 내서재 등록 및 책 정보 저장
 router.post("/my/insert", async (req, res) => {
   // req.body.username = "bjw1403@gmail.com";
   const data = req.body;
@@ -209,7 +229,9 @@ router.get("/state/:data", async (req, res) => {
   const state = req.params.data;
   selectOption.where.my_state = state;
   const result = await UserBook.findAll(selectOption);
-  // console.log(result);
+  const totalBook = result.length;
+
+  console.log(totalBook);
   return res.json(result);
 });
 

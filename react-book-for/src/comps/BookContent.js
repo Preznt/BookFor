@@ -20,6 +20,8 @@ const BookContent = () => {
     deleteHandler,
     openHandler,
     open,
+    setReqDefault,
+    reqDefault,
   } = useBookContext();
   const userBook = useLoaderData();
 
@@ -29,10 +31,11 @@ const BookContent = () => {
   }, []);
 
   const stateFetch = async (st) => {
-    const res = await fetch(`/book/state/${st}`);
+    const res = await fetch(`/book?pageNum=1&&state=${st}`);
     const result = await res.json();
     console.log(result);
-    setShowDataList(result);
+    userBook.pageNation = result.pageNation;
+    setShowDataList(result.data);
   };
 
   const highlightHandler = (e) => {
@@ -56,6 +59,7 @@ const BookContent = () => {
           onClick={async (e) => {
             const result = await userBookFetch();
             setShowDataList(result.data);
+            userBook.pageNation = result.pageNation;
             highlightHandler(e);
           }}
         >
@@ -64,6 +68,7 @@ const BookContent = () => {
         <button
           onClick={(e) => {
             stateFetch("ing");
+            setReqDefault({ ...reqDefault, state: null });
             highlightHandler(e);
           }}
           className="highlight"
@@ -93,7 +98,12 @@ const BookContent = () => {
       <div className="top-bar">
         <h1>내 서재</h1>
         <button onClick={openHandler}>...</button>
-        {open.open ? <p onClick={deleteHandler}>삭제</p> : null}
+        {open.open ? (
+          <>
+            <p onClick={deleteHandler}>삭제</p>
+            <p>컬렉션 등록</p>
+          </>
+        ) : null}
         <select defaultValue="current">
           <option value="current">최신등록순</option>
           <option value="title">제목순</option>
@@ -106,7 +116,7 @@ const BookContent = () => {
         <div>아직 등록된 책이 없습니다</div>
       )}
 
-      <PageNav pageInfo={userBook.pageNation} />
+      <PageNav pageInfo={userBook.pageNation} state={reqDefault.state} />
     </article>
   );
 };

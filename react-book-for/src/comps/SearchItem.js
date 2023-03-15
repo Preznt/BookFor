@@ -5,27 +5,6 @@ const SearchItem = (props) => {
   const { myBookInsert } = useBookContext();
   const { kkData } = props;
 
-  const onClickHandler = async (e) => {
-    // const btn = e.target;
-    // let isbn = btn.dataset.id;
-    // if (isbn.length > 15) {
-    //   isbn = isbn.substr(11, 13);
-    // }
-    // await setDbData({
-    //   ...dbData,
-    //   my_isbn: isbn,
-    // });
-    // await setMyBook({
-    //   ...myBook,
-    //   isbn: isbn,
-    //   title: btn.closest("DIV").dataset.kk,
-    //   thumbnail: kkData.thumbnail,
-    //   authors: kkData.authors[0],
-    //   publisher: kkData.publisher,
-    // });
-    // console.log(myBook);
-  };
-
   return (
     <div className="searchdata">
       <img src={kkData.thumbnail} />

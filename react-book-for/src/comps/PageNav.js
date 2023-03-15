@@ -8,7 +8,7 @@ import {
 import { useBookContext } from "../context/BookContext";
 
 const PageNav = (props) => {
-  const { pageInfo } = props;
+  const { pageInfo, state } = props;
   const { setShowDataList, reqDefault, setReqDefault } = useBookContext();
   console.log(pageInfo);
   useEffect(() => {
@@ -16,6 +16,7 @@ const PageNav = (props) => {
   }, []);
 
   const pageNation = () => {
+    console.log(reqDefault.first);
     let num = [];
     let mod = pageInfo.totalPage % 5;
     const result = parseInt(pageInfo.totalPage / 5);
@@ -52,7 +53,7 @@ const PageNav = (props) => {
       num.splice(num.length - 1, 1, lastNum);
       console.log(num);
     }
-
+    console.log(num);
     return num;
   };
 
@@ -99,28 +100,30 @@ const PageNav = (props) => {
       />
       <RxArrowLeft
         onClick={async () => {
-          const res = await fetch(
-            `/book?pageNum=${reqDefault.first - 5}&&?reqDefault=${
-              reqDefault.first - 5
-            }`
-          );
-          const result = await res.json();
-          console.log(result.data);
-          setReqDefault({
-            ...reqDefault,
-            first: reqDefault.first - 5,
-            dbRight: false,
-          });
-          setShowDataList(result.data);
+          if (reqDefault.first - 5 < 1) {
+            alert("잘못된 접근입니다");
+          } else {
+            const res = await fetch(
+              `/book?pageNum=${reqDefault.first - 5}&&reqDefault=${
+                reqDefault.first - 5
+              }`
+            );
+            const result = await res.json();
+            console.log(result.data);
+            setReqDefault({
+              ...reqDefault,
+              first: reqDefault.first - 5,
+              dbRight: false,
+            });
+            setShowDataList(result.data);
+          }
         }}
       />
       <div className="pages">{pages}</div>
       <RxArrowRight
         onClick={async () => {
           const res = await fetch(
-            `/book?pageNum=${reqDefault.first + 5}&&?reqDefault=${
-              reqDefault.first + 5
-            }`
+            `/book?pageNum=${reqDefault.first + 5}&&state=${state}`
           );
           const result = await res.json();
           console.log(result.data);

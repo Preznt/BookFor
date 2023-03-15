@@ -26,6 +26,7 @@ const BookContextProvider = ({ children }) => {
   const [reqDefault, setReqDefault] = useState({
     first: 0,
     dbRight: false,
+    state: null,
   });
 
   const bookInsert = useCallback(async (clickData) => {

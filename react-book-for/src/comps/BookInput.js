@@ -5,6 +5,7 @@ import { useCallback } from "react";
 
 const BookInput = () => {
   const { bookSearch, kakaoDataList, setKakaoDataList } = useBookContext();
+  let clientX;
 
   const onChangeHandler = useCallback(
     async (e) => {
@@ -33,7 +34,12 @@ const BookInput = () => {
     <div className="inputbox">
       <input placeholder="도서 이름 입력" onKeyUp={onChangeHandler} />
       <CiSearch className="search" />
-      <div className={searchListView.length > 0 ? "searchbox" : "close"}>
+      <div
+        onClick={(e) => {
+          console.log(e.clientX);
+        }}
+        className={searchListView.length > 0 ? "searchbox" : "close"}
+      >
         {searchListView}
       </div>
     </div>
