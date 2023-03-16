@@ -13,15 +13,18 @@ const BookItem = ({ data }) => {
     setOpen({ ...open, reg: false, img: false });
   };
 
-  const deleteHandler = (e) => {
+  const deleteChkHandler = (e) => {
     const check = e.target;
     console.log(e.target.checked);
 
     if (check.checked && isbn[0]) {
+      // 두개 이상 체크했을 때
       isbn[isbn?.length] = check.value;
     } else if (check.checked) {
+      // 처음 체크됐을 떄
       isbn[0] = check.value;
     } else {
+      // 체크 해제할 경우
       // isbn[0] = "test";
       const filterIsbn = isbn.filter((is) => {
         return is !== check.value;
@@ -40,7 +43,7 @@ const BookItem = ({ data }) => {
         type="checkbox"
         ref={check}
         value={data.isbn}
-        onClick={deleteHandler}
+        onClick={deleteChkHandler}
       />
       <div onClick={onClickHandler}>
         {data.thumbnail ? (

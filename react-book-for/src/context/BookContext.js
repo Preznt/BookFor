@@ -52,6 +52,7 @@ const BookContextProvider = ({ children }) => {
     }
   }, []);
 
+  // 내서재에 추가 및 해당 책 정보 저장
   const myBookInsert = useCallback(
     async (myBook) => {
       console.log(myBook);
@@ -81,11 +82,12 @@ const BookContextProvider = ({ children }) => {
     [setShowDataList]
   );
 
+  // 카카오 API 를 통해 책정보 가져오기
   const bookSearch = useCallback(async (search) => {
     try {
       let params = {
         query: search,
-        size: 30,
+        size: 50,
         target: "title",
       };
       if (Number(search) * 1 > 0) {
@@ -95,7 +97,7 @@ const BookContextProvider = ({ children }) => {
         };
       }
       const result = await kakaoSearch(params);
-      console.log(result.data);
+      // console.log(result.data);
       return await result.data;
     } catch (err) {
       console.log(err);

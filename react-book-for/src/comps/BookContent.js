@@ -30,6 +30,7 @@ const BookContent = () => {
     setIsbn([]);
   }, []);
 
+  // 읽는 상태 카테고리별 fetch
   const stateFetch = async (st) => {
     const res = await fetch(`/book?pageNum=1&&state=${st}`);
     const result = await res.json();
@@ -38,6 +39,7 @@ const BookContent = () => {
     setShowDataList(result.data);
   };
 
+  // 읽는 상태 카테고리 클릭시 css 변경
   const highlightHandler = (e) => {
     const parent = e.target?.parentElement;
     const childs = parent.childNodes;

@@ -1,9 +1,9 @@
 import { CiSearch } from "react-icons/ci";
 import SearchItem from "./SearchItem";
-import { useBookContext } from "../context/BookContext";
+import { useBookContext } from "../../context/BookContext";
 import { useCallback } from "react";
 
-const BookInput = () => {
+const SearchInput = () => {
   const { bookSearch, kakaoDataList, setKakaoDataList } = useBookContext();
   let clientX;
 
@@ -32,7 +32,10 @@ const BookInput = () => {
 
   return (
     <div className="inputbox">
-      <input placeholder="도서 이름 입력" onKeyUp={onChangeHandler} />
+      <input
+        placeholder="도서 이름이나 ISBN을 입력해주세요"
+        onKeyUp={onChangeHandler}
+      />
       <CiSearch className="search" />
       <div
         onClick={(e) => {
@@ -46,4 +49,4 @@ const BookInput = () => {
   );
 };
 
-export default BookInput;
+export default SearchInput;

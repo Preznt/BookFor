@@ -8,6 +8,7 @@ const UserBook = DB.models.user_book;
 const BookList = DB.models.book_list;
 
 const router = express.Router();
+
 const pageNation = {
   showData: 16,
   showPage: 5,
@@ -39,20 +40,6 @@ export const selectOption = {
   raw: true,
 };
 
-// router.get("/", async (req, res) => {
-
-//   try {
-//     // const result = await UserBook.findAll({
-//     //   attributes: ["b_isbn"],
-//     //   where: { username: "bjw1403@gmail.com" },
-//     // });
-//     // return res.json(result);
-//   } catch (err) {
-//     console.log(err);
-//     return res.json({ error: "SELECT 오류" });
-//   }
-// });
-
 router.get("/", async (req, res) => {
   const { pageNum, reqDefault, state } = req.query;
   console.log(pageNum);
@@ -60,7 +47,6 @@ router.get("/", async (req, res) => {
   console.log("state", state);
 
   console.log("선행 라우터");
-  // const { pageNum } = req.params;
 
   try {
     // if (state) {
@@ -91,13 +77,6 @@ router.get("/", async (req, res) => {
 
   pageNation.totalPage = Math.ceil(pageNation.totalBook / pageNation.showData);
 
-  // const offset = (Number(pageNum) - 1) * 16 + 1;
-  // const result = await UserBook.findAll({
-  //   limit: pageNation.listLimit,
-  //   offset: pageNation.offset,
-  // });
-  // console.log(pageNum);
-
   selectOption.offset = pageNation.showData * (pageNum - 1);
   try {
     delete selectOption.where.my_state;
@@ -113,16 +92,9 @@ router.get("/", async (req, res) => {
   } catch (e) {
     console.log("첫 페이지 데이터 가져오기 실패 \n", e);
   }
-
-  // try {
-  //   const result = await UserBook.findAll(selectOption);
-  //   // console.log(result);
-  //   return res.json(result);
-  // } catch (e) {
-  //   console.log("첫 로더 데이터 가져오기 오류 \n", e);
-  // }
 });
 
+// 직접 입력 등록
 router.post("/insert", fileUp.single("upload"), async (req, res) => {
   const detail = JSON.parse(req.body.detail);
   const myDetail = JSON.parse(req.body.myDetail);
@@ -162,7 +134,6 @@ router.post("/insert", fileUp.single("upload"), async (req, res) => {
 
 // 검색창에서 추가버튼을 클릭시 내서재 등록 및 책 정보 저장
 router.post("/my/insert", async (req, res) => {
-  // req.body.username = "bjw1403@gmail.com";
   const data = req.body;
   let isbn = data.isbn;
   if (isbn.length > 14) {
@@ -188,6 +159,7 @@ router.post("/my/insert", async (req, res) => {
     my_state: "no",
   };
 
+  // 전에 등록한 책인지 검사하는 부분
   const chkIsbn = await BookList.findOne({ where: { isbn: isbn } });
   console.log(chkIsbn);
   if (chkIsbn) {
@@ -223,16 +195,6 @@ router.post("/delete", async (req, res) => {
   // const result = await UserBook.findAll(selectOption);
 
   // return res.json(result);
-});
-
-router.get("/state/:data", async (req, res) => {
-  const state = req.params.data;
-  selectOption.where.my_state = state;
-  const result = await UserBook.findAll(selectOption);
-  const totalBook = result.length;
-
-  console.log(totalBook);
-  return res.json(result);
 });
 
 export default router;

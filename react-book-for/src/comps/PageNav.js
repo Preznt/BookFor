@@ -32,7 +32,7 @@ const PageNav = (props) => {
           onClick={async () => {
             const res = await fetch(`/book?pageNum=${i}`);
             const result = await res.json();
-            console.log(result.data);
+            // console.log(result.data);
             setReqDefault({ ...reqDefault, dbRight: false });
             setShowDataList(result.data);
           }}
@@ -142,7 +142,8 @@ const PageNav = (props) => {
           const mod = pageInfo.totalPage % 5;
           setReqDefault({
             ...reqDefault,
-            first: pageInfo.totalPage - mod + 1,
+            first:
+              mod === 0 ? pageInfo.totalPage - 4 : pageInfo.totalPage - mod + 1,
             dbRight: true,
           });
           setShowDataList(result.data);

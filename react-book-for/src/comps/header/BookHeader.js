@@ -1,4 +1,4 @@
-import BookInput from "./BookInput";
+import SearchInput from "./SearchInput";
 import { BiAlignLeft } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const BookHeader = () => {
           <h1>For</h1>
         </Link>
       </div>
-      <BookInput />
+      <SearchInput />
       <button>회원가입</button>
       <button>로그인</button>
     </header>

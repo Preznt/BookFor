@@ -109,9 +109,9 @@
   display: none;
 }
 
-.searchbox::-webkit-scrollbar {
+/* .searchbox::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .searchdata {
   display: flex;
