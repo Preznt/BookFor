@@ -37,7 +37,7 @@ const PageNav = (props) => {
             setShowDataList(result.data);
           }}
           // 첫 페이지나 다음 페이지 이동시 첫번째 버튼 css 활성화
-          className={i == reqDefault.first ? "active" : ""}
+          className={i == reqDefault.first ? "active pageNum" : "pageNum"}
         >
           {i}
         </div>
@@ -68,7 +68,7 @@ const PageNav = (props) => {
   const btnCss = (e) => {
     const parent = e.target?.parentElement;
     let childs = parent.childNodes;
-    if (e.target.tagName === "DIV") {
+    if (e.target.className === "pageNum") {
       for (let i = 0; i < childs.length; i++) {
         childs[i].className = "";
       }
@@ -122,6 +122,7 @@ const PageNav = (props) => {
       <div className="pages">{pages}</div>
       <RxArrowRight
         onClick={async () => {
+          console.log(state);
           const res = await fetch(
             `/book?pageNum=${reqDefault.first + 5}&&state=${state}`
           );

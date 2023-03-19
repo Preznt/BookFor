@@ -54,13 +54,12 @@ router.get("/", async (req, res) => {
     //     where: { state: state },
     //   });
     // }
-    // if (state == null) delete selectOption.where.my_state;
     const totalBook = await UserBook.count(
-      state != null
+      state === "undefined" || state === undefined
         ? {
-            where: { my_username: "bjw1403@gmail.com", my_state: state },
+            where: { my_username: "bjw1403@gmail.com" },
           }
-        : { where: { my_username: "bjw1403@gmail.com" } }
+        : { where: { my_username: "bjw1403@gmail.com", my_state: state } }
     );
     pageNation.totalBook = totalBook;
     console.dir(totalBook);
@@ -80,10 +79,8 @@ router.get("/", async (req, res) => {
   selectOption.offset = pageNation.showData * (pageNum - 1);
   try {
     delete selectOption.where.my_state;
-    if (state) {
-      console.log(state);
+    if (state != "undefined" && state != undefined)
       selectOption.where.my_state = state;
-    }
 
     const result = await UserBook.findAll(selectOption);
     return res.json({ pageNation, data: result });
@@ -195,6 +192,10 @@ router.post("/delete", async (req, res) => {
   // const result = await UserBook.findAll(selectOption);
 
   // return res.json(result);
+});
+
+router.post("/collection", async (req, res) => {
+  console.log("컬렉션 확인", req.body);
 });
 
 export default router;

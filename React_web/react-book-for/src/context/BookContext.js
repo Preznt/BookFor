@@ -20,13 +20,14 @@ const BookContextProvider = ({ children }) => {
     open: false,
     img: false,
     reg: false,
+    collection: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
   const [reqDefault, setReqDefault] = useState({
-    first: 0,
+    first: 1,
     dbRight: false,
-    state: null,
+    state: undefined,
   });
 
   const bookInsert = useCallback(async (clickData) => {
@@ -125,6 +126,25 @@ const BookContextProvider = ({ children }) => {
 
     // setShowDataList(result);
   };
+  const collectionModal = () => {
+    setOpen({ ...open, collection: !open.collection });
+  };
+
+  const collectionHandler = async () => {
+    collectionModal();
+    const fetchOption = {
+      method: "POST",
+      body: JSON.stringify(isbn),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (isbn[0]) {
+      await fetch("/book/collection", fetchOption);
+    } else {
+      alert("컬렉션에 등록할 책을 선택 해 주세요");
+    }
+  };
 
   const openHandler = () => {
     setOpen({ ...open, open: !open.open });
@@ -142,6 +162,7 @@ const BookContextProvider = ({ children }) => {
     setOpen({ ...open, reg: true, img: true });
     console.log(open);
   };
+
   const props = {
     bookSearch,
     kakaoDataList,
@@ -169,6 +190,8 @@ const BookContextProvider = ({ children }) => {
     regImgHandler,
     reqDefault,
     setReqDefault,
+    collectionHandler,
+    collectionModal,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

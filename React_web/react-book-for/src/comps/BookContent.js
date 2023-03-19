@@ -4,6 +4,7 @@ import "../css/Content.css";
 import { useLoaderData } from "react-router-dom";
 import { useEffect } from "react";
 import PageNav from "./PageNav";
+import CollectionName from "./CollectionName";
 
 export const userBookFetch = async (e) => {
   const res = await fetch("/book?pageNum=1");
@@ -22,6 +23,8 @@ const BookContent = () => {
     open,
     setReqDefault,
     reqDefault,
+    collectionHandler,
+    collectionModal,
   } = useBookContext();
   const userBook = useLoaderData();
 
@@ -60,6 +63,7 @@ const BookContent = () => {
           className="highlight set"
           onClick={async (e) => {
             const result = await userBookFetch();
+            setReqDefault({ ...reqDefault, first: 1 });
             setShowDataList(result.data);
             userBook.pageNation = result.pageNation;
             highlightHandler(e);
@@ -70,7 +74,7 @@ const BookContent = () => {
         <button
           onClick={(e) => {
             stateFetch("ing");
-            setReqDefault({ ...reqDefault, state: null });
+            setReqDefault({ ...reqDefault, first: 1 });
             highlightHandler(e);
           }}
           className="highlight"
@@ -80,6 +84,7 @@ const BookContent = () => {
         <button
           onClick={(e) => {
             stateFetch("done");
+            setReqDefault({ ...reqDefault, first: 1 });
             highlightHandler(e);
           }}
           className="highlight"
@@ -89,6 +94,7 @@ const BookContent = () => {
         <button
           onClick={(e) => {
             stateFetch("will");
+            setReqDefault({ ...reqDefault, first: 1 });
             highlightHandler(e);
           }}
           className="highlight"
@@ -103,7 +109,7 @@ const BookContent = () => {
         {open.open ? (
           <>
             <p onClick={deleteHandler}>삭제</p>
-            <p>컬렉션 등록</p>
+            <p onClick={collectionHandler}>컬렉션 등록</p>
           </>
         ) : null}
         <select defaultValue="current">
@@ -117,7 +123,7 @@ const BookContent = () => {
       ) : (
         <div>아직 등록된 책이 없습니다</div>
       )}
-
+      <CollectionName />
       <PageNav pageInfo={userBook.pageNation} state={reqDefault.state} />
     </article>
   );
