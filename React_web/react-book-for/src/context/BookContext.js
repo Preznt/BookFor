@@ -151,6 +151,7 @@ const BookContextProvider = ({ children }) => {
         alert(result.MSG);
       } else {
         alert("등록되었습니다.");
+        document.location.href = "/";
       }
     }
   };

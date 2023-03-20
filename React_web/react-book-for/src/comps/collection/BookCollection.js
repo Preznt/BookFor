@@ -19,7 +19,11 @@ const BookCollection = () => {
   return (
     <div className="Collection">
       <h2>나의 컬렉션</h2>
-      <div className="Collections">{collections}</div>
+      {cNames[0] ? (
+        <div className="Collections">{collections}</div>
+      ) : (
+        <h3>등록된 컬렉션이 없습니다</h3>
+      )}
     </div>
   );
 };

@@ -19,6 +19,11 @@ const MainRouter = createBrowserRouter([
         loader: collectionLoader,
         element: <BookCollection />,
       },
+      {
+        path: "/collection/test",
+        loader: userBookFetch,
+        element: <BookContent />,
+      },
       { path: "/detail", element: <BookDetail /> },
     ],
   },
