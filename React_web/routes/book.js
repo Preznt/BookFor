@@ -6,6 +6,8 @@ import { chkReg } from "../modules/chkReg.js";
 
 const UserBook = DB.models.user_book;
 const BookList = DB.models.book_list;
+const Collection = DB.models.collection;
+const CollectionBook = DB.models.collection_book;
 
 const router = express.Router();
 
@@ -194,8 +196,54 @@ router.post("/delete", async (req, res) => {
   // return res.json(result);
 });
 
-router.post("/collection", async (req, res) => {
-  console.log("컬렉션 확인", req.body);
+// 컬렉션에 책 등록하기
+router.post("/collection/:name", async (req, res) => {
+  const name = req.params.name;
+  const isbns = req.body;
+
+  const collection = {
+    username: "bjw1403@gmail.com",
+    c_name: name,
+  };
+
+  const chkDouble = await Collection.findOne({ where: collection });
+  if (chkDouble) {
+    return res.json({
+      CODE: "DOUBLE_NAME",
+      MSG: "이미 등록되어 있습니다. 다른 이름을 입력해 주세요.",
+    });
+  }
+  console.log("컬렉션 확인", name);
+
+  await Collection.create(collection);
+  const code = await Collection.findOne({
+    where: collection,
+    attributes: ["c_code"],
+    raw: true,
+  });
+
+  const cBooks = isbns.map((i) => {
+    return {
+      c_code: code.c_code,
+      isbn: i,
+    };
+  });
+  console.log(cBooks);
+  await CollectionBook.bulkCreate(cBooks);
+  return res.json("등록");
 });
 
+// 컬레션 조회 loader
+router.get("/collection", async (req, res) => {
+  const cNames = await Collection.findAll({
+    where: { username: "bjw1403@gmail.com" },
+    attributes: ["c_name"],
+    raw: true,
+  });
+  const namesValue = cNames.map((name) => {
+    return name.c_name;
+  });
+  console.log("컬렉션 조회", namesValue);
+  return res.json(namesValue);
+});
 export default router;

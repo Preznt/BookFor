@@ -52,7 +52,13 @@ const initModels = (sequelize) => {
   });
 
   user.hasMany(collection, { foreignKey: "username" });
+
   collection.belongsToMany(book_list, {
+    through: collection_book,
+    foreignKey: "c_code",
+  });
+
+  book_list.belongsToMany(collection, {
     through: collection_book,
     foreignKey: "isbn",
   });

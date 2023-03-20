@@ -146,26 +146,3 @@
   width: 70%;
   margin-bottom: 12px;
 }
-
-/* 컬렉션 */
-.Collection-open {
-  width: 50%;
-  position: fixed;
-  top: 30%;
-  left: 40%;
-}
-.Collection-open .bg {
-  width: 100%;
-  height: 50vh;
-  background-color: #fdd274;
-  opacity: 90%;
-}
-
-.Collection-open .all {
-  position: absolute;
-  top: 0;
-}
-
-.Collection-close {
-  display: none;
-}

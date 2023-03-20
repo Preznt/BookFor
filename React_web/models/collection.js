@@ -13,7 +13,7 @@ const collection = (sequelize) => {
         type: Sequelize.DataTypes.STRING(255),
         allowNull: false,
       },
-      my_username: {
+      username: {
         type: Sequelize.DataTypes.STRING(255),
         allowNull: false,
       },

@@ -3,7 +3,7 @@ import { useBookContext } from "../context/BookContext";
 import axios from "axios";
 import { HiArrowUpRight } from "react-icons/hi2";
 import "../css/Detail.css";
-import Star from "./Star";
+import Star from "./feature/Star";
 import { useEffect } from "react";
 import { regBookData } from "../data/sampleData";
 

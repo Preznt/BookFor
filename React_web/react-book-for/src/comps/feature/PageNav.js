@@ -5,7 +5,7 @@ import {
   RxDoubleArrowLeft,
   RxDoubleArrowRight,
 } from "react-icons/rx";
-import { useBookContext } from "../context/BookContext";
+import { useBookContext } from "../../context/BookContext";
 
 const PageNav = (props) => {
   const { pageInfo, state } = props;

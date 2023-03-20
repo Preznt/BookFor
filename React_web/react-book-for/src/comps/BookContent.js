@@ -1,10 +1,11 @@
 import { useBookContext } from "../context/BookContext";
 import BookItem from "./BookItem";
 import "../css/Content.css";
+import "../css/Collection.css";
 import { useLoaderData } from "react-router-dom";
 import { useEffect } from "react";
-import PageNav from "./PageNav";
-import CollectionName from "./CollectionName";
+import PageNav from "./feature/PageNav";
+import CollectionInput from "./collection/CollectionInput";
 
 export const userBookFetch = async (e) => {
   const res = await fetch("/book?pageNum=1");
@@ -17,14 +18,14 @@ const BookContent = () => {
   const {
     showDataList,
     setShowDataList,
+    isbn,
     setIsbn,
     deleteHandler,
     openHandler,
     open,
     setReqDefault,
     reqDefault,
-    collectionHandler,
-    collectionModal,
+    chkCollection,
   } = useBookContext();
   const userBook = useLoaderData();
 
@@ -109,7 +110,7 @@ const BookContent = () => {
         {open.open ? (
           <>
             <p onClick={deleteHandler}>삭제</p>
-            <p onClick={collectionHandler}>컬렉션 등록</p>
+            <p onClick={chkCollection}>컬렉션 등록</p>
           </>
         ) : null}
         <select defaultValue="current">
@@ -123,7 +124,7 @@ const BookContent = () => {
       ) : (
         <div>아직 등록된 책이 없습니다</div>
       )}
-      <CollectionName />
+      <CollectionInput />
       <PageNav pageInfo={userBook.pageNation} state={reqDefault.state} />
     </article>
   );

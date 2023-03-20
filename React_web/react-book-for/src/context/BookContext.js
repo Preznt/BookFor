@@ -130,19 +130,36 @@ const BookContextProvider = ({ children }) => {
     setOpen({ ...open, collection: !open.collection });
   };
 
-  const collectionHandler = async () => {
-    collectionModal();
-    const fetchOption = {
-      method: "POST",
-      body: JSON.stringify(isbn),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (isbn[0]) {
-      await fetch("/book/collection", fetchOption);
+  const collectionHandler = async (c_name) => {
+    if (!c_name) {
+      alert("컬렉션 이름을 입력해 주세요");
     } else {
-      alert("컬렉션에 등록할 책을 선택 해 주세요");
+      console.log(c_name);
+      collectionModal();
+      const fetchOption = {
+        method: "POST",
+        body: JSON.stringify(isbn),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const res = await fetch(`/book/collection/${c_name}`, fetchOption);
+      const result = await res.json();
+      console.log(result.CODE);
+      if (result.CODE) {
+        alert(result.MSG);
+      } else {
+        alert("등록되었습니다.");
+      }
+    }
+  };
+
+  const chkCollection = () => {
+    if (isbn.length < 1) {
+      alert("등록 할 책을 선택 해 주세요");
+    } else {
+      collectionModal();
     }
   };
 
@@ -192,6 +209,7 @@ const BookContextProvider = ({ children }) => {
     setReqDefault,
     collectionHandler,
     collectionModal,
+    chkCollection,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

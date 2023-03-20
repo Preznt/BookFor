@@ -1,0 +1,41 @@
+/* 내서재 컬렉션 모달 창 */
+.Collection-open {
+  width: 50%;
+  position: fixed;
+  top: 30%;
+  left: 40%;
+}
+.Collection-open .bg {
+  width: 100%;
+  height: 50vh;
+  background-color: #fdd274;
+  opacity: 90%;
+}
+
+.Collection-open .all {
+  position: absolute;
+  top: 0;
+}
+
+.Collection-close {
+  display: none;
+}
+
+/* 컬렉션 페이지 */
+.Collection {
+  margin: 0 80px;
+}
+
+.Collections {
+  display: flex;
+
+  flex-wrap: wrap;
+}
+
+.Collections .item {
+  border: 1px solid black;
+  margin: 20px;
+  padding: 60px;
+  cursor: pointer;
+  border-radius: 1em;
+}

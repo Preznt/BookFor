@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // import { BookMain } from "../comps";
 import { BookMain, BookContent, BookCollection, BookDetail } from "../comps";
 import { loader as mainLoader } from "../comps/BookMain";
+import { loader as collectionLoader } from "../comps/collection/BookCollection";
 import { userBookFetch } from "../comps/BookContent";
 
 const MainRouter = createBrowserRouter([
@@ -13,7 +14,11 @@ const MainRouter = createBrowserRouter([
       { path: "", loader: userBookFetch, element: <BookContent /> },
       { path: "/update", element: <BookDetail /> },
       { path: "/register", element: <BookDetail /> },
-      { path: "/collection", element: <BookCollection /> },
+      {
+        path: "/collection",
+        loader: collectionLoader,
+        element: <BookCollection />,
+      },
       { path: "/detail", element: <BookDetail /> },
     ],
   },
