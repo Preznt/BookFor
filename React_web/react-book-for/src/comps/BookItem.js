@@ -8,8 +8,11 @@ const BookItem = ({ data }) => {
   const { isbn, setIsbn, open, setOpen } = useBookContext();
   const check = useRef();
 
-  const onClickHandler = () => {
-    nav("/detail", { state: data });
+  const onClickHandler = async () => {
+    const res = await fetch(`/book/detail/${data.isbn}`);
+    const result = await res.json();
+    console.log(result);
+    nav("/detail", { state: result[0] });
     setOpen({ ...open, reg: false, img: false });
   };
 

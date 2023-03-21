@@ -19,6 +19,7 @@ const SearchItem = (props) => {
         >
           추가
         </button>
+        <a href={kkData.url}>자세히 보기</a>
       </div>
     </div>
   );

@@ -21,8 +21,12 @@ import { regBookData } from "../data/sampleData";
 
 const BookDetail = () => {
   const location = useLocation();
-  const bookData = location.state;
-  console.log(bookData);
+  let mybookData = location.state;
+  const bookData = mybookData.book_list;
+  delete mybookData.book_list;
+  Object.assign(mybookData, bookData);
+
+  console.log(mybookData);
 
   const {
     myBook,
@@ -40,12 +44,12 @@ const BookDetail = () => {
 
   useEffect(() => {
     setFile();
-    setMyBook(bookData);
+    setMyBook(mybookData);
     if (open.reg) {
       setMyBook(regBookData);
     }
     console.log(myBook);
-  }, [bookData]);
+  }, [mybookData]);
   // console.log(myBook);
   // 인서트할 데이터 저장
   const onChangeHandler = (e) => {
@@ -124,7 +128,7 @@ const BookDetail = () => {
 
   return (
     <div className="detail">
-      {bookData ? null : <h2>책 등록하기</h2>}
+      {mybookData ? null : <h2>책 등록하기</h2>}
       <div className="book">
         <div className="img">
           <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
@@ -196,7 +200,7 @@ const BookDetail = () => {
           </div>
 
           {open.reg || !myBook?.url ? null : (
-            <a href={bookData ? bookData.url : ""}>
+            <a href={mybookData ? mybookData.url : ""}>
               자세히 보기
               <HiArrowUpRight className="arrow" />
             </a>
@@ -227,7 +231,7 @@ const BookDetail = () => {
                 onChange={onChangeHandler}
               />
             ) : (
-              <p>{bookData?.my_start_date?.substr(0, 10)}</p>
+              <p>{mybookData?.my_start_date?.substr(0, 10)}</p>
             )}
           </div>
           <div>
@@ -239,13 +243,13 @@ const BookDetail = () => {
                 onChange={onChangeHandler}
               />
             ) : (
-              <p>{bookData?.my_done_date?.substr(0, 10)}</p>
+              <p>{mybookData?.my_done_date?.substr(0, 10)}</p>
             )}
           </div>
           <div>
             {open?.reg ? null : <label>등록된 날짜 </label>}
 
-            {open?.reg ? null : <p>{bookData?.my_reg_date.substr(0, 10)}</p>}
+            {open?.reg ? null : <p>{mybookData?.my_reg_date.substr(0, 10)}</p>}
           </div>
         </div>
       </div>

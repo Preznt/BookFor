@@ -53,6 +53,8 @@ const initModels = (sequelize) => {
 
   user.hasMany(collection, { foreignKey: "username" });
 
+  // 다대다 관계를 설정할 때 각각 1대다 관계도 명시해 주어야한다
+  // 설정안하면 관계설정이 되지 않는다
   collection.belongsToMany(book_list, {
     through: collection_book,
     foreignKey: "c_code",
@@ -62,6 +64,17 @@ const initModels = (sequelize) => {
     through: collection_book,
     foreignKey: "isbn",
   });
+
+  collection_book.belongsTo(collection, {
+    foreignKey: "c_code",
+  });
+
+  collection_book.belongsTo(book_list, {
+    foreignKey: "isbn",
+  });
+
+  collection.hasMany(collection_book, { foreignKey: "c_code" });
+  book_list.hasMany(collection_book, { foreignKey: "isbn" });
 
   // book_list.hasMany(user_book, { as: "user_books", foreignKey: "my_isbn" });
 

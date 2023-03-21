@@ -144,7 +144,7 @@ const BookContextProvider = ({ children }) => {
         },
       };
 
-      const res = await fetch(`/book/collection/${c_name}`, fetchOption);
+      const res = await fetch(`/collection/insert/${c_name}`, fetchOption);
       const result = await res.json();
       console.log(result.CODE);
       if (result.CODE) {

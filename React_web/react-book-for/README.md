@@ -42,3 +42,11 @@ https://2ham-s.tistory.com/307
 - 읽는 중을 클릭한 후에 다른 카테고리를 클릭하면 페이지 만드는 부분에서 빈배열값만 나온다..
   다른 부분을 클릭했을때는 문제 없음
   => setReqDefault 를 다른 값들 없애고 state: ... 이것만 추가해서 문제가 생김
+
+### 3/21
+
+- JSON 이란? JSON.stringify
+
+## 배운 부분
+
+- 객체 합치는 방법 : Object.assign(mybookData, bookData);

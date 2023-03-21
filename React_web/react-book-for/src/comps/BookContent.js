@@ -2,7 +2,7 @@ import { useBookContext } from "../context/BookContext";
 import BookItem from "./BookItem";
 import "../css/Content.css";
 import "../css/Collection.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import PageNav from "./feature/PageNav";
 import CollectionInput from "./collection/CollectionInput";
@@ -14,11 +14,22 @@ export const userBookFetch = async (e) => {
   return result;
 };
 
+export const cItemLoader = async ({ name }) => {
+  const res = await fetch(`/collection?c_name=${name}&pageNum=1`);
+  const result = await res.json();
+  const dataResult = result.data;
+  const cItems = dataResult.map((c) => {
+    return c.collection_books.book_list;
+  });
+
+  console.log(dataResult);
+  return { data: cItems, pageNation: result.pageNation, name: name };
+};
+
 const BookContent = () => {
   const {
     showDataList,
     setShowDataList,
-    isbn,
     setIsbn,
     deleteHandler,
     openHandler,
@@ -36,7 +47,12 @@ const BookContent = () => {
 
   // 읽는 상태 카테고리별 fetch
   const stateFetch = async (st) => {
-    const res = await fetch(`/book?pageNum=1&&state=${st}`);
+    let res = await fetch(`/book?pageNum=1&&state=${st}`);
+    if (userBook.name) {
+      res = await fetch(
+        `/collection?c_name=${userBook.name}&pageNum=1&state=${st}`
+      );
+    }
     const result = await res.json();
     console.log(result);
     userBook.pageNation = result.pageNation;
@@ -105,7 +121,7 @@ const BookContent = () => {
         {/* <button className="highlight">버릴 책</button> */}
       </div>
       <div className="top-bar">
-        <h1>내 서재</h1>
+        {userBook.name ? <h1>{userBook.name}</h1> : <h1>내 서재</h1>}
         <button onClick={openHandler}>...</button>
         {open.open ? (
           <>

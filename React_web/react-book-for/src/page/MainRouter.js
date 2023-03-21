@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { BookMain, BookContent, BookCollection, BookDetail } from "../comps";
 import { loader as mainLoader } from "../comps/BookMain";
 import { loader as collectionLoader } from "../comps/collection/BookCollection";
-import { userBookFetch } from "../comps/BookContent";
+import { userBookFetch, cItemLoader } from "../comps/BookContent";
 
 const MainRouter = createBrowserRouter([
   {
@@ -20,8 +20,10 @@ const MainRouter = createBrowserRouter([
         element: <BookCollection />,
       },
       {
-        path: "/collection/test",
-        loader: userBookFetch,
+        path: "/collection/:name",
+        loader: ({ params }) => {
+          return cItemLoader(params);
+        },
         element: <BookContent />,
       },
       { path: "/detail", element: <BookDetail /> },

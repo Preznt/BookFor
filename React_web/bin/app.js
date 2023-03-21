@@ -20,7 +20,7 @@ import DB from "../models/index.js";
 
 // sample router modules
 import indexRouter from "../routes/index.js";
-import usersRouter from "../routes/users.js";
+import collectionRouter from "../routes/collection.js";
 import bookRouter from "../routes/book.js";
 
 // create express framework
@@ -46,7 +46,7 @@ app.use(express.static(path.join("public")));
 
 // router link enable
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/collection", collectionRouter);
 app.use("/book", bookRouter);
 
 // catch 404 and forward to error handler

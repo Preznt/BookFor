@@ -3,7 +3,7 @@ import CollectionItem from "./CollectionItem";
 import "../../css/Collection.css";
 
 export const loader = async () => {
-  const res = await fetch("/book/collection");
+  const res = await fetch("/collection/select");
   const result = await res.json();
   console.log(result);
   return result;
