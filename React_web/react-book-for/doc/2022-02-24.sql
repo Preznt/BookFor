@@ -18,3 +18,16 @@ my_isbn	VARCHAR(50)	NOT NULL,
 my_paragraph	VARCHAR(600),
 PRIMARY KEY(p_code)
 );
+
+CREATE TABLE IF NOT EXISTS collection (
+c_code	BIGINT		AUTO_INCREMENT,
+c_name	VARCHAR(255)	NOT NULL	,
+my_username	VARCHAR(255)	NOT NULL,	
+		PRIMARY KEY(c_code)	
+);
+
+CREATE TABLE IF NOT EXISTS collection_book (
+c_code	BIGINT	NOT NULL,
+isbn	VARCHAR(50)	NOT NULL,
+		PRIMARY KEY(c_code,isbn)
+);

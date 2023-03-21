@@ -22,7 +22,7 @@ export const cItemLoader = async ({ name }) => {
     return c.collection_books.book_list;
   });
 
-  console.log(dataResult);
+  console.log(cItems);
   return { data: cItems, pageNation: result.pageNation, name: name };
 };
 

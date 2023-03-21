@@ -33,6 +33,9 @@ const initModels = (sequelize) => {
     foreignKey: "my_isbn",
   });
 
+  book_list.hasMany(user_book, { foreignKey: "my_isbn" });
+  user.hasMany(user_book, { foreignKey: "my_username" });
+
   user.belongsToMany(book_list, {
     through: user_paragraph,
     foreignKey: "username",

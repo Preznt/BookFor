@@ -1,10 +1,12 @@
 import express from "express";
+import { where } from "sequelize";
 import DB from "../models/index.js";
 const router = express.Router();
 
 const Collection = DB.models.collection;
 const CollectionBook = DB.models.collection_book;
 const BookList = DB.models.book_list;
+const UserBook = DB.models.user_book;
 
 // 컬렉션에 책 등록하기
 router.post("/insert/:name", async (req, res) => {
@@ -59,29 +61,42 @@ router.get("/select", async (req, res) => {
 
 // 컬렉션 아이템 조회
 router.get("/", async (req, res) => {
-  const { c_name, pageNum, st } = req.query;
+  const { c_name, pageNum, state } = req.query;
   const pageNation = {
     showData: 16,
     showPage: 5,
     defaultPage: 1,
   };
-  console.log(c_name);
 
-  const cItems = await Collection.findAll({
+  const selectOption = {
     attributes: [],
     include: [
       {
         model: CollectionBook,
         attributes: [],
-        include: { model: BookList },
+      },
+      {
+        model: BookList,
+        attributes: ["title", "authors", "thumbnail"],
       },
     ],
     where: { c_name: c_name, username: "bjw1403@gmail.com" },
     raw: true,
     nest: true,
-  });
-  pageNation.totalBook = cItems.length;
+  };
 
+  if (state) {
+    selectOption.include[2] = {
+      model: UserBook,
+      attributes: ["my_state"],
+      where: { my_state: state },
+      required: false,
+    };
+  }
+  const cItems = await Collection.findAll(selectOption);
+  console.log("확인 확인", cItems);
+
+  pageNation.totalBook = cItems.length;
   pageNation.totalPage = Math.ceil(pageNation.totalBook / pageNation.showData);
 
   // console.log(JSON.stringify(cItems, null, 2));
