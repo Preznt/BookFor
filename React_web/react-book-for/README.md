@@ -43,10 +43,14 @@ https://2ham-s.tistory.com/307
   다른 부분을 클릭했을때는 문제 없음
   => setReqDefault 를 다른 값들 없애고 state: ... 이것만 추가해서 문제가 생김
 
+### 3/22
+
+- 등록하기 누른 후에 내 서재에 들어가서 책을 클릭하면 디테일 부분에 정보가 안나온다
+
+## 배운 부분
+
 ### 3/21
 
 - JSON 이란? JSON.stringify
-
-## 배운 부분
 
 - 객체 합치는 방법 : Object.assign(mybookData, bookData);

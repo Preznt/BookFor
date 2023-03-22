@@ -22,9 +22,11 @@ import { regBookData } from "../data/sampleData";
 const BookDetail = () => {
   const location = useLocation();
   let mybookData = location.state;
-  const bookData = mybookData.book_list;
-  delete mybookData.book_list;
-  Object.assign(mybookData, bookData);
+  if (mybookData) {
+    const bookData = mybookData.book_list;
+    delete mybookData.book_list;
+    Object.assign(mybookData, bookData);
+  }
 
   console.log(mybookData);
 
@@ -127,12 +129,12 @@ const BookDetail = () => {
   // };
 
   return (
-    <div className="detail">
+    <div className="Detail">
       {mybookData ? null : <h2>책 등록하기</h2>}
       <div className="book">
         <div className="img">
           <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
-          {!open.reg || myBook.kakao ? null : (
+          {!open.reg || myBook?.kakao ? null : (
             <div>
               <input
                 name="thumbnail"

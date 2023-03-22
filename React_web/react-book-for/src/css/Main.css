@@ -115,8 +115,8 @@
 
 .searchdata {
   display: flex;
+  justify-content: space-around;
   /* width: 70%; */
-  /* justify-content: center; */
   margin: 7px 15px;
   padding: 5px 0px;
   border-bottom: 1px solid #ccc;
@@ -142,6 +142,25 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.searchdata .btn {
+  text-align: right;
+}
+
+.searchdata .btn button,
+.searchdata .btn a {
+  padding: 6px 8px;
+  border-radius: 0.9em;
+}
+
+.searchdata .btn button {
+  background-color: #efaa6ee3;
+  color: white;
+}
+.searchdata .btn a {
+  background-color: #656565d0;
+  color: white;
 }
 
 /* Nav */

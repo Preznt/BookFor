@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import CollectionItem from "./CollectionItem";
 import "../../css/Collection.css";
+import { useBookContext } from "../../context/BookContext";
 
 export const loader = async () => {
   const res = await fetch("/collection/select");
@@ -13,7 +14,7 @@ const BookCollection = () => {
   const cNames = useLoaderData();
 
   const collections = cNames.map((c, index) => {
-    return <CollectionItem key={index} name={c} />;
+    return <CollectionItem key={index} code={c.c_code} name={c.c_name} />;
   });
 
   return (

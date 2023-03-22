@@ -11,7 +11,13 @@ const MainRouter = createBrowserRouter([
     path: "/",
     element: <BookMain />,
     children: [
-      { path: "", loader: userBookFetch, element: <BookContent /> },
+      {
+        path: "",
+        loader: () => {
+          return userBookFetch("");
+        },
+        element: <BookContent />,
+      },
       { path: "/update", element: <BookDetail /> },
       { path: "/register", element: <BookDetail /> },
       {
@@ -20,9 +26,9 @@ const MainRouter = createBrowserRouter([
         element: <BookCollection />,
       },
       {
-        path: "/collection/:name",
+        path: "/collection/:code",
         loader: ({ params }) => {
-          return cItemLoader(params);
+          return cItemLoader(params.code);
         },
         element: <BookContent />,
       },

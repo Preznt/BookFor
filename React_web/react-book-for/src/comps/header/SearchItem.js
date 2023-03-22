@@ -12,14 +12,16 @@ const SearchItem = (props) => {
         <div className="title">제목 : {kkData.title}</div>
         <div>저자 : {kkData.authors}</div>
         <div>출판사 : {kkData.publisher}</div>
-        <button
-          onClick={() => {
-            myBookInsert(kkData);
-          }}
-        >
-          추가
-        </button>
-        <a href={kkData.url}>자세히 보기</a>
+        <div className="btn">
+          <button
+            onClick={() => {
+              myBookInsert(kkData);
+            }}
+          >
+            추가
+          </button>
+          <a href={kkData.url}>자세히 보기</a>
+        </div>
       </div>
     </div>
   );

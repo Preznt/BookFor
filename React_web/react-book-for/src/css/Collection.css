@@ -1,20 +1,62 @@
 /* 내서재 컬렉션 모달 창 */
 .Collection-open {
-  width: 50%;
+  width: 100%;
+  z-index: 30;
   position: fixed;
-  top: 30%;
-  left: 40%;
+  top: 0;
+  left: 0;
+  bottom: 0;
 }
+
+.Collection-open .header {
+  display: flex;
+
+  padding-bottom: 8px;
+  border-bottom: 1px solid gray;
+  justify-content: center;
+}
+
 .Collection-open .bg {
   width: 100%;
-  height: 50vh;
-  background-color: #fdd274;
+  height: 100vh;
+  background-color: #3232325e;
   opacity: 90%;
 }
 
 .Collection-open .all {
+  min-width: 30%;
+  height: 25%;
+  padding: 15px;
+  background-color: white;
+  border-radius: 0.5em;
   position: absolute;
-  top: 0;
+  top: 35%;
+  left: 37%;
+}
+
+.Collection-open .all .content {
+  margin-top: 10px;
+  display: grid;
+  grid-template-rows: 0.8fr 1.3fr 1fr;
+  gap: 10px;
+}
+.Collection-open .all .content input,
+.Collection-open .all .content button {
+  border-radius: 0.5em;
+  padding: 8px;
+}
+
+.Collection-open .all .content input {
+  border: none;
+  font-size: 16px;
+  background-color: #eee;
+  outline-style: none;
+}
+.Collection-open .all .content button {
+  font-weight: 800;
+  font-size: 13px;
+  color: white;
+  background-color: rgb(235, 190, 119);
 }
 
 .Collection-close {
@@ -28,14 +70,19 @@
 
 .Collections {
   display: flex;
-
   flex-wrap: wrap;
 }
 
 .Collections .item {
+  max-width: 250px;
   border: 1px solid black;
   margin: 20px;
-  padding: 60px;
+  padding: 35px 20px;
   cursor: pointer;
   border-radius: 1em;
+}
+
+.Collections .item:hover {
+  transition: 0.8s;
+  background-color: rgb(228, 245, 208);
 }

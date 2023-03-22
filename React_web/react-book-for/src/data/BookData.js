@@ -4,6 +4,7 @@ const addBook = {
   thumbnail: "",
   publisher: "",
   authors: "",
+  kakao: 1,
 };
 
 export { addBook };

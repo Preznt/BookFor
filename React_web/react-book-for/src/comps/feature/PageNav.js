@@ -10,13 +10,13 @@ import { useBookContext } from "../../context/BookContext";
 const PageNav = (props) => {
   const { pageInfo, state } = props;
   const { setShowDataList, reqDefault, setReqDefault } = useBookContext();
-  console.log(pageInfo);
+  // console.log(pageInfo);
   useEffect(() => {
     setReqDefault({ ...reqDefault, first: pageInfo.defaultPage });
   }, []);
 
   const pageNation = () => {
-    console.log(reqDefault.first);
+    // console.log(reqDefault.first);
     let num = [];
     let mod = pageInfo.totalPage % 5;
     const result = parseInt(pageInfo.totalPage / 5);
@@ -24,7 +24,6 @@ const PageNav = (props) => {
     let chPage = reqDefault.first + mod;
 
     if (reqDefault.first < result * 5) chPage = reqDefault.first + 5;
-    console.log(reqDefault.first);
     for (let i = reqDefault.first; i < chPage; i++) {
       num.push(
         <div
@@ -51,9 +50,8 @@ const PageNav = (props) => {
       });
       num.splice(0, 1, num0);
       num.splice(num.length - 1, 1, lastNum);
-      console.log(num);
     }
-    console.log(num);
+    // console.log(num);
     return num;
   };
 
@@ -70,9 +68,9 @@ const PageNav = (props) => {
     let childs = parent.childNodes;
     if (e.target.className === "pageNum") {
       for (let i = 0; i < childs.length; i++) {
-        childs[i].className = "";
+        childs[i].className = "pageNum";
       }
-      e.target.className = "active";
+      e.target.className = "active pageNum";
     } else if (e.target.id === "db-left") {
       const divs = childs[2].childNodes;
       for (let i = 0; i < divs.length; i++) {
@@ -122,18 +120,20 @@ const PageNav = (props) => {
       <div className="pages">{pages}</div>
       <RxArrowRight
         onClick={async () => {
-          console.log(state);
-          const res = await fetch(
-            `/book?pageNum=${reqDefault.first + 5}&&state=${state}`
-          );
-          const result = await res.json();
-          console.log(result.data);
-          setReqDefault({
-            ...reqDefault,
-            first: reqDefault.first + 5,
-            dbRight: false,
-          });
-          setShowDataList(result.data);
+          console.log(pageInfo.totalPage);
+          if (reqDefault.first + 5 < pageInfo.totalPage) {
+            const res = await fetch(
+              `/book?pageNum=${reqDefault.first + 5}&&state=${state}`
+            );
+            const result = await res.json();
+            console.log(result.data);
+            setReqDefault({
+              ...reqDefault,
+              first: reqDefault.first + 5,
+              dbRight: false,
+            });
+            setShowDataList(result.data);
+          }
         }}
       />
       <RxDoubleArrowRight

@@ -29,6 +29,7 @@ const BookContextProvider = ({ children }) => {
     dbRight: false,
     state: undefined,
   });
+  const [collection, setCollection] = useState([]);
 
   const bookInsert = useCallback(async (clickData) => {
     console.log(clickData);
@@ -105,7 +106,7 @@ const BookContextProvider = ({ children }) => {
     }
   }, []);
 
-  const deleteHandler = async () => {
+  const deleteHandler = async (code) => {
     const fetchOption = {
       method: "POST",
       body: JSON.stringify(isbn),
@@ -113,12 +114,23 @@ const BookContextProvider = ({ children }) => {
         "Content-Type": "application/json",
       },
     };
-
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      window.location.replace("/");
-      await fetch("/book/delete", fetchOption);
+    console.log(code);
+    if (!isbn[0]) {
+      alert("삭제할 책을 선택 해 주세요");
     } else {
-      return false;
+      if (window.confirm("정말 삭제하시겠습니까?")) {
+        {
+          code
+            ? window.location.replace(`/collection/${code}`)
+            : window.location.replace("/");
+        }
+        await fetch(
+          code ? `/collection/delete/${code}` : "/book/delete",
+          fetchOption
+        );
+      } else {
+        return false;
+      }
     }
 
     // const result = await res.json();
@@ -126,10 +138,13 @@ const BookContextProvider = ({ children }) => {
 
     // setShowDataList(result);
   };
+
+  // 컬렉션 등록 및 추가 모달창 열고 닫기
   const collectionModal = () => {
     setOpen({ ...open, collection: !open.collection });
   };
 
+  // 컬렉션 등록
   const collectionHandler = async (c_name) => {
     if (!c_name) {
       alert("컬렉션 이름을 입력해 주세요");
@@ -156,12 +171,28 @@ const BookContextProvider = ({ children }) => {
     }
   };
 
+  // 컬렉션 유효성 검사
   const chkCollection = () => {
     if (isbn.length < 1) {
       alert("등록 할 책을 선택 해 주세요");
     } else {
       collectionModal();
     }
+  };
+
+  // 컬렉션 정보 가져오기
+  const collectionSelect = async () => {
+    const res = await fetch("/collection/select");
+    const result = await res.json();
+    console.log(result);
+    return result;
+  };
+
+  // 컬렉션 업데이트 하기
+  const updateCollection = async () => {
+    const result = await collectionSelect();
+    chkCollection();
+    return result;
   };
 
   const openHandler = () => {
@@ -211,6 +242,10 @@ const BookContextProvider = ({ children }) => {
     collectionHandler,
     collectionModal,
     chkCollection,
+    updateCollection,
+    collection,
+    setCollection,
+    collectionSelect,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;

@@ -6,24 +6,35 @@ import { useLoaderData, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import PageNav from "./feature/PageNav";
 import CollectionInput from "./collection/CollectionInput";
+import { FiMenu } from "react-icons/fi";
+import { HiXMark } from "react-icons/hi2";
 
-export const userBookFetch = async (e) => {
-  const res = await fetch("/book?pageNum=1");
-  const result = await res.json();
-  console.log(result);
-  return result;
-};
-
-export const cItemLoader = async ({ name }) => {
-  const res = await fetch(`/collection?c_name=${name}&pageNum=1`);
+export const cItemLoader = async (code) => {
+  console.log(code);
+  const res = await fetch(`/collection?c_code=${code}&pageNum=1`);
   const result = await res.json();
   const dataResult = result.data;
   const cItems = dataResult.map((c) => {
     return c.collection_books.book_list;
   });
+  console.log(dataResult);
+  return {
+    data: cItems,
+    pageNation: result.pageNation,
+    name: dataResult[0].c_name,
+    c_code: code,
+  };
+};
 
-  console.log(cItems);
-  return { data: cItems, pageNation: result.pageNation, name: name };
+export const userBookFetch = async (code) => {
+  if (code == "") {
+    let res = await fetch("/book?pageNum=1");
+    const result = await res.json();
+    console.log(result);
+    return result;
+  } else {
+    return cItemLoader(code);
+  }
 };
 
 const BookContent = () => {
@@ -37,26 +48,35 @@ const BookContent = () => {
     setReqDefault,
     reqDefault,
     chkCollection,
+    updateCollection,
+    setCollection,
   } = useBookContext();
   const userBook = useLoaderData();
 
   useEffect(() => {
     setShowDataList(userBook.data);
     setIsbn([]);
-  }, []);
+  }, [userBook.data]);
 
   // 읽는 상태 카테고리별 fetch
   const stateFetch = async (st) => {
     let res = await fetch(`/book?pageNum=1&&state=${st}`);
+    let result = await res.json();
     if (userBook.name) {
       res = await fetch(
-        `/collection?c_name=${userBook.name}&pageNum=1&state=${st}`
+        `/collection?c_code=${userBook.c_code}&pageNum=1&state=${st}`
       );
+      result = await res.json();
+      const stateItems = result.data.map((s) => {
+        return s.collection_books.book_list;
+      });
+      setShowDataList(stateItems);
+      // console.log(stateItems);
+    } else {
+      setShowDataList(result.data);
     }
-    const result = await res.json();
-    console.log(result);
+
     userBook.pageNation = result.pageNation;
-    setShowDataList(result.data);
   };
 
   // 읽는 상태 카테고리 클릭시 css 변경
@@ -79,7 +99,9 @@ const BookContent = () => {
         <button
           className="highlight set"
           onClick={async (e) => {
-            const result = await userBookFetch();
+            const result = await userBookFetch(
+              userBook.c_code ? userBook.c_code : ""
+            );
             setReqDefault({ ...reqDefault, first: 1 });
             setShowDataList(result.data);
             userBook.pageNation = result.pageNation;
@@ -122,11 +144,39 @@ const BookContent = () => {
       </div>
       <div className="top-bar">
         {userBook.name ? <h1>{userBook.name}</h1> : <h1>내 서재</h1>}
-        <button onClick={openHandler}>...</button>
+        <button onClick={openHandler}>
+          {open.open ? <HiXMark /> : <FiMenu />}
+        </button>
         {open.open ? (
           <>
-            <p onClick={deleteHandler}>삭제</p>
-            <p onClick={chkCollection}>컬렉션 등록</p>
+            <p
+              onClick={() => {
+                deleteHandler(userBook.c_code);
+              }}
+            >
+              삭제
+            </p>
+            {userBook.c_code ? (
+              ""
+            ) : (
+              <>
+                <p
+                  onClick={() => {
+                    setCollection("");
+                    chkCollection();
+                  }}
+                >
+                  컬렉션 등록
+                </p>
+                <p
+                  onClick={async () => {
+                    setCollection(await updateCollection());
+                  }}
+                >
+                  컬렉션 추가
+                </p>
+              </>
+            )}
           </>
         ) : null}
         <select defaultValue="current">
@@ -138,7 +188,7 @@ const BookContent = () => {
       {showItem[0] ? (
         <div className="book">{showItem}</div>
       ) : (
-        <div>아직 등록된 책이 없습니다</div>
+        <div className="book">아직 등록된 책이 없습니다</div>
       )}
       <CollectionInput />
       <PageNav pageInfo={userBook.pageNation} state={reqDefault.state} />

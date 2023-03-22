@@ -49,19 +49,19 @@ router.post("/insert/:name", async (req, res) => {
 router.get("/select", async (req, res) => {
   const cNames = await Collection.findAll({
     where: { username: "bjw1403@gmail.com" },
-    attributes: ["c_name"],
+    attributes: ["c_name", "c_code"],
     raw: true,
   });
-  const namesValue = cNames.map((name) => {
-    return name.c_name;
-  });
-  console.log("컬렉션 조회", namesValue);
-  return res.json(namesValue);
+  // const namesValue = cNames.map((name) => {
+  //   return name.c_name;
+  // });
+  console.log("컬렉션 조회", cNames);
+  return res.json(cNames);
 });
 
 // 컬렉션 아이템 조회
 router.get("/", async (req, res) => {
-  const { c_name, pageNum, state } = req.query;
+  const { c_code, pageNum, state } = req.query;
   const pageNation = {
     showData: 16,
     showPage: 5,
@@ -69,28 +69,31 @@ router.get("/", async (req, res) => {
   };
 
   const selectOption = {
-    attributes: [],
+    attributes: ["c_name"],
     include: [
       {
         model: CollectionBook,
         attributes: [],
-      },
-      {
-        model: BookList,
-        attributes: ["title", "authors", "thumbnail"],
+        include: {
+          model: BookList,
+          attributes: ["title", "authors", "thumbnail"],
+          required: true,
+        },
+        required: true,
       },
     ],
-    where: { c_name: c_name, username: "bjw1403@gmail.com" },
+    where: { c_code: c_code, username: "bjw1403@gmail.com" },
     raw: true,
+    required: true,
     nest: true,
   };
 
   if (state) {
-    selectOption.include[2] = {
+    selectOption.include[0].include.include = {
       model: UserBook,
-      attributes: ["my_state"],
+      attributes: [],
       where: { my_state: state },
-      required: false,
+      required: true,
     };
   }
   const cItems = await Collection.findAll(selectOption);
@@ -101,6 +104,16 @@ router.get("/", async (req, res) => {
 
   // console.log(JSON.stringify(cItems, null, 2));
   return res.json({ data: cItems, pageNation: pageNation });
+});
+
+router.post("/delete/:code", async (req, res) => {
+  const code = req.params.code;
+  console.log(code, req.body);
+  try {
+    await CollectionBook.destroy({ where: { c_code: code, isbn: req.body } });
+  } catch (e) {
+    console.log("컬렉션 삭제 오류 \n", e);
+  }
 });
 
 export default router;
