@@ -188,7 +188,7 @@ const BookContent = () => {
       {showItem[0] ? (
         <div className="book">{showItem}</div>
       ) : (
-        <div className="book">아직 등록된 책이 없습니다</div>
+        <div className="no-book">아직 등록된 책이 없습니다</div>
       )}
       <CollectionInput />
       <PageNav pageInfo={userBook.pageNation} state={reqDefault.state} />
