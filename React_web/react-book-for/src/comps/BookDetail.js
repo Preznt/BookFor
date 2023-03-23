@@ -21,13 +21,6 @@ import { regBookData } from "../data/sampleData";
 
 const BookDetail = () => {
   const location = useLocation();
-  let mybookData = location.state;
-  if (mybookData) {
-    const bookData = mybookData.book_list;
-    delete mybookData.book_list;
-    Object.assign(mybookData, bookData);
-  }
-
   const {
     myBook,
     setMyBook,
@@ -40,14 +33,23 @@ const BookDetail = () => {
     imgHandler,
     regHandler,
   } = useBookContext();
+  let mybookData = location.state;
+  if (mybookData) {
+    const bookData = mybookData.book_list;
+    delete mybookData.book_list;
+    Object.assign(mybookData, bookData);
+  }
+
   const formData = new FormData();
 
   useEffect(() => {
     setFile();
     console.log(mybookData);
-    setMyBook(mybookData);
-    if (open.reg) {
+    if (open.reg || mybookData === null) {
+      regHandler();
       setMyBook(regBookData);
+    } else {
+      setMyBook(mybookData);
     }
   }, [mybookData]);
   console.log(myBook);

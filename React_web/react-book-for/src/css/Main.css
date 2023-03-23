@@ -74,10 +74,14 @@
   background-color: transparent;
 }
 
-.Main header button.login {
+.Main header button.login,
+.Main header button.join {
   border: 1px solid black;
-  margin-right: 90px;
   white-space: nowrap;
+}
+
+.Main header button.login {
+  margin-right: 90px;
 }
 
 .Main header button:nth-of-type(1) {

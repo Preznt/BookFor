@@ -16,6 +16,7 @@ const BookHeader = () => {
           </Link>
         </div>
         <SearchInput />
+        <button className="join">회원가입</button>
         <button className="login">로그인</button>
       </header>
     </div>

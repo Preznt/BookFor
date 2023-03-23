@@ -9,11 +9,11 @@ const BookItem = ({ data }) => {
   const check = useRef();
 
   const onClickHandler = async () => {
+    setOpen({ ...open, reg: false, img: false });
     const res = await fetch(`/book/detail/${data.isbn}`);
     const result = await res.json();
     console.log(result);
     nav("/detail", { state: result[0] });
-    setOpen({ ...open, reg: false, img: false });
   };
 
   const deleteChkHandler = (e) => {

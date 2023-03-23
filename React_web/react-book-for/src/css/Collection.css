@@ -35,7 +35,8 @@
   flex-wrap: wrap;
 }
 
-.Collections .item {
+.Collections .item,
+.Collections .delete-item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +49,8 @@
   border-radius: 1em;
 }
 
-.Collections .item h3 {
+.Collections .item h3,
+.Collections .delete-item h3 {
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 60px;
@@ -59,6 +61,17 @@
   transition: 0.5s;
   transform: scale(1.2, 1.2);
   background-color: rgba(228, 196, 243, 0.859);
+}
+
+.Collections .delete-item {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  background-color: #b8b8b88c;
+}
+
+.Collections .delete-item h3 {
+  color: rgba(82, 82, 82, 0.336);
 }
 
 /* 내서재 컬렉션 모달 창 */

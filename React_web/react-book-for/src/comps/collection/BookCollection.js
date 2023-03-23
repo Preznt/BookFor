@@ -15,12 +15,15 @@ export const loader = async () => {
 
 const BookCollection = () => {
   const cNames = useLoaderData();
-  const { setOpen, open } = useBookContext();
+  const { setDeleteCollection, deleteCollection } = useBookContext();
   const collections = cNames.map((c, index) => {
     return <CollectionItem key={index} code={c.c_code} name={c.c_name} />;
   });
   const deleteOpen = () => {
-    setOpen({ ...open, collection_delete: !open.collection_delete });
+    setDeleteCollection({
+      ...deleteCollection,
+      delete: !deleteCollection.delete,
+    });
   };
 
   return (
@@ -32,7 +35,7 @@ const BookCollection = () => {
         </h2>
         <div className="option">
           <button onClick={deleteOpen}>
-            {open.collection_delete ? (
+            {deleteCollection.delete ? (
               <>
                 <HiXMark />
               </>
@@ -40,7 +43,7 @@ const BookCollection = () => {
               <FiMenu />
             )}
           </button>
-          {open.collection_delete ? <span>삭제</span> : ""}
+          {deleteCollection.delete ? <span>삭제</span> : ""}
         </div>
       </div>
       {cNames[0] ? (

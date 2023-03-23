@@ -21,7 +21,6 @@ const BookContextProvider = ({ children }) => {
     img: false,
     reg: false,
     collection: false,
-    collection_delete: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
@@ -30,6 +29,10 @@ const BookContextProvider = ({ children }) => {
     state: undefined,
   });
   const [collection, setCollection] = useState([]);
+  const [deleteCollection, setDeleteCollection] = useState({
+    delete: false,
+    select: false,
+  });
 
   const bookInsert = useCallback(async (clickData) => {
     console.log(clickData);
@@ -246,6 +249,8 @@ const BookContextProvider = ({ children }) => {
     collection,
     setCollection,
     collectionSelect,
+    deleteCollection,
+    setDeleteCollection,
   };
 
   return <BookContext.Provider value={props}>{children}</BookContext.Provider>;
