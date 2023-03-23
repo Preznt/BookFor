@@ -14,8 +14,8 @@ const Star = (props) => {
   };
 
   return (
-    <div>
-      <div className="star">
+    <div className="Star">
+      <div className="blank-star">
         ☆☆☆☆☆
         <span ref={filledStar} style={{ width: `${star * 10}%` }}>
           ★★★★★

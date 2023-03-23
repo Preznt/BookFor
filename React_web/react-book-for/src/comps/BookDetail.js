@@ -28,8 +28,6 @@ const BookDetail = () => {
     Object.assign(mybookData, bookData);
   }
 
-  console.log(mybookData);
-
   const {
     myBook,
     setMyBook,
@@ -46,13 +44,13 @@ const BookDetail = () => {
 
   useEffect(() => {
     setFile();
+    console.log(mybookData);
     setMyBook(mybookData);
     if (open.reg) {
       setMyBook(regBookData);
     }
-    console.log(myBook);
   }, [mybookData]);
-  // console.log(myBook);
+  console.log(myBook);
   // 인서트할 데이터 저장
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -99,16 +97,11 @@ const BookDetail = () => {
       alert("ISBN 13자리를 입력해주세요");
     }
 
-    if (result.complete) {
-      alert("등록되었습니다");
-      document.location.href = "/";
-    }
+    alert(result.complete ? "등록되었습니다" : "수정되었습니다");
+    document.location.href = "/";
 
     // setMyBook(result);
     console.log(result);
-
-    // console.log(myBook);
-    // myBook({});
   };
 
   // 첨부파일 미리보기 구현
@@ -130,147 +123,155 @@ const BookDetail = () => {
 
   return (
     <div className="Detail">
-      {mybookData ? null : <h2>책 등록하기</h2>}
-      <div className="book">
-        <div className="img">
-          <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
-          {!open.reg || myBook?.kakao ? null : (
-            <div>
-              <input
-                name="thumbnail"
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  onChangeHandler(e);
-                  readImage(e);
-                  imgHandler();
-                }}
-              />
-            </div>
-          )}
-        </div>
-        <div className="word">
-          <div className="top-title">
-            <div>
-              {open.reg && myBook.kakao !== 1 ? <label>*제목</label> : null}
-              <input
-                name="title"
-                readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
-                value={myBook?.title}
+      <div className="content">
+        <div className="book">
+          <div className="img">
+            <img src={!open.img ? myBook?.thumbnail : file ? file : null} />
+            {!open.reg || myBook?.kakao ? null : (
+              <div>
+                <input
+                  name="thumbnail"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                    readImage(e);
+                    imgHandler();
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="word">
+            <div className="top-title">
+              <div>
+                <input
+                  name="title"
+                  placeholder="제목"
+                  readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
+                  value={myBook?.title}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <select
                 onChange={onChangeHandler}
-              />
+                value={myBook?.my_state}
+                disabled={open.reg ? null : "disabled"}
+                defaultValue="no"
+              >
+                <option value="ing">읽는 중</option>
+                <option value="done">읽음</option>
+                <option value="will">읽을</option>
+                <option value="no">없음</option>
+              </select>
             </div>
-            <select
-              onChange={onChangeHandler}
-              value={myBook?.my_state}
-              disabled={open.reg ? null : "disabled"}
-              defaultValue="no"
+            <Star star={myBook?.my_star} reg={open.reg} />
+            <div className="book-detail">
+              <div>
+                <input
+                  name="authors"
+                  placeholder="저자"
+                  readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
+                  value={myBook?.authors}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <div>
+                <input
+                  name="publisher"
+                  placeholder="출판사"
+                  readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
+                  value={myBook?.publisher}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <div>
+                <input
+                  name="isbn"
+                  placeholder="ISBN"
+                  value={myBook?.isbn}
+                  readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
+                  onChange={onChangeHandler}
+                />
+              </div>
+
+              {open.reg || !myBook?.url ? null : (
+                <a href={mybookData ? mybookData.url : ""}>
+                  자세히 보기
+                  <HiArrowUpRight className="arrow" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mydetail">
+          <div>인상깊은 구절</div>
+          <div className="date">
+            <div>
+              <label>구매한 날짜</label>
+              {open.reg ? (
+                <input
+                  name="my_buy_date"
+                  type="date"
+                  onChange={onChangeHandler}
+                />
+              ) : (
+                <p>{myBook?.my_buy_date?.substr(0, 10)}</p>
+              )}
+            </div>
+            <div>
+              <label>읽기 시작한 날짜</label>
+              {open?.reg ? (
+                <input
+                  name="my_start_date"
+                  type="date"
+                  onChange={onChangeHandler}
+                />
+              ) : (
+                <p>{mybookData?.my_start_date?.substr(0, 10)}</p>
+              )}
+            </div>
+            <div>
+              <label>다 읽은 날짜</label>
+              {open?.reg ? (
+                <input
+                  name="my_done_date"
+                  type="date"
+                  onChange={onChangeHandler}
+                />
+              ) : (
+                <p>{mybookData?.my_done_date?.substr(0, 10)}</p>
+              )}
+            </div>
+            <div>
+              {open?.reg ? null : <label>등록된 날짜 </label>}
+
+              {open?.reg ? null : (
+                <p>{mybookData?.my_reg_date.substr(0, 10)}</p>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="btn">
+          {open.reg ? (
+            <button onClick={onClickHandler} className="submit">
+              등록하기
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                // onUpdateHandler();
+                regHandler();
+                console.log(myBook.thumbnail);
+              }}
+              className="submit btnFloat"
             >
-              <option value="ing">읽는 중</option>
-              <option value="done">읽음</option>
-              <option value="will">읽을</option>
-              <option value="no">없음</option>
-            </select>
-          </div>
-          <Star star={myBook?.my_star} reg={open.reg} />
-          <div>
-            {open.reg && myBook.kakao !== 1 ? <label>*저자</label> : null}
-            <input
-              name="authors"
-              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
-              value={myBook?.authors}
-              onChange={onChangeHandler}
-            />
-          </div>
-          <div>
-            {open.reg && myBook.kakao !== 1 ? <label>*출판사</label> : null}
-            <input
-              name="publisher"
-              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
-              value={myBook?.publisher}
-              onChange={onChangeHandler}
-            />
-          </div>
-          <div>
-            {open.reg && myBook.kakao !== 1 ? <label>*isbn</label> : null}
-            <input
-              name="isbn"
-              value={myBook?.isbn}
-              readOnly={open.reg && myBook.kakao !== 1 ? null : "readOnly"}
-              onChange={onChangeHandler}
-            />
-          </div>
-
-          {open.reg || !myBook?.url ? null : (
-            <a href={mybookData ? mybookData.url : ""}>
-              자세히 보기
-              <HiArrowUpRight className="arrow" />
-            </a>
+              수정하기
+            </button>
           )}
         </div>
       </div>
-      <div className="mydetail">
-        <div>인상깊은 구절</div>
-        <div className="date">
-          <div>
-            <label>구매한 날짜</label>
-            {open.reg ? (
-              <input
-                name="my_buy_date"
-                type="date"
-                onChange={onChangeHandler}
-              />
-            ) : (
-              <p>{myBook?.my_buy_date?.substr(0, 10)}</p>
-            )}
-          </div>
-          <div>
-            <label>읽기 시작한 날짜</label>
-            {open?.reg ? (
-              <input
-                name="my_start_date"
-                type="date"
-                onChange={onChangeHandler}
-              />
-            ) : (
-              <p>{mybookData?.my_start_date?.substr(0, 10)}</p>
-            )}
-          </div>
-          <div>
-            <label>다 읽은 날짜</label>
-            {open?.reg ? (
-              <input
-                name="my_done_date"
-                type="date"
-                onChange={onChangeHandler}
-              />
-            ) : (
-              <p>{mybookData?.my_done_date?.substr(0, 10)}</p>
-            )}
-          </div>
-          <div>
-            {open?.reg ? null : <label>등록된 날짜 </label>}
-
-            {open?.reg ? null : <p>{mybookData?.my_reg_date.substr(0, 10)}</p>}
-          </div>
-        </div>
-      </div>
-      {open.reg ? (
-        <button onClick={onClickHandler} className="submit">
-          등록하기
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            // onUpdateHandler();
-            regHandler();
-            console.log(myBook.thumbnail);
-          }}
-          className="submit"
-        >
-          수정하기
-        </button>
-      )}
     </div>
   );
 };

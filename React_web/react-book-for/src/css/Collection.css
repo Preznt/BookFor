@@ -1,3 +1,66 @@
+/* 컬렉션 페이지 */
+.Collection {
+  margin-right: 80px;
+}
+
+.Collection .title {
+  margin-bottom: 20px;
+  width: 180px;
+}
+
+.Collection .top-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Collection .top-title button {
+  background-color: transparent;
+  margin: 5px 10px 0 10px;
+}
+.Collection .top-title svg {
+  font-size: 20px;
+}
+
+.Collection .top-title .option {
+  display: flex;
+  align-items: center;
+}
+
+.Collection .title svg {
+  margin-right: 10px;
+}
+
+.Collections {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Collections .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 250px;
+  max-height: 100px;
+  border: 1px solid black;
+  margin: 20px;
+  padding: 30px 20px;
+  cursor: pointer;
+  border-radius: 1em;
+}
+
+.Collections .item h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 60px;
+  margin: 10px;
+}
+
+.Collections .item:hover {
+  transition: 0.5s;
+  transform: scale(1.2, 1.2);
+  background-color: rgba(228, 196, 243, 0.859);
+}
+
 /* 내서재 컬렉션 모달 창 */
 .Collection-open {
   width: 100%;
@@ -10,7 +73,6 @@
 
 .Collection-open .header {
   display: flex;
-
   padding-bottom: 8px;
   border-bottom: 1px solid gray;
   justify-content: center;
@@ -25,12 +87,12 @@
 
 .Collection-open .all {
   min-width: 30%;
-  height: 25%;
+  min-height: 25%;
   padding: 15px;
   background-color: white;
   border-radius: 0.5em;
   position: absolute;
-  top: 35%;
+  top: 28%;
   left: 37%;
 }
 
@@ -61,28 +123,4 @@
 
 .Collection-close {
   display: none;
-}
-
-/* 컬렉션 페이지 */
-.Collection {
-  margin: 0 80px;
-}
-
-.Collections {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.Collections .item {
-  max-width: 250px;
-  border: 1px solid black;
-  margin: 20px;
-  padding: 35px 20px;
-  cursor: pointer;
-  border-radius: 1em;
-}
-
-.Collections .item:hover {
-  transition: 0.8s;
-  background-color: rgb(228, 245, 208);
 }

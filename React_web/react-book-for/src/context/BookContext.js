@@ -21,12 +21,12 @@ const BookContextProvider = ({ children }) => {
     img: false,
     reg: false,
     collection: false,
+    collection_delete: false,
   });
   // const [myBookList, setMyBookList] = useState([]);
   const [showDataList, setShowDataList] = useState([]);
   const [reqDefault, setReqDefault] = useState({
     first: 1,
-    dbRight: false,
     state: undefined,
   });
   const [collection, setCollection] = useState([]);

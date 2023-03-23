@@ -16,11 +16,13 @@
   margin-left: 25px;
 }
 
-.Lib .highlight {
+.Lib .highlight,
+.Collection .title {
   position: relative;
 }
 
-.Lib .highlight.set::after {
+.Lib .highlight.set::after,
+.Collection .title::after {
   content: "";
   width: 100%;
   height: 20px;
@@ -55,9 +57,6 @@
 
 /* 컨텐츠 책 */
 
-.Lib {
-  margin: 0 100px;
-}
 .Lib .book {
   flex: 1;
   display: flex;

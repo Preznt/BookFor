@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useState } from "react";
+import { cloneElement, useEffect, useRef, useState } from "react";
 import {
   RxArrowLeft,
   RxArrowRight,
@@ -10,6 +10,7 @@ import { useBookContext } from "../../context/BookContext";
 const PageNav = (props) => {
   const { pageInfo, state } = props;
   const { setShowDataList, reqDefault, setReqDefault } = useBookContext();
+  const pageDiv = useRef();
   // console.log(pageInfo);
   useEffect(() => {
     setReqDefault({ ...reqDefault, first: pageInfo.defaultPage });
@@ -32,7 +33,6 @@ const PageNav = (props) => {
             const res = await fetch(`/book?pageNum=${i}`);
             const result = await res.json();
             // console.log(result.data);
-            setReqDefault({ ...reqDefault, dbRight: false });
             setShowDataList(result.data);
           }}
           // 첫 페이지나 다음 페이지 이동시 첫번째 버튼 css 활성화
@@ -42,16 +42,6 @@ const PageNav = (props) => {
         </div>
       );
     }
-    // 맨 뒤로 가는 방향키를 클릭했을때 css 적용을 위한 조건
-    if (reqDefault.dbRight === true) {
-      const num0 = cloneElement(num[0], { className: "" });
-      const lastNum = cloneElement(num[num.length - 1], {
-        className: "active",
-      });
-      num.splice(0, 1, num0);
-      num.splice(num.length - 1, 1, lastNum);
-    }
-    // console.log(num);
     return num;
   };
 
@@ -64,22 +54,26 @@ const PageNav = (props) => {
    */
 
   const btnCss = (e) => {
-    const parent = e.target?.parentElement;
-    let childs = parent.childNodes;
+    const pages = pageDiv.current.childNodes;
+
     if (e.target.className === "pageNum") {
-      for (let i = 0; i < childs.length; i++) {
-        childs[i].className = "pageNum";
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].className = "pageNum";
       }
       e.target.className = "active pageNum";
     } else if (e.target.id === "db-left") {
-      const divs = childs[2].childNodes;
-      for (let i = 0; i < divs.length; i++) {
-        childs[2].childNodes[i].className = "";
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].className = "pageNum";
       }
       console.log();
-      childs[2].childNodes[0].className = "active";
-    }
+      pages[0].className = "active pageNum";
+    } else if (e.target.id === "db-right") {
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].className = "pageNum";
+      }
 
+      pages[pages.length - 1].className = "active pageNum";
+    }
     console.log(e.target.id);
   };
 
@@ -92,7 +86,7 @@ const PageNav = (props) => {
         onClick={async () => {
           const res = await fetch(`/book?pageNum=1`);
           const result = await res.json();
-          setReqDefault({ ...reqDefault, first: 1, dbRight: false });
+          setReqDefault({ ...reqDefault, first: 1 });
           setShowDataList(result.data);
         }}
       />
@@ -111,13 +105,14 @@ const PageNav = (props) => {
             setReqDefault({
               ...reqDefault,
               first: reqDefault.first - 5,
-              dbRight: false,
             });
             setShowDataList(result.data);
           }
         }}
       />
-      <div className="pages">{pages}</div>
+      <div className="pages" ref={pageDiv}>
+        {pages}
+      </div>
       <RxArrowRight
         onClick={async () => {
           console.log(pageInfo.totalPage);
@@ -130,13 +125,13 @@ const PageNav = (props) => {
             setReqDefault({
               ...reqDefault,
               first: reqDefault.first + 5,
-              dbRight: false,
             });
             setShowDataList(result.data);
           }
         }}
       />
       <RxDoubleArrowRight
+        id="db-right"
         onClick={async () => {
           const res = await fetch(`/book?pageNum=${pageInfo.totalPage}`);
           const result = await res.json();
@@ -145,7 +140,6 @@ const PageNav = (props) => {
             ...reqDefault,
             first:
               mod === 0 ? pageInfo.totalPage - 4 : pageInfo.totalPage - mod + 1,
-            dbRight: true,
           });
           setShowDataList(result.data);
         }}

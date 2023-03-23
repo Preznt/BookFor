@@ -54,3 +54,4 @@ https://2ham-s.tistory.com/307
 - JSON 이란? JSON.stringify
 
 - 객체 합치는 방법 : Object.assign(mybookData, bookData);
+- router 에서 method 가 delete 인 걸 post 아래에 두니 실행이 되지 않았다 위로 올리니까 해결됨

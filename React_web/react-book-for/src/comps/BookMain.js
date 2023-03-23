@@ -4,7 +4,6 @@ import "../css/Main.css";
 import { Outlet } from "react-router-dom";
 
 export const loader = async () => {
-  const pageNum = null;
   const res = await fetch("/1");
   return res;
 };

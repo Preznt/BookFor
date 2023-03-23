@@ -10,7 +10,7 @@ const BookList = DB.models.book_list;
 const router = express.Router();
 
 const pageNation = {
-  showData: 16,
+  showData: 14,
   showPage: 5,
   defaultPage: 1,
 };
@@ -108,6 +108,7 @@ router.post("/insert", fileUp.single("upload"), async (req, res) => {
     try {
       await UserBook.update(myDetail, { where: { my_isbn: detail.isbn } });
       await BookList.update(detail, { where: { isbn: detail.isbn } });
+      return res.json({ update: true });
     } catch (e) {
       console.log("책 update 오류 \n", e);
     }
@@ -162,10 +163,14 @@ router.post("/my/insert", async (req, res) => {
     console.log("user_book 추가 오류", err);
   }
 
-  const result = await UserBook.findAll(selectOption);
-  // console.log(result);
+  try {
+    const result = await UserBook.findAll(selectOption);
+    return res.json(result);
+  } catch (e) {
+    console.log("user_book select 오류", e);
+  }
 
-  return res.json(result);
+  // console.log(result);
 });
 
 // 책 디테일 화면

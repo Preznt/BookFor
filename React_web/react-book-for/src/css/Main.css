@@ -12,6 +12,23 @@
   color: black;
 }
 
+.Lib,
+.Collection {
+  margin: 0 100px;
+}
+.Main .info nav,
+.Main .info .Lib {
+  padding-top: 20px;
+}
+.Collection,
+.Detail {
+  padding-top: 35px;
+}
+
+.Main header svg {
+  min-width: 40px;
+}
+
 /* 메인부분 */
 
 .Main {
@@ -19,15 +36,19 @@
   height: 100vh;
   flex-direction: column;
 }
-
+.Main .Header {
+  border-bottom: 1px solid gray;
+}
 .Main header {
+  padding-bottom: 20px;
   display: flex;
   align-items: center;
-  margin: 25px;
+  margin: 25px 110px 0 110px;
   flex-wrap: nowrap;
 }
 .Main header svg.menu {
   font-size: 35px;
+  min-width: 40px;
   margin: 0 20px;
 }
 
@@ -46,9 +67,17 @@
 }
 
 .Main header button {
+  border-radius: 1.5em;
+  padding: 8px 15px;
   margin: 10px;
   font-size: 15px;
   background-color: transparent;
+}
+
+.Main header button.login {
+  border: 1px solid black;
+  margin-right: 90px;
+  white-space: nowrap;
 }
 
 .Main header button:nth-of-type(1) {
@@ -61,7 +90,7 @@
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 8fr;
-  margin: 15px;
+  margin: 0 100px;
 }
 
 .Main button.register {
@@ -172,6 +201,7 @@
 }
 
 .Main nav ul {
+  width: 100px;
   list-style: none;
 }
 

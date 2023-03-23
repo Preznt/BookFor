@@ -1,5 +1,12 @@
 .Detail {
-  margin: 0 140px;
+  margin: 0 120px 0 130px;
+}
+
+.Detail .content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 74vmax;
 }
 
 .Detail input {
@@ -13,6 +20,7 @@
 .Detail .book img {
   width: 220px;
   height: 310px;
+  box-shadow: -5px 8px 10px #aeaeae;
 }
 
 .Detail .book .word {
@@ -23,8 +31,25 @@
   margin: 0px 60px;
 }
 
+.Detail .book .word input {
+  padding: 8px;
+  font-weight: 700;
+}
+.Detail .book .word .book-detail {
+  display: grid;
+}
+
+.Detail .book .word .book-detail input {
+  width: 50%;
+}
+
+.Detail .book .word input:hover {
+  background-color: #eee;
+}
+
 .Detail .book a {
-  width: 15%;
+  width: 150px;
+  margin-top: 10px;
   background-color: black;
   color: white;
   padding: 10px 20px;
@@ -37,16 +62,21 @@
   align-items: center;
 }
 
+.Detail .btn {
+  text-align: right;
+  margin: 0 60px 30px 0;
+}
+
 /* 별표 기능 */
 
-.Detail .star {
+.Detail .blank-star {
   position: relative;
   font-size: 35px;
   padding-left: 10px;
   max-width: 175px;
 }
 
-.Detail .star span {
+.Detail .blank-star span {
   position: absolute;
   overflow: hidden;
   font-size: 35px;
@@ -54,7 +84,8 @@
   top: 0;
   left: 10px;
 }
-.Detail .star input {
+
+.Detail .blank-star input {
   padding: 7px 0;
   margin: 0;
   opacity: 0;
@@ -81,11 +112,25 @@
   font-size: medium;
   font-weight: 600;
   padding: 12px;
+}
+
+.Detail .top-title select {
   border-radius: 1.5em;
   background-color: rgb(255, 243, 212);
 }
 
+.Detail button.submit {
+  width: 25%;
+  background-color: rgb(255, 243, 212);
+}
+
+.Detail button.submit:hover {
+  transition: 0.2s;
+  box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
+}
+
 .Detail input[name="title"] {
+  white-space: pre-wrap;
   font-size: 35px;
   font-weight: 800;
   width: 100%;
@@ -96,6 +141,7 @@
 }
 
 .Detail .mydetail {
+  flex: 1;
   margin-top: 40px;
   display: grid;
   grid-template-columns: 3fr 1.2fr;
