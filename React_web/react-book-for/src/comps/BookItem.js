@@ -20,12 +20,9 @@ const BookItem = ({ data }) => {
     const check = e.target;
     console.log(e.target.checked);
 
-    if (check.checked && isbn[0]) {
+    if (check.checked) {
       // 두개 이상 체크했을 때
-      isbn[isbn?.length] = check.value;
-    } else if (check.checked) {
-      // 처음 체크됐을 떄
-      isbn[0] = check.value;
+      setIsbn([...isbn, check.value]);
     } else {
       // 체크 해제할 경우
       // isbn[0] = "test";

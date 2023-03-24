@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   RxArrowLeft,
   RxArrowRight,
@@ -118,7 +118,9 @@ const PageNav = (props) => {
           console.log(pageInfo.totalPage);
           if (reqDefault.first + 5 < pageInfo.totalPage) {
             const res = await fetch(
-              `/book?pageNum=${reqDefault.first + 5}&&state=${state}`
+              `/book?pageNum=${reqDefault.first + 5}&&reqDefault=${
+                reqDefault.first + 5
+              }`
             );
             const result = await res.json();
             console.log(result.data);

@@ -23,7 +23,7 @@ export const selectOption = {
     [Sequelize.col("book_list.thumbnail"), "thumbnail"],
   ],
   where: { my_username: "bjw1403@gmail.com" },
-  include: [{ model: BookList, attributes: [] }],
+  include: [{ model: BookList }],
   order: [["my_reg_date", "DESC"]],
   limit: pageNation.showData,
   raw: true,

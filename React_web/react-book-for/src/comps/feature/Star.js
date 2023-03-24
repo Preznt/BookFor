@@ -7,7 +7,7 @@ const Star = (props) => {
   const filledStar = useRef();
 
   // 별점 구현
-  const starHandler = (e, filledStar) => {
+  const starHandler = (e) => {
     // console.log(filledStar.current);
     filledStar.current.style.width = `${e.target.value * 10}%`;
     setMyDetail({ ...myDetail, my_star: e.target.value });
@@ -26,9 +26,7 @@ const Star = (props) => {
           min="0"
           max="10"
           disabled={reg ? null : "disabled"}
-          onChange={(e) => {
-            starHandler(e, filledStar);
-          }}
+          onChange={starHandler}
         />
       </div>
     </div>

@@ -106,11 +106,11 @@ router.get("/", async (req, res) => {
   return res.json({ data: cItems, pageNation: pageNation });
 });
 
-router.delete("/delete/:code", async (req, res) => {
-  const code = req.params.code;
-  console.log(code);
+router.post("/delete", async (req, res) => {
+  console.log(req.body);
   try {
-    await Collection.destroy({ where: { c_code: code } });
+    await Collection.destroy({ where: { c_code: req.body } });
+    return res.json({ delete: true });
   } catch (e) {
     console.log("컬렉션 전체 삭제 오류 \n", e);
   }

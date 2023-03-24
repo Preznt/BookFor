@@ -43,9 +43,9 @@ const BookDetail = () => {
   const formData = new FormData();
 
   useEffect(() => {
-    setFile();
+    // setFile();
     console.log(mybookData);
-    if (open.reg || mybookData === null) {
+    if (open.reg) {
       regHandler();
       setMyBook(regBookData);
     } else {
@@ -117,11 +117,6 @@ const BookDetail = () => {
       // console.log(myBook);
     };
   };
-
-  // const onUpdateHandler = (e) => {
-  //   setMyBook();
-  //   inputHandler();
-  // };
 
   return (
     <div className="Detail">

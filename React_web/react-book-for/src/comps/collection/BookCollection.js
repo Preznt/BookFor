@@ -15,7 +15,8 @@ export const loader = async () => {
 
 const BookCollection = () => {
   const cNames = useLoaderData();
-  const { setDeleteCollection, deleteCollection } = useBookContext();
+  const { setDeleteCollection, deleteCollection, collection } =
+    useBookContext();
   const collections = cNames.map((c, index) => {
     return <CollectionItem key={index} code={c.c_code} name={c.c_name} />;
   });
@@ -24,6 +25,27 @@ const BookCollection = () => {
       ...deleteCollection,
       delete: !deleteCollection.delete,
     });
+  };
+
+  const deleteHandler = async () => {
+    const fetchOption = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(collection),
+    };
+
+    if (!collection[0]) {
+      alert("삭제 할 컬렉션을 선택해 주세요");
+    } else if (window.confirm("정말 삭제하시겠습니까?")) {
+      const res = await fetch(`/collection/delete/`, fetchOption);
+      const result = await res.json();
+      if (result.delete) {
+        alert("삭제가 완료되었습니다");
+      } else {
+        alert("삭제에 실패했습니다");
+      }
+      window.location.reload("/collection");
+    }
   };
 
   return (
@@ -43,7 +65,11 @@ const BookCollection = () => {
               <FiMenu />
             )}
           </button>
-          {deleteCollection.delete ? <span>삭제</span> : ""}
+          {deleteCollection.delete ? (
+            <span onClick={deleteHandler}>삭제</span>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       {cNames[0] ? (

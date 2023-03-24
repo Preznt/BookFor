@@ -9,16 +9,32 @@ const CollectionItem = (props) => {
 
   const onClickHandler = (e) => {
     if (deleteCollection.delete) {
-      const selectCollection = e.target.id;
+      const target = e.target;
+      const selectCollection = target.id;
+      const tagName = target.tagName;
+      if (tagName === "H3") {
+        if (target.parentNode.className == "item") {
+          target.parentNode.className = "delete-item";
+        } else {
+          target.parentNode.className = "item";
+        }
+      } else {
+        if (target.className == "item") {
+          target.className = "delete-item";
+        } else {
+          target.className = "item";
+        }
+      }
+      if (target.parentNode.className == "item" || target.className == "item") {
+        setCollection([...collection, selectCollection]);
+      } else {
+        const filterCollection = collection.filter((c) => {
+          return c !== selectCollection;
+        });
+        setCollection(filterCollection);
+      }
 
-      const filterCollection = collection.filter((c) => {
-        return c !== selectCollection;
-      });
-      setCollection(filterCollection);
       console.log(collection);
-      // await fetch(`/collection/delete/${collection}`, {
-      //   method: "DELETE",
-      // });
     } else {
       nav(`/collection/${code}`);
     }

@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.Collection .top-title span {
+  cursor: pointer;
+}
+
 .Collection .title svg {
   margin-right: 10px;
 }
@@ -67,11 +71,11 @@
   position: relative;
   width: inherit;
   height: inherit;
-  background-color: #b8b8b88c;
+  background-color: #28282828;
 }
 
 .Collections .delete-item h3 {
-  color: rgba(82, 82, 82, 0.336);
+  color: rgba(0, 0, 0, 0.479);
 }
 
 /* 내서재 컬렉션 모달 창 */
