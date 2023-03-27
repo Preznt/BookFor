@@ -116,7 +116,7 @@ const PageNav = (props) => {
       <RxArrowRight
         onClick={async () => {
           console.log(pageInfo.totalPage);
-          if (reqDefault.first + 5 < pageInfo.totalPage) {
+          if (reqDefault.first + 5 <= pageInfo.totalPage) {
             const res = await fetch(
               `/book?pageNum=${reqDefault.first + 5}&&reqDefault=${
                 reqDefault.first + 5
