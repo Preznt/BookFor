@@ -17,8 +17,7 @@ class Book {
   final String title; // 도서 제목
   final String contents; // 도서 소개
   final String url; // 도서 상세 URL
-  final String
-      isbn; // ISBN10(10자리) 또는 ISBN13(13자리) 형식의 국제 표준 도서번호(International Standard Book Number)
+  final String isbn; // ISBN10(10자리) 또는 ISBN13(13자리) 형식의 국제 표준 도서번호
   final DateTime
       datetime; // 도서 출판날짜, ISO 8601 형식 [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].000+[tz]
   final List<String> authors; // 도서 저자 리스트
@@ -31,18 +30,25 @@ class Book {
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
-      title: json['title'],
-      contents: json['contents'],
-      url: json['url'],
-      isbn: json['isbn'],
-      datetime: json['datetime'],
-      authors: json['authors'],
-      publisher: json['publisher'],
-      translators: json['translators'],
-      price: json['price'],
-      sale_price: json['sale_price'],
-      thumbnail: json['thumbnail'],
-      status: json['status'],
+      title: json['title'] ?? "null",
+      contents: json['contents'] ?? "null",
+      url: json['url'] ?? "null",
+      isbn: json['isbn'] ?? "null",
+      datetime:
+          DateTime.parse(json['datetime'] ?? "2017-09-07T17:30:00.000+09:00"),
+      authors: (json['authors'] as List<dynamic>?)
+              ?.map((author) => author as String)
+              .toList() ??
+          [],
+      publisher: json['publisher'] ?? "null",
+      translators: (json['translators'] as List<dynamic>?)
+              ?.map((translator) => translator as String)
+              .toList() ??
+          [],
+      price: json['price'] as int? ?? 0,
+      sale_price: json['sale_price'] as int? ?? 0,
+      thumbnail: json['thumbnail'] ?? "null",
+      status: json['status'] ?? "null",
     );
   }
 }

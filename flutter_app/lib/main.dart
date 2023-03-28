@@ -33,9 +33,8 @@ class MainPage extends StatelessWidget {
               const Spacer(),
               IconButton(
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => const BookSearchPage()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BookSearchPage()));
                   },
                   icon: const Icon(Icons.search, size: 32)),
               IconButton(
