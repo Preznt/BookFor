@@ -45,8 +45,8 @@ class Book {
               ?.map((translator) => translator as String)
               .toList() ??
           [],
-      price: json['price'] as int? ?? 0,
-      sale_price: json['sale_price'] as int? ?? 0,
+      price: json['price'] ?? 0,
+      sale_price: json['sale_price'] ?? 0,
       thumbnail: json['thumbnail'] ?? "null",
       status: json['status'] ?? "null",
     );

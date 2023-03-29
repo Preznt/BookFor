@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/view/kakao_book_search.dart';
-import 'package:flutter_app/view_model/icon_view_model.dart';
+import 'package:flutter_app/view_model/kakao_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     MaterialApp(
       home: MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => IconViewModel())],
+        providers: [ChangeNotifierProvider(create: (_) => KakaoViewModel())],
         child: const MainPage(),
       ),
     ),
@@ -19,7 +19,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var iconViewModel = context.watch<IconViewModel>();
     return Scaffold(
       body: Column(children: [
         Container(

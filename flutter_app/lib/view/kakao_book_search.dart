@@ -3,18 +3,44 @@ import 'package:flutter_app/config/kakao_api.dart';
 import 'package:flutter_app/model/kakao_book.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-class BookSearchPage extends StatelessWidget {
+class BookSearchPage extends StatefulWidget {
   const BookSearchPage({super.key});
 
   @override
+  State<BookSearchPage> createState() => _BookSearchPageState();
+}
+
+class _BookSearchPageState extends State<BookSearchPage> {
+  Future<List<Book>?> resultBook = loadBook();
+  // late KakaoViewModel kakao;
+  final TextEditingController searchController = TextEditingController();
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   // KakaoViewModel kakao = KakaoViewModel();
+  //   KakaoViewModel kakao = context.watch<KakaoViewModel>();
+  // }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  void searchHandler(search) {
+    // String str = searchController.value.toString();
+    Future<List<Book>?> searchBook = loadBook(search);
+    print("책 검색 테스트 $searchBook");
+    resultBook = searchBook;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Future<List<Book>?> resultBook = loadBook();
-
-    final TextEditingController searchController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
-        title: searchInputBox(searchController),
+        title: searchInputBox(),
         backgroundColor: Colors.white,
       ),
       body: Container(
@@ -22,6 +48,11 @@ class BookSearchPage extends StatelessWidget {
         child: FutureBuilder(
           future: resultBook,
           builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             print("테스트${snapshot.data}");
             return ListView.builder(
               itemCount: snapshot.data!.length,
@@ -42,24 +73,40 @@ class BookSearchPage extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.cyanAccent.withOpacity(0.5),
         child: ListTile(
+          leading: book.thumbnail.isNotEmpty
+              ? Image.network(book.thumbnail)
+              : Image.asset("images/book_default.png"),
           title: Html(data: book.title, style: {
             "*": Style(
               fontSize: const FontSize(20),
               textOverflow: TextOverflow.ellipsis,
             ),
-            "b": Style(
-              fontWeight: FontWeight.w600,
-              color: Colors.blue,
-            )
           }),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("저자 : ${book.authors}"),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("추가"),
+              ),
+              // ElevatedButton(
+              //   onPressed: () {},
+              //   child: const Text("자세히 보기"),
+              // ),
+            ],
+          ),
+          onTap: () {},
         ),
       ),
     );
   }
 
-  TextFormField searchInputBox(TextEditingController searchController) {
+  TextFormField searchInputBox() {
     return TextFormField(
       controller: searchController,
+      onFieldSubmitted: searchHandler,
+      onChanged: searchHandler,
       decoration: const InputDecoration(
         hintText: "책이름 또는 ISBN 입력",
       ),
