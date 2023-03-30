@@ -1,4 +1,4 @@
-package com.bjw.kakao
+package com.bjw.bookfor
 
 import io.flutter.embedding.android.FlutterActivity
 

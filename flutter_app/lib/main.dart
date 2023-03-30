@@ -1,13 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/view/kakao_book_search.dart';
-import 'package:flutter_app/view_model/kakao_view_model.dart';
+import 'package:flutter_app/view_model/myBook_view_model.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MaterialApp(
       home: MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => KakaoViewModel())],
+        providers: [ChangeNotifierProvider(create: (_) => MyBookViewModel())],
         child: const MainPage(),
       ),
     ),
