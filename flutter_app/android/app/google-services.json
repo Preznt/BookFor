@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "484366291251",
+    "firebase_url": "https://book-for-default-rtdb.firebaseio.com",
+    "project_id": "book-for",
+    "storage_bucket": "book-for.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484366291251:android:abddf5166748fd8d2a6e46",
+        "android_client_info": {
+          "package_name": "com.bjw.bookfor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484366291251-r0aov6outgmksis7mnk10sl7q5t2k0s5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFh56eTAFF6muwmFFWDh0_tPkf3ixA35w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484366291251-r0aov6outgmksis7mnk10sl7q5t2k0s5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
