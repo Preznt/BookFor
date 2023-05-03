@@ -31,11 +31,10 @@ export const selectOption = {
 
 router.get("/", async (req, res) => {
   const { pageNum, reqDefault, state } = req.query;
-  console.log(pageNum);
-  console.log(reqDefault);
-  console.log("state", state);
-
-  console.log("선행 라우터");
+  // console.log(pageNum);
+  // console.log(reqDefault);
+  // console.log("state", state);
+  // console.log("선행 라우터");
 
   try {
     const totalBook = await UserBook.count(
